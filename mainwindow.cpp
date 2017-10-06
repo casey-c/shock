@@ -6,7 +6,9 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    mediaPlaylist(new QMediaPlaylist),
+    mediaPlayer(new QMediaPlayer)
 {
     ui->setupUi(this);
 }
@@ -14,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete mediaPlaylist;
+    delete mediaPlayer;
 }
 
 void MainWindow::loadIntoClearedPlaylist()
