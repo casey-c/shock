@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     mediaPlaylist(new QMediaPlaylist),
     mediaPlayer(new QMediaPlayer)
 {
+    mediaPlayer->setPlaylist(mediaPlaylist);
     ui->setupUi(this);
 }
 
@@ -27,5 +28,22 @@ void MainWindow::loadIntoClearedPlaylist()
                                                    "",
                                                    "Audio files (*.wav *.mp3)");
    qDebug() << fileName;
+   mediaPlaylist->clear();
+   mediaPlaylist->addMedia(QUrl::fromLocalFile(fileName));
+   mediaPlaylist->setCurrentIndex(1);
+}
 
+void MainWindow::on_open_file_button_clicked()
+{
+    loadIntoClearedPlaylist();
+}
+
+void MainWindow::on_play_sound_button_clicked()
+{
+    mediaPlayer->play();
+}
+
+void MainWindow::on_pause_sound_button_clicked()
+{
+    mediaPlayer->pause();
 }
