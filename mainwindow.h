@@ -17,6 +17,9 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    void loadIntoClearedPlaylist();
+
 };
 
 #endif // MAINWINDOW_H
