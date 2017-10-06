@@ -19,7 +19,7 @@ public:
 
 private:
     Ui::MainWindow* ui;
-    QMediaPlayList* mediaPlaylist;
+    QMediaPlaylist* mediaPlaylist;
     QMediaPlayer* mediaPlayer;
 
     void loadIntoClearedPlaylist();
