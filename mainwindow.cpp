@@ -1,12 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-<<<<<<< Updated upstream
-=======
 #include "aboutwindow.h"
 #include <QFileDialog>
 #include <QString>
 #include <QDebug>
->>>>>>> Stashed changes
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
