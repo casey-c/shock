@@ -2,6 +2,9 @@
 #define ABOUTWINDOW_H
 
 #include <QDialog>
+#include <QVector>
+#include <QLabel>
+#include <QLayout>
 
 namespace Ui {
 class AboutWindow;
@@ -17,6 +20,7 @@ public:
 
 private:
     Ui::AboutWindow *ui;
+    QVector<QLabel*> lbls;
 };
 
 #endif // ABOUTWINDOW_H
