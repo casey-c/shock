@@ -13,7 +13,7 @@ AboutWindow::AboutWindow(QWidget *parent) :
 
     ui->lblAbout->setText(QString("Team Shock:<br>Brian Mottola<br>Casey Conway\
                           <br>Jesse Zhou\nShamus Cardon<br><br>\
-                           <a href=\"github.com/casey-c/shock\">GitHub</a>"));
+                           <a href=\"https://github.com/casey-c/shock\">GitHub</a>"));
 }
 
 AboutWindow::~AboutWindow()
