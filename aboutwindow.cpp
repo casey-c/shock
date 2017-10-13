@@ -18,6 +18,7 @@ AboutWindow::AboutWindow(QWidget *parent) :
     ui->lblAbout->setTextFormat(Qt::RichText);
     ui->lblAbout->setTextInteractionFlags(Qt::TextBrowserInteraction);
     ui->lblAbout->setOpenExternalLinks(true);
+    ui->lblAbout->setWordWrap(true);
 }
 
 void AboutWindow::addButton(QString name){
@@ -54,9 +55,9 @@ void AboutWindow::on_sectionBtn_clicked(){
     QString txt;
     if(btnNum == 0){
         txt = "<b>Shock</b><br>\
-               Shock is a program that uses machine learning<br>\
-               techniques to manufacture new sounds that imitate<br>\
-               existing ones, the results of which can be used in a<br>\
+               Shock is a program that uses machine learning \
+               techniques to manufacture new sounds that imitate \
+               existing ones, the results of which can be used in a \
                large variety of applications.";
     }
     else if(btnNum == 1){
