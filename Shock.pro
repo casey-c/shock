@@ -27,10 +27,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        sound.cpp \
+        soundcontainer.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+        sound.h \
+        soundcontainer.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+        sound.ui \
+        soundcontainer.ui

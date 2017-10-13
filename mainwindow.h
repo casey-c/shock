@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
+#include <soundcontainer.h>
 #include "sound.h"
 
 namespace Ui {
@@ -23,6 +24,7 @@ private:
     Ui::MainWindow* ui;
     QMediaPlaylist* mediaPlaylist;
     QMediaPlayer* mediaPlayer;
+    SoundContainer* sndCont;
 
     void loadIntoClearedPlaylist();
     void loadNewSound();

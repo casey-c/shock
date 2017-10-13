@@ -14,11 +14,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     mediaPlayer->setPlaylist(mediaPlaylist);
     ui->setupUi(this);
+    sndCont = new SoundContainer();
+    ui->tab->setLayout(ui->grLayout);
+    ui->grLayout->addWidget(sndCont);
     QVector<Sound*> soundVector;
 }
 
 MainWindow::~MainWindow()
 {
+    delete sndCont;
     delete ui;
     delete mediaPlaylist;
     delete mediaPlayer;
