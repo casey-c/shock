@@ -1,8 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "sound.h"
 #include <QFileDialog>
 #include <QString>
 #include <QDebug>
+#include <QVector>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     mediaPlayer->setPlaylist(mediaPlaylist);
     ui->setupUi(this);
+    QVector<Sound*> soundVector;
 }
 
 MainWindow::~MainWindow()
@@ -33,13 +36,36 @@ void MainWindow::loadIntoClearedPlaylist()
    mediaPlaylist->setCurrentIndex(1);
 }
 
+void MainWindow::loadNewSound()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,
+                                                    "Import Sample",
+                                                    "",
+                                                    "Audio files (*.wav *.mp3)");
+    qDebug() << fileName;
+    Sound *s = new Sound(0, fileName);
+    //s->setPath(fileName);
+    soundVector.append(s);
+
+    qDebug() << s->getFileName();
+
+}
+
 void MainWindow::on_open_file_button_clicked()
 {
-    loadIntoClearedPlaylist();
+    //loadIntoClearedPlaylist();
+    loadNewSound();
 }
 
 void MainWindow::on_play_sound_button_clicked()
 {
+    mediaPlaylist->clear();
+    for (int i=0; i < soundVector.size(); ++i)
+    {
+        qDebug() << i << soundVector[i]->getFileName();
+        mediaPlaylist->addMedia(QUrl::fromLocalFile(soundVector[i]->getFileName()));
+    }
+
     mediaPlayer->play();
 }
 

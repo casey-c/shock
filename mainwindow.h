@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
+#include "sound.h"
 
 namespace Ui {
 class MainWindow;
@@ -18,11 +19,13 @@ public:
     ~MainWindow();
 
 private:
+    QVector<Sound*> soundVector;
     Ui::MainWindow* ui;
     QMediaPlaylist* mediaPlaylist;
     QMediaPlayer* mediaPlayer;
 
     void loadIntoClearedPlaylist();
+    void loadNewSound();
 
 private slots:
     void on_open_file_button_clicked();
