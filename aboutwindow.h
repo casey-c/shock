@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <QVector>
-#include <QLabel>
+#include <QPushButton>
 #include <QLayout>
 
 namespace Ui {
@@ -20,7 +20,11 @@ public:
 
 private:
     Ui::AboutWindow *ui;
-    QVector<QLabel*> lbls;
+    QVector<QPushButton*> sectionBtns;
+    void AboutWindow::addButton(QString name);
+
+private slots:
+    void on_sectionBtn_clicked();
 };
 
 #endif // ABOUTWINDOW_H

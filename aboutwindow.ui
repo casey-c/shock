@@ -2,12 +2,15 @@
 <ui version="4.0">
  <class>AboutWindow</class>
  <widget class="QDialog" name="AboutWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>472</width>
+    <height>299</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,6 +21,18 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QGroupBox" name="sectionsGrBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>120</width>
+         <height>0</height>
+        </size>
+       </property>
        <property name="title">
         <string>Sections</string>
        </property>
@@ -26,11 +41,14 @@
          <rect>
           <x>0</x>
           <y>20</y>
-          <width>61</width>
+          <width>91</width>
           <height>251</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
          <item>
           <spacer name="verticalSpacer">
            <property name="orientation">
@@ -41,7 +59,7 @@
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>20</width>
+             <width>50</width>
              <height>40</height>
             </size>
            </property>
@@ -69,7 +87,7 @@
         <enum>Qt::LeftToRight</enum>
        </property>
        <property name="text">
-        <string>TextLabel</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Thanks for using our software.&lt;br/&gt;Click on something for more details.&lt;br/&gt;&lt;br/&gt;-Team Shock&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>

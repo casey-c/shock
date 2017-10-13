@@ -19,9 +19,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionAbout_triggered()
 {
-    if(abtWindow == nullptr)
-        abtWindow = new AboutWindow();
+    if(abtWindow != nullptr){
+        delete abtWindow;
+    }
 
+    abtWindow = new AboutWindow();
     abtWindow->show();
     abtWindow->raise();
 }
