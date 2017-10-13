@@ -6,6 +6,7 @@ AboutWindow::AboutWindow(QWidget *parent) :
     ui(new Ui::AboutWindow)
 {
     ui->setupUi(this);
+    this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
     ui->sectionsGrBox->setLayout(ui->verticalLayout);
 
     addButton("The Project");
