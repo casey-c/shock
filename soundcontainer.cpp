@@ -20,8 +20,8 @@ SoundContainer::~SoundContainer()
 }
 
 void SoundContainer::addSound(Sound* snd){
-    snd->setParent(this);
     ui->soundLayout->addWidget(snd);
+    snd->show();
     sounds.append(snd);
 
     ui->verticalLayout->removeItem(ui->vertSpacer);
@@ -34,8 +34,6 @@ void SoundContainer::removeSound(Sound* snd){
     delete snd;
 }
 
-
-
 void SoundContainer::on_btnAdd_clicked()
 {
     QStringList snds = QFileDialog::getOpenFileNames(this,
@@ -44,7 +42,7 @@ void SoundContainer::on_btnAdd_clicked()
                                  "Audio files (*.wav *.mp3)");
 
     for(QList<QString>::const_iterator itr = snds.begin(); itr != snds.end(); ++itr){
-        //Sound* snd = new Sound(*itr);
-        //addSound(snd);
+        Sound* snd = new Sound(this, *itr);
+        addSound(snd);
     }
 }

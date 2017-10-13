@@ -6,6 +6,7 @@
 #include <sound.h>
 #include <QFileDialog>
 #include <QSpacerItem>
+#include <QFrame>
 
 namespace Ui {
 class SoundContainer;

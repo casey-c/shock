@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>312</width>
-    <height>335</height>
+    <width>520</width>
+    <height>478</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,8 +24,8 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>291</width>
-     <height>321</height>
+     <width>361</width>
+     <height>421</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -76,7 +76,7 @@
           <x>0</x>
           <y>0</y>
           <width>266</width>
-          <height>280</height>
+          <height>210</height>
          </rect>
         </property>
         <widget class="QWidget" name="verticalLayoutWidget_2">
@@ -85,7 +85,7 @@
            <x>0</x>
            <y>0</y>
            <width>441</width>
-           <height>281</height>
+           <height>201</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="soundLayout">
@@ -116,6 +116,20 @@
         <widget class="QPushButton" name="btnAdd">
          <property name="text">
           <string>Add more sounds</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QPushButton" name="btnRemove">
+         <property name="text">
+          <string>Remove selected</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QPushButton" name="btnMove">
+         <property name="text">
+          <string>Move selected to tab</string>
          </property>
         </widget>
        </item>

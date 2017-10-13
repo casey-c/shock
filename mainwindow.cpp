@@ -28,39 +28,6 @@ MainWindow::~MainWindow()
     delete mediaPlayer;
 }
 
-void MainWindow::loadIntoClearedPlaylist()
-{
-   QString fileName = QFileDialog::getOpenFileName(this,
-                                                   "Import Sample",
-                                                   "",
-                                                   "Audio files (*.wav *.mp3)");
-   qDebug() << fileName;
-   mediaPlaylist->clear();
-   mediaPlaylist->addMedia(QUrl::fromLocalFile(fileName));
-   mediaPlaylist->setCurrentIndex(1);
-}
-
-void MainWindow::loadNewSound()
-{
-    QString fileName = QFileDialog::getOpenFileName(this,
-                                                    "Import Sample",
-                                                    "",
-                                                    "Audio files (*.wav *.mp3)");
-    qDebug() << fileName;
-    Sound *s = new Sound(0, fileName);
-    //s->setPath(fileName);
-    soundVector.append(s);
-
-    qDebug() << s->getFileName();
-
-}
-
-void MainWindow::on_open_file_button_clicked()
-{
-    //loadIntoClearedPlaylist();
-    loadNewSound();
-}
-
 void MainWindow::on_play_sound_button_clicked()
 {
     mediaPlaylist->clear();

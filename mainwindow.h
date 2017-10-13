@@ -26,11 +26,7 @@ private:
     QMediaPlayer* mediaPlayer;
     SoundContainer* sndCont;
 
-    void loadIntoClearedPlaylist();
-    void loadNewSound();
-
 private slots:
-    void on_open_file_button_clicked();
     void on_play_sound_button_clicked();
     void on_pause_sound_button_clicked();
 };

@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QString>
+#include <QMediaPlayer>
+#include <QLayoutItem>
 
 namespace Ui {
 class Sound;
@@ -17,10 +19,14 @@ public:
     ~Sound();
 
     QString getFileName();
+    void pause();
+    void play();
+    void stop();
 
 private:
     Ui::Sound *ui;
     QString fileName;
+    QMediaPlayer player;
 
     void setPath(QString fn);
 
