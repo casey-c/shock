@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
+#include <soundcontainer.h>
 
 namespace Ui {
 class MainWindow;
@@ -21,6 +22,7 @@ private:
     Ui::MainWindow* ui;
     QMediaPlaylist* mediaPlaylist;
     QMediaPlayer* mediaPlayer;
+    SoundContainer* sndCont;
 
     void loadIntoClearedPlaylist();
 
