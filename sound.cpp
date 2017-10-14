@@ -1,6 +1,7 @@
 #include "sound.h"
 #include "ui_sound.h"
 #include <QDebug>
+#include <QRegExp>
 
 Sound::Sound(QWidget *parent, QString fn) :
     QWidget(parent),
@@ -8,6 +9,12 @@ Sound::Sound(QWidget *parent, QString fn) :
 {
     ui->setupUi(this);
     setPath(fn);
+    ui->label->setText(fn.replace(QRegExp(".+/"), ""));
+}
+
+Sound::~Sound()
+{
+    delete ui;
 }
 
 QString Sound::getFileName()
@@ -33,7 +40,21 @@ void Sound::stop(){
     player.stop();
 }
 
-Sound::~Sound()
+void Sound::on_btnPlay_clicked()
 {
-    delete ui;
+    play();
+}
+
+void Sound::on_btnPause_clicked()
+{
+    pause();
+}
+
+void Sound::on_btnStop_clicked()
+{
+    stop();
+}
+
+bool Sound::selected(){
+    return ui->checkBox->isChecked();
 }

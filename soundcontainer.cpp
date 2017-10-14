@@ -7,31 +7,23 @@ SoundContainer::SoundContainer(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->frame->setLayout(ui->verticalLayout);
-    ui->scrollAreaWidgetContents->setLayout(ui->soundLayout);
+    //ui->scrollAreaWidgetContents->setLayout(ui->soundLayout);
 }
 
 SoundContainer::~SoundContainer()
 {
     for(QList<Sound*>::iterator itr = sounds.begin(); itr != sounds.end(); ++itr){
-        removeSound(*itr);
+        delete *itr;
     }
 
     delete ui;
 }
 
 void SoundContainer::addSound(Sound* snd){
-    ui->soundLayout->addWidget(snd);
-    snd->show();
-    sounds.append(snd);
-
-    ui->verticalLayout->removeItem(ui->vertSpacer);
-    ui->verticalLayout->addSpacerItem(ui->vertSpacer);
-}
-
-void SoundContainer::removeSound(Sound* snd){
-    ui->soundLayout->removeWidget(snd);
-    sounds.removeOne(snd);
-    delete snd;
+    ui->sndLayout->addWidget(snd);
+    ui->sndLayout->removeItem(ui->vSpacer);
+    ui->sndLayout->addSpacerItem(ui->vSpacer);
+    sounds.push_back(snd);
 }
 
 void SoundContainer::on_btnAdd_clicked()
@@ -44,5 +36,17 @@ void SoundContainer::on_btnAdd_clicked()
     for(QList<QString>::const_iterator itr = snds.begin(); itr != snds.end(); ++itr){
         Sound* snd = new Sound(this, *itr);
         addSound(snd);
+    }
+}
+
+void SoundContainer::on_btnRemove_clicked()
+{
+    for(QList<Sound*>::iterator itr = sounds.begin(); itr != sounds.end(); ++itr){
+        if((*itr)->selected()){
+            Sound* snd = *itr;
+            ui->sndLayout->removeWidget(snd);
+            itr = sounds.erase(itr); --itr;
+            delete snd;
+        }
     }
 }
