@@ -23,6 +23,13 @@ public:
     void play();
     void stop();
 
+    bool selected();
+
+private slots:
+    void on_btnPlay_clicked();
+    void on_btnPause_clicked();
+    void on_btnStop_clicked();
+
 private:
     Ui::Sound *ui;
     QString fileName;

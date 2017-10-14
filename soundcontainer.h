@@ -23,13 +23,14 @@ public:
 private slots:
     void on_btnAdd_clicked();
 
+    void on_btnRemove_clicked();
+
 private:
     Ui::SoundContainer *ui;
 
     QList<Sound*> sounds;
 
     void addSound(Sound* snd);
-    void removeSound(Sound* snd);
 };
 
 #endif // SOUNDCONTAINER_H
