@@ -8,7 +8,6 @@ SoundContainer::SoundContainer(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->frame->setLayout(ui->verticalLayout);
-    //ui->scrollAreaWidgetContents->setLayout(ui->soundLayout);
 }
 
 SoundContainer::~SoundContainer()
@@ -21,10 +20,10 @@ SoundContainer::~SoundContainer()
 }
 
 void SoundContainer::addSound(Sound* snd){
-    ui->sndLayout->addWidget(snd);
-    ui->sndLayout->removeItem(ui->vSpacer);
-    ui->sndLayout->addSpacerItem(ui->vSpacer);
+    ui->sndLayout->insertWidget(ui->sndLayout->count() - 1, snd);
     sounds.push_back(snd);
+    QObject::connect(snd, SIGNAL(sig_shiftUp()), SLOT(shiftSndUp()));
+    QObject::connect(snd, SIGNAL(sig_shiftDown()), SLOT(shiftSndDown()));
 }
 
 void SoundContainer::on_btnAdd_clicked()
@@ -53,12 +52,19 @@ void SoundContainer::on_btnRemove_clicked()
 }
 
 void SoundContainer::shiftSoundPos(Sound* const &snd, int offset){
-    /*int curIdx = ui->sndLayout->indexOf(snd);
+    int curIdx = ui->sndLayout->indexOf(snd);
 
-    if(curIdx == -1 || curIdx + offset < 0 || curIdx + offset > ui->sndLayout->count())
+    if(curIdx == -1 || curIdx + offset < 0 || curIdx + offset >= ui->sndLayout->count() - 1)
         return;
 
     ui->sndLayout->removeWidget(snd);
-    ui->sndLayout->insertWidget(curIdx + offset, snd);*/
+    ui->sndLayout->insertWidget(curIdx + offset, snd);
+}
 
+void SoundContainer::shiftSndDown(){
+    shiftSoundPos(qobject_cast<Sound*>(sender()), 1);
+}
+
+void SoundContainer::shiftSndUp(){
+    shiftSoundPos(qobject_cast<Sound*>(sender()), -1);
 }

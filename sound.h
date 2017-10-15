@@ -25,12 +25,20 @@ public:
 
     bool selected();
 
+signals:
+    void sig_shiftUp();
+    void sig_shiftDown();
+
 private slots:
     void on_btnPlay_clicked();
     void on_btnPause_clicked();
     void on_btnStop_clicked();
+
     void on_btnShiftUp_clicked();
+
     void on_btnShiftDown_clicked();
+
+    void on_leName_returnPressed();
 
 private:
     Ui::Sound *ui;

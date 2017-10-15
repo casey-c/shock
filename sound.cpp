@@ -10,7 +10,12 @@ Sound::Sound(QWidget *parent, QString fn) :
 {
     ui->setupUi(this);
     setPath(fn);
-    ui->label->setText(fn.replace(QRegExp(".+/"), ""));
+    ui->leName->setText(fn.replace(QRegExp(".+/"), ""));
+
+    QPalette palette = ui->leName->palette();
+    QColor color = palette.color( QPalette::Disabled, QPalette::Base );
+    palette.setColor( QPalette::Normal, QPalette::Base, color );
+    ui->leName->setPalette( palette );
 }
 
 Sound::~Sound()
@@ -62,10 +67,15 @@ bool Sound::selected(){
 
 void Sound::on_btnShiftUp_clicked()
 {
-    qobject_cast<SoundContainer*>(this->parentWidget())->shiftSoundPos(this, -1);
+    emit sig_shiftUp();
 }
 
 void Sound::on_btnShiftDown_clicked()
 {
-    qobject_cast<SoundContainer*>(this->parentWidget())->shiftSoundPos(this, 1);
+    emit sig_shiftDown();
+}
+
+void Sound::on_leName_returnPressed()
+{
+    ui->leName->clearFocus();
 }
