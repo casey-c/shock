@@ -20,14 +20,14 @@ public:
     explicit SoundContainer(QWidget *parent = 0);
     ~SoundContainer();
 
+    void shiftSoundPos(Sound* const &snd, int offset);
+
 private slots:
     void on_btnAdd_clicked();
-
     void on_btnRemove_clicked();
 
 private:
     Ui::SoundContainer *ui;
-
     QList<Sound*> sounds;
 
     void addSound(Sound* snd);

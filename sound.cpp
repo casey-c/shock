@@ -2,6 +2,7 @@
 #include "ui_sound.h"
 #include <QDebug>
 #include <QRegExp>
+#include <soundcontainer.h>
 
 Sound::Sound(QWidget *parent, QString fn) :
     QWidget(parent),
@@ -57,4 +58,14 @@ void Sound::on_btnStop_clicked()
 
 bool Sound::selected(){
     return ui->checkBox->isChecked();
+}
+
+void Sound::on_btnShiftUp_clicked()
+{
+    qobject_cast<SoundContainer*>(this->parentWidget())->shiftSoundPos(this, -1);
+}
+
+void Sound::on_btnShiftDown_clicked()
+{
+    qobject_cast<SoundContainer*>(this->parentWidget())->shiftSoundPos(this, 1);
 }

@@ -1,5 +1,6 @@
 #include "soundcontainer.h"
 #include "ui_soundcontainer.h"
+#include <QDebug>
 
 SoundContainer::SoundContainer(QWidget *parent) :
     QWidget(parent),
@@ -49,4 +50,15 @@ void SoundContainer::on_btnRemove_clicked()
             delete snd;
         }
     }
+}
+
+void SoundContainer::shiftSoundPos(Sound* const &snd, int offset){
+    /*int curIdx = ui->sndLayout->indexOf(snd);
+
+    if(curIdx == -1 || curIdx + offset < 0 || curIdx + offset > ui->sndLayout->count())
+        return;
+
+    ui->sndLayout->removeWidget(snd);
+    ui->sndLayout->insertWidget(curIdx + offset, snd);*/
+
 }

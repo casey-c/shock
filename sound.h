@@ -29,6 +29,8 @@ private slots:
     void on_btnPlay_clicked();
     void on_btnPause_clicked();
     void on_btnStop_clicked();
+    void on_btnShiftUp_clicked();
+    void on_btnShiftDown_clicked();
 
 private:
     Ui::Sound *ui;
