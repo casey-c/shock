@@ -29,7 +29,7 @@
       </sizepolicy>
      </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Plain</enum>
@@ -73,7 +73,7 @@
             <x>0</x>
             <y>0</y>
             <width>406</width>
-            <height>290</height>
+            <height>360</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -103,21 +103,24 @@
          <property name="topMargin">
           <number>0</number>
          </property>
-         <item row="1" column="0">
+         <property name="spacing">
+          <number>6</number>
+         </property>
+         <item row="4" column="0">
           <widget class="QPushButton" name="btnAdd">
            <property name="text">
             <string>Add more sounds</string>
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
+         <item row="4" column="3">
           <widget class="QPushButton" name="btnRemove">
            <property name="text">
             <string>Remove selected</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
+         <item row="4" column="4">
           <widget class="QPushButton" name="btnMove">
            <property name="text">
             <string>Move selected to tab</string>
