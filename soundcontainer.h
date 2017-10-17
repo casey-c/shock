@@ -26,6 +26,12 @@ private slots:
     void shiftSndUp();
     void shiftSndDown();
 
+    void on_btnSelectAll_clicked();
+
+    void on_btnDeselectAll_clicked();
+
+    void on_tabVolSlider_sliderMoved(int position);
+
 private:
     Ui::SoundContainer *ui;
     QList<Sound*> sounds;

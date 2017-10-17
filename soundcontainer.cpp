@@ -21,6 +21,7 @@ SoundContainer::~SoundContainer()
 
 void SoundContainer::addSound(Sound* snd){
     ui->sndLayout->insertWidget(ui->sndLayout->count() - 1, snd);
+    snd->setVolumeMod(ui->tabVolSlider->value());
     sounds.push_back(snd);
     QObject::connect(snd, SIGNAL(sig_shiftUp()), SLOT(shiftSndUp()));
     QObject::connect(snd, SIGNAL(sig_shiftDown()), SLOT(shiftSndDown()));
@@ -67,4 +68,26 @@ void SoundContainer::shiftSndDown(){
 
 void SoundContainer::shiftSndUp(){
     shiftSoundPos(qobject_cast<Sound*>(sender()), -1);
+}
+
+
+void SoundContainer::on_btnSelectAll_clicked()
+{
+    for(QList<Sound*>::iterator itr = sounds.begin(); itr != sounds.end(); ++itr){
+        (*itr)->setSelected(true);
+    }
+}
+
+void SoundContainer::on_btnDeselectAll_clicked()
+{
+    for(QList<Sound*>::iterator itr = sounds.begin(); itr != sounds.end(); ++itr){
+        (*itr)->setSelected(false);
+    }
+}
+
+void SoundContainer::on_tabVolSlider_sliderMoved(int position)
+{
+    for(QList<Sound*>::iterator itr = sounds.begin(); itr != sounds.end(); ++itr){
+        (*itr)->setVolumeMod(position);
+    }
 }

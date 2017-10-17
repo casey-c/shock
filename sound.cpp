@@ -46,6 +46,10 @@ void Sound::stop(){
     player.stop();
 }
 
+void Sound::setSelected(bool selected){
+    ui->checkBox->setChecked(selected);
+}
+
 void Sound::on_btnPlay_clicked()
 {
     play();
@@ -78,4 +82,26 @@ void Sound::on_btnShiftDown_clicked()
 void Sound::on_leName_returnPressed()
 {
     ui->leName->clearFocus();
+}
+
+void Sound::setVolumeMod(int x){
+    volumeMod = x;
+    adjustVolume();
+}
+
+void Sound::adjustVolume(){
+    // slider value and volume modifier in the range [0..100]
+
+    qreal value = (volumeMod / qreal(100.0)) * ui->sliderVol->value();
+
+    qreal linearVolume = QAudio::convertVolume( value / qreal(100.0),
+                                               QAudio::LogarithmicVolumeScale,
+                                               QAudio::LinearVolumeScale);
+
+    actualVolume = qRound(linearVolume * 100);
+    player.setVolume(actualVolume);
+}
+
+void Sound::on_sliderVol_sliderMoved(int position){
+    adjustVolume();
 }

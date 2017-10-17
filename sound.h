@@ -24,6 +24,8 @@ public:
     void stop();
 
     bool selected();
+    void setSelected(bool selected);
+    void setVolumeMod(int x);
 
 signals:
     void sig_shiftUp();
@@ -33,20 +35,21 @@ private slots:
     void on_btnPlay_clicked();
     void on_btnPause_clicked();
     void on_btnStop_clicked();
-
     void on_btnShiftUp_clicked();
-
     void on_btnShiftDown_clicked();
-
     void on_leName_returnPressed();
+    void adjustVolume();
+
+    void on_sliderVol_sliderMoved(int position);
 
 private:
     Ui::Sound *ui;
     QString fileName;
     QMediaPlayer player;
+    int volumeMod;
+    int actualVolume;
 
     void setPath(QString fn);
-
 };
 
 #endif // SOUND_H
