@@ -40,6 +40,7 @@ void MainWindow::on_actionAbout_triggered()
     abtWindow->raise();
 }
 
+/*
 void MainWindow::on_play_sound_button_clicked()
 {
     mediaPlaylist->clear();
@@ -56,3 +57,4 @@ void MainWindow::on_pause_sound_button_clicked()
 {
     mediaPlayer->pause();
 }
+*/
