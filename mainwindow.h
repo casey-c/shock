@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
+#include <soundcontainer.h>
+#include "sound.h"
 #include <aboutwindow.h>
 
 namespace Ui {
@@ -17,11 +21,16 @@ public:
     ~MainWindow();
 
 private:
-    Ui::MainWindow *ui;
+    QVector<Sound*> soundVector;
+    Ui::MainWindow* ui;
+    QMediaPlaylist* mediaPlaylist;
+    QMediaPlayer* mediaPlayer;
+    SoundContainer* sndCont;
     AboutWindow* abtWindow;
-
 private slots:
     void on_actionAbout_triggered();
+    void on_play_sound_button_clicked();
+    void on_pause_sound_button_clicked();
 };
 
 #endif // MAINWINDOW_H
