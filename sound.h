@@ -39,8 +39,7 @@ private slots:
     void on_btnShiftDown_clicked();
     void on_leName_returnPressed();
     void adjustVolume();
-
-    void on_sliderVol_sliderMoved(int position);
+    void on_sliderVol_sliderMoved();
 
 private:
     Ui::Sound *ui;

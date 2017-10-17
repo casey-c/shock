@@ -30,17 +30,17 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
         sound.cpp \
-        soundcontainer.cpp
-    aboutwindow.cpp
+        soundcontainer.cpp \
+        aboutwindow.cpp
 
 HEADERS += \
         mainwindow.h \
         sound.h \
-        soundcontainer.h
-    aboutwindow.h
+        soundcontainer.h \
+        aboutwindow.h
 
 FORMS += \
         mainwindow.ui \
         sound.ui \
-        soundcontainer.ui
-    aboutwindow.ui
+        soundcontainer.ui \
+        aboutwindow.ui

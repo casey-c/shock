@@ -102,6 +102,6 @@ void Sound::adjustVolume(){
     player.setVolume(actualVolume);
 }
 
-void Sound::on_sliderVol_sliderMoved(int position){
+void Sound::on_sliderVol_sliderMoved(){
     adjustVolume();
 }
