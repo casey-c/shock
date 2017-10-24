@@ -7,6 +7,7 @@
 #include <soundcontainer.h>
 #include "sound.h"
 #include <aboutwindow.h>
+#include <controlpanel.h>
 
 namespace Ui {
 class MainWindow;
@@ -27,10 +28,9 @@ private:
     QMediaPlayer* mediaPlayer;
     SoundContainer* sndCont;
     AboutWindow* abtWindow;
+    ControlPanel* ctrlPanel;
 private slots:
     void on_actionAbout_triggered();
-    //void on_play_sound_button_clicked();
-    //void on_pause_sound_button_clicked();
 };
 
 #endif // MAINWINDOW_H
