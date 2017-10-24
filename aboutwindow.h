@@ -21,7 +21,7 @@ public:
 private:
     Ui::AboutWindow *ui;
     QVector<QPushButton*> sectionBtns;
-    void AboutWindow::addButton(QString name);
+    void addButton(QString name);
 
 private slots:
     void on_sectionBtn_clicked();
