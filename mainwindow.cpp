@@ -6,6 +6,8 @@
 #include <QDebug>
 #include <QVector>
 
+#include "ga.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -38,6 +40,10 @@ void MainWindow::on_actionAbout_triggered()
     abtWindow = new AboutWindow();
     abtWindow->show();
     abtWindow->raise();
+}
+
+void MainWindow::on_shockButton_clicked(){
+    //GA shock = new GA();
 }
 
 /*

@@ -31,13 +31,19 @@ SOURCES += \
         mainwindow.cpp \
         sound.cpp \
         soundcontainer.cpp \
-        aboutwindow.cpp
+        aboutwindow.cpp \
+    ga.cpp \
+    fitness.cpp \
+    population.cpp \
+    individual.cpp \
+    algorithm.cpp
 
 HEADERS += \
         mainwindow.h \
         sound.h \
         soundcontainer.h \
-        aboutwindow.h
+        aboutwindow.h \
+    ga.h
 
 FORMS += \
         mainwindow.ui \

@@ -29,6 +29,7 @@ private:
     AboutWindow* abtWindow;
 private slots:
     void on_actionAbout_triggered();
+    void on_shockButton_clicked();
     //void on_play_sound_button_clicked();
     //void on_pause_sound_button_clicked();
 };
