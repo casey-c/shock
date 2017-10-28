@@ -1,23 +1,202 @@
 #include "ga.h"
 
-GA::GA(QList<QList<double> > input)
-{
-    QList<Individual> solutions = new QList<Individual>();
+class Algorithm;
+class Fitness;
+class Individual;
+class Population;
 
-    for(i = 0; i < input.length(); i++){
-        solutions.append(input[i]);
+Individual::Individual() {}
+
+Individual::Individual(int sampleLength) {
+    setGeneLength(sampleLength);
+    sequence = QVector<double>(geneLength);
+}
+
+void Individual::generateIndividual(){
+    for(int i = 0; i < size(); i++){
+        double gene = (double) rand();
+        sequence[i] = gene;
+    }
+}
+
+void Individual::setGeneLength(int len){
+    geneLength = len;
+}
+
+double Individual::getGene(int index){
+    return sequence.at(index);
+}
+
+void Individual::setGene(int index, double value){
+    sequence[index] = value;
+    fit = 0;
+}
+
+int Individual::size(){
+    return sequence.length();
+}
+
+int Individual::getFit(){
+    if(this->fit == 0){
+        Fitness find;
+        this->fit = find.getFitness(this);
+    }
+    return this->fit;
+}
+
+
+
+
+Population::Population(int sampleSize, int populationSize, bool initialized) {
+    this->individuals = QVector<Individual>(populationSize);
+    if(initialized){
+        for (int i = 0; i < size(); ++i){
+            Individual newIndividual = Individual(sampleSize);
+            newIndividual.generateIndividual();
+            saveIndividual(i, newIndividual);
+        }
+    }
+}
+
+Individual Population::getIndividual(int index){
+    return individuals[index];
+}
+
+Individual Population::getFittest(){
+    Individual fittest = individuals[0];
+    for(int i = 0; i < this->size(); ++i){
+        if (fittest.getFit() >= getIndividual(i).getFit()){
+            fittest = getIndividual(i);
+        }
+    }
+    return fittest;
+}
+
+int Population::size(){
+    return individuals.length();
+}
+
+void Population::saveIndividual(int index, Individual indiv){
+    individuals[index] = indiv;
+}
+
+
+
+
+Algorithm::Algorithm() {}
+
+Algorithm::Algorithm(double uniform, double mutation,
+                     int children, int sample, bool elite){
+    this->uniformRate = uniform;
+    this->mutationRate = mutation;
+    this->childPop = children;
+    this->sampleSize = sample;
+    this->elitism = elite;
+}
+
+
+Population Algorithm::evolvePopulation(Population parent){
+    sampleSize = parent.getIndividual(0).size();
+    Population newPopulation = Population(sampleSize, parent.size(), false);
+
+    if(elitism){
+        newPopulation.saveIndividual(0, parent.getFittest());
     }
 
-    Fitness.setSolution(solutions[0]);
+    int elitismOffset;
+    if(elitism){
+        elitismOffset = 1;
+    } else{
+        elitismOffset = 0;
+    }
+    for(int i = 0; i < parent.size(); ++i){
+        Individual indiv1 = childSelect(parent);
+        Individual indiv2 = childSelect(parent);
+        Individual newIndiv = crossover(indiv1, indiv2);
+        newPopulation.saveIndividual(i, newIndiv);
+    }
 
-    Population myPop = new Population(44100, true);
+    for(int i = elitismOffset; i < newPopulation.size(); ++i){
+        mutate(newPopulation.getIndividual(i));
+    }
+
+    return newPopulation;
+}
+
+
+
+Individual Algorithm::crossover(Individual indiv1, Individual indiv2){
+    Individual newChild = Individual(indiv1.size());
+
+    for(int i = 0; i < indiv1.size(); i++){
+        if(rand() <= uniformRate){
+            newChild.setGene(i, indiv1.getGene(i));
+        } else {
+            newChild.setGene(i, indiv2.getGene(i));
+        }
+    }
+    return newChild;
+}
+
+void Algorithm::mutate(Individual indiv){
+    for(int i = 0; i < indiv.size(); ++i){
+        if(rand() <= mutationRate){
+            double gene = (double) rand();
+            indiv.setGene(i, gene);
+        }
+    }
+}
+
+Individual Algorithm::childSelect(Population parent){
+    Population result = Population(sampleSize, this->childPop, false);
+    for(int i = 0; i < this->childPop; ++i){
+        int randomID = (int) rand * parent.size();
+        result.saveIndividual(i, parent.getIndividual(randomID));
+    }
+    Individual fittest = result.getFittest();
+    return fittest;
+}
+
+
+
+
+void Fitness::setSolution(QVector<double> newSolution){
+    solution = newSolution;
+}
+
+int Fitness::getFitness(Individual* in){
+    int fitness = 0;
+    Individual individual = *in;
+    for(int i = 0; i < individual.size() && i < solution.length(); ++i){
+        fitness += abs(individual.getGene(i) - solution[i]);
+    }
+    return fitness;
+}
+
+int Fitness::getMaxFitness(){
+    int maxFitness = solution.length();
+    return maxFitness;
+}
+
+
+GA::GA(QVector<QVector<double> > input)
+{
+    //QVector<Individual> solutions = QVector<Individual>();
+
+    //for(int i = 0; i < input.length(); i++){
+   //     solutions.append(input[i]);
+    //}
+
+    //Fitness.setSolution(solutions[0]);
+
+    Population myPop = Population(44100, 4, true);
 
     int targetGen = 10;
 
     int generationCount = 0;
-
+    Algorithm start;
     while(generationCount < targetGen){
-        myPop = Algorithm.evolvePopulation(myPop);
+        myPop = start.evolvePopulation(myPop);
         generationCount++;
     }
 }

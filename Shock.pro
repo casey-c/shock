@@ -32,11 +32,7 @@ SOURCES += \
         sound.cpp \
         soundcontainer.cpp \
         aboutwindow.cpp \
-    ga.cpp \
-    fitness.cpp \
-    population.cpp \
-    individual.cpp \
-    algorithm.cpp
+    ga.cpp
 
 HEADERS += \
         mainwindow.h \
