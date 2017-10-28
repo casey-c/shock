@@ -8,8 +8,8 @@ class Population;
 Individual::Individual() {}
 
 Individual::Individual(int sampleLength) {
-    setGeneLength(sampleLength);
-    sequence = QVector<double>(geneLength);
+    this->setGeneLength(sampleLength);
+    this->sequence = QVector<double>(geneLength);
 }
 
 void Individual::generateIndividual(){
@@ -20,20 +20,20 @@ void Individual::generateIndividual(){
 }
 
 void Individual::setGeneLength(int len){
-    geneLength = len;
+    this->geneLength = len;
 }
 
 double Individual::getGene(int index){
-    return sequence.at(index);
+    return this->sequence.at(index);
 }
 
 void Individual::setGene(int index, double value){
-    sequence[index] = value;
-    fit = 0;
+    this->sequence[index] = value;
+    this->fit = 0;
 }
 
 int Individual::size(){
-    return sequence.length();
+    return this->sequence.length();
 }
 
 int Individual::getFit(){
@@ -53,13 +53,13 @@ Population::Population(int sampleSize, int populationSize, bool initialized) {
         for (int i = 0; i < size(); ++i){
             Individual newIndividual = Individual(sampleSize);
             newIndividual.generateIndividual();
-            saveIndividual(i, newIndividual);
+            this->saveIndividual(i, newIndividual);
         }
     }
 }
 
 Individual Population::getIndividual(int index){
-    return individuals[index];
+    return this->individuals[index];
 }
 
 Individual Population::getFittest(){
@@ -73,11 +73,11 @@ Individual Population::getFittest(){
 }
 
 int Population::size(){
-    return individuals.length();
+    return this->individuals.length();
 }
 
 void Population::saveIndividual(int index, Individual indiv){
-    individuals[index] = indiv;
+    this->individuals[index] = indiv;
 }
 
 
@@ -96,15 +96,15 @@ Algorithm::Algorithm(double uniform, double mutation,
 
 
 Population Algorithm::evolvePopulation(Population parent){
-    sampleSize = parent.getIndividual(0).size();
+    this->sampleSize = parent.getIndividual(0).size();
     Population newPopulation = Population(sampleSize, parent.size(), false);
 
-    if(elitism){
+    if(this->elitism){
         newPopulation.saveIndividual(0, parent.getFittest());
     }
 
     int elitismOffset;
-    if(elitism){
+    if(this->elitism){
         elitismOffset = 1;
     } else{
         elitismOffset = 0;
@@ -129,7 +129,7 @@ Individual Algorithm::crossover(Individual indiv1, Individual indiv2){
     Individual newChild = Individual(indiv1.size());
 
     for(int i = 0; i < indiv1.size(); i++){
-        if(rand() <= uniformRate){
+        if(rand() <= this->uniformRate){
             newChild.setGene(i, indiv1.getGene(i));
         } else {
             newChild.setGene(i, indiv2.getGene(i));
@@ -140,7 +140,7 @@ Individual Algorithm::crossover(Individual indiv1, Individual indiv2){
 
 void Algorithm::mutate(Individual indiv){
     for(int i = 0; i < indiv.size(); ++i){
-        if(rand() <= mutationRate){
+        if(rand() <= this->mutationRate){
             double gene = (double) rand();
             indiv.setGene(i, gene);
         }
@@ -148,7 +148,7 @@ void Algorithm::mutate(Individual indiv){
 }
 
 Individual Algorithm::childSelect(Population parent){
-    Population result = Population(sampleSize, this->childPop, false);
+    Population result = Population(this->sampleSize, this->childPop, false);
     for(int i = 0; i < this->childPop; ++i){
         int randomID = (int) rand * parent.size();
         result.saveIndividual(i, parent.getIndividual(randomID));
@@ -167,14 +167,14 @@ void Fitness::setSolution(QVector<double> newSolution){
 int Fitness::getFitness(Individual* in){
     int fitness = 0;
     Individual individual = *in;
-    for(int i = 0; i < individual.size() && i < solution.length(); ++i){
-        fitness += abs(individual.getGene(i) - solution[i]);
+    for(int i = 0; i < individual.size() && i < this->solution.length(); ++i){
+        fitness += abs(individual.getGene(i) - this->solution[i]);
     }
     return fitness;
 }
 
 int Fitness::getMaxFitness(){
-    int maxFitness = solution.length();
+    int maxFitness = this->solution.length();
     return maxFitness;
 }
 

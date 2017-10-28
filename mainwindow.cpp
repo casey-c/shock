@@ -43,6 +43,9 @@ void MainWindow::on_actionAbout_triggered()
 }
 
 void MainWindow::on_shockButton_clicked(){
+    if (sndCont->size() >= 1){
+        //GA shock = GA();
+    }
     //GA shock = new GA();
 }
 
