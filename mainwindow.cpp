@@ -7,29 +7,29 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    mediaPlaylist(new QMediaPlaylist),
-    mediaPlayer(new QMediaPlayer)
+    ui(new Ui::MainWindow)
 {
     abtWindow = nullptr;
-    mediaPlayer->setPlaylist(mediaPlaylist);
     ui->setupUi(this);
     sndCont = new SoundContainer();
     ui->tab1->setLayout(ui->grLayout);
     ui->grLayout->addWidget(sndCont);
-    QVector<Sound*> soundVector;
 
     ctrlPanel = new ControlPanel();
     ui->gridFrame->layout()->addWidget(ctrlPanel);
+
+    workspace = new Workspace();
+    ui->shockframe->layout()->removeWidget(ui->shockButton);
+    ui->shockframe->layout()->addWidget(workspace);
+    ui->shockframe->layout()->addWidget(ui->shockButton);
 }
 
 MainWindow::~MainWindow()
 {
     delete sndCont;
     delete ui;
-    delete mediaPlaylist;
-    delete mediaPlayer;
     delete ctrlPanel;
+    delete workspace;
 }
 
 void MainWindow::on_actionAbout_triggered()

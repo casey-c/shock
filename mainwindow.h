@@ -4,10 +4,11 @@
 #include <QMainWindow>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
-#include <soundcontainer.h>
+#include "soundcontainer.h"
 #include "sound.h"
-#include <aboutwindow.h>
-#include <controlpanel.h>
+#include "aboutwindow.h"
+#include "controlpanel.h"
+#include "workspace.h"
 
 namespace Ui {
 class MainWindow;
@@ -24,11 +25,11 @@ public:
 private:
     QVector<Sound*> soundVector;
     Ui::MainWindow* ui;
-    QMediaPlaylist* mediaPlaylist;
-    QMediaPlayer* mediaPlayer;
     SoundContainer* sndCont;
+
     AboutWindow* abtWindow;
     ControlPanel* ctrlPanel;
+    Workspace* workspace;
 private slots:
     void on_actionAbout_triggered();
 };
