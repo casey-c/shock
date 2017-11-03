@@ -31,16 +31,19 @@ SOURCES += \
         mainwindow.cpp \
         sound.cpp \
         soundcontainer.cpp \
-        aboutwindow.cpp
+        aboutwindow.cpp \
+    controlpanel.cpp
 
 HEADERS += \
         mainwindow.h \
         sound.h \
         soundcontainer.h \
-        aboutwindow.h
+        aboutwindow.h \
+    controlpanel.h
 
 FORMS += \
         mainwindow.ui \
         sound.ui \
         soundcontainer.ui \
-        aboutwindow.ui
+        aboutwindow.ui \
+    controlpanel.ui
