@@ -25,10 +25,7 @@ signals:
     void sig_sndFileDropped(QString path);
 
 private:
-    QVector<Sound*> soundVector;
     Ui::MainWindow* ui;
-    QMediaPlaylist* mediaPlaylist;
-    QMediaPlayer* mediaPlayer;
     SoundContainer* sndCont;
     AboutWindow* abtWindow;
     ControlPanel* ctrlPanel;

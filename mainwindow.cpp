@@ -9,12 +9,9 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    mediaPlaylist(new QMediaPlaylist),
-    mediaPlayer(new QMediaPlayer)
+    ui(new Ui::MainWindow)
 {
     abtWindow = nullptr;
-    mediaPlayer->setPlaylist(mediaPlaylist);
     ui->setupUi(this);
     sndCont = new SoundContainer(this);
     ui->tab1->setLayout(ui->grLayout);
@@ -31,8 +28,6 @@ MainWindow::~MainWindow()
 {
     delete sndCont;
     delete ui;
-    delete mediaPlaylist;
-    delete mediaPlayer;
     delete ctrlPanel;
 }
 
@@ -52,21 +47,6 @@ void MainWindow::dragEnterEvent(QDragEnterEvent *e){
         e->acceptProposedAction();
     }
 }
-
-/*void MainWindow::dropEvent(QDropEvent* event){
-    const QMimeData* mimeData = event->mimeData();
-
-    QList<QUrl> urlList = mimeData->urls();
-    // extract the local paths of the files
-    for (int i = 0; i < urlList.size(); ++i)
-    {
-        QString path = urlList.at(i).toLocalFile();
-        qDebug() << path;
-        if(path.contains(".wav") || path.contains(".mp3")){
-            emit sig_sndFileDropped(path);
-        }
-    }
-}*/
 
 void MainWindow::dropEvent(QDropEvent* event){
     const QMimeData* mimeData = event->mimeData();
