@@ -26,6 +26,7 @@ public:
     bool selected();
     void setSelected(bool selected);
     void setVolumeMod(int x);
+    static bool validSoundFile(QString path);
 
 signals:
     void sig_shiftUp();
