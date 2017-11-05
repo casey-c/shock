@@ -2,7 +2,8 @@
 #include "ui_sound.h"
 #include <QDebug>
 #include <QRegExp>
-#include <soundcontainer.h>
+//#include <soundcontainer.h>
+//#include "waveformwidget.h"
 
 Sound::Sound(QWidget *parent, QString fn) :
     QWidget(parent),

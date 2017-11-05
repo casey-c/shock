@@ -34,7 +34,7 @@ private:
     ControlPanel* ctrlPanel;
     Workspace* workspace;
 private slots:
-    void on_actionAbout_triggered();
+    void on_actionAbout_triggered();    
     void loadSoundToWorkspace(Sound* snd);
 };
 

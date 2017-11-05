@@ -15,11 +15,11 @@ class Workspace : public QWidget
 public:
     explicit Workspace(QWidget *parent = 0);
     ~Workspace();
-    void loadSound(Sound* sound);
+    //void loadSound(Sound* sound);
     void unloadSound();
 
 private slots:
-    void slot_loadSound(Sound* snd);
+    void loadSound(Sound* snd);
 
 private:
     Ui::Workspace *ui;

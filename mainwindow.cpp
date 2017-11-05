@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     QObject::connect(this, SIGNAL(sig_loadSndToWorkspace(Sound*)), workspace, SLOT(loadSound(Sound*)));
+    //QObject::connect(parent, SIGNAL(addToWorkspace(Sound*)), this, SLOT(loadSound(Sound*)));
 }
 
 MainWindow::~MainWindow()
