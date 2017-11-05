@@ -7,9 +7,11 @@
 class IAlgorithm
 {
 public:
-    IAlgorithm();
-    virtual QVector<float> run();
-private:
+    IAlgorithm(AlgoSettings input)
+        :settings(input)
+    {}
+    virtual QVector<float> run(QVector<QVector<float> > input) = 0;
+protected:
     AlgoSettings settings;
 };
 

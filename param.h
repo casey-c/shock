@@ -11,6 +11,7 @@ public:
 private:
     void* data;
     QString name;
+    enum type{};
 };
 
 #endif // PARAM_H

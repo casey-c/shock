@@ -4,3 +4,7 @@ Param::Param()
 {
 
 }
+
+QString Param::toString(){
+    return "";
+}

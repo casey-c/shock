@@ -22,7 +22,6 @@ private:
 };
 
 
-
 class Population
 {
 public:
@@ -40,13 +39,13 @@ class Algorithm
 {
 public:
     Algorithm();
-    Algorithm(float uniform, float mutation,
+    Algorithm(double uniform, double mutation,
               int children, int sample, bool elite);
     Population evolvePopulation(Population parent);
 
 private:
-    float uniformRate = 0.5;
-    float mutationRate = 0.015;
+    double uniformRate = 0.5;
+    double mutationRate = 0.015;
     int childPop = 5;
     int sampleSize = 0;
     bool elitism = true;
@@ -73,8 +72,16 @@ public:
 class GeneAlg : public IAlgorithm
 {
 public:
-    GeneAlg(QVector<QVector<float> > input);
-    QVector<float> run();
+    GeneAlg();
+    GeneAlg(AlgoSettings settings);
+    QVector<float> run(QVector<QVector<float> > input) override;
+
+private:
+    float uniformRate;
+    float mutationRate;
+    int childPop;
+    int sampleSize;
+    bool elitism;
 };
 
 #endif // GA_H

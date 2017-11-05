@@ -87,7 +87,7 @@ void Population::saveIndividual(int index, Individual indiv){
 //Algorithm Methods
 Algorithm::Algorithm() {}
 
-Algorithm::Algorithm(float uniform, float mutation,
+Algorithm::Algorithm(double uniform, double mutation,
                      int children, int sample, bool elite){
     this->uniformRate = uniform;
     this->mutationRate = mutation;
@@ -181,14 +181,26 @@ int Fitness::getMaxFitness(){
 }
 
 
+GeneAlg::GeneAlg(){}
+
 
 //GA method
-GeneAlg::GeneAlg(QVector<QVector<float> > input)
+GeneAlg::GeneAlg(AlgoSettings settings)
 {
+    //if(settings != NULL){
+    //uniformRate = settings;
+    //mutationRate = settings;
+    //childPop = settings;
+    //sampleSize = settings;
+    //elitism = settings;
+    //}
+}
+
+QVector<float> GeneAlg::run(QVector<QVector<float> > input){
     //QVector<Individual> solutions = QVector<Individual>();
 
     //for(int i = 0; i < input.length(); i++){
-   //     solutions.append(input[i]);
+    //     solutions.append(input[i]);
     //}
 
     //Fitness.setSolution(solutions[0]);
@@ -203,8 +215,6 @@ GeneAlg::GeneAlg(QVector<QVector<float> > input)
         myPop = start.evolvePopulation(myPop);
         generationCount++;
     }
-}
-
-QVector<float> GeneAlg::run(){
-
+    QVector<float> a;
+    return a;
 }

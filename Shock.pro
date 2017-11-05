@@ -33,7 +33,6 @@ SOURCES += \
         soundcontainer.cpp \
         aboutwindow.cpp \
     genealg.cpp \
-    ialgorithm.cpp \
     algosettings.cpp \
     param.cpp
 
