@@ -105,3 +105,7 @@ void Sound::adjustVolume(){
 void Sound::on_sliderVol_sliderMoved(){
     adjustVolume();
 }
+
+bool Sound::validSoundFile(QString path){
+    return path.contains(".wav") || path.contains(".mp3");
+}
