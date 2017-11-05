@@ -69,9 +69,9 @@ void MainWindow::dropEvent(QDropEvent* event){
             QString fn = f.fileName();
             qDebug() << fn;
 
-            if(Sound::validSoundFile(fn)){
+            if(Sound::validSoundFile(fn))
                 emit sig_sndFileDropped(fn);
-            }
+
         }
     }
 }
