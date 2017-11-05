@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <QVector>
 
-#include "ga.h"
+#include "genealg.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

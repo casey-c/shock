@@ -1,20 +1,22 @@
-#include "ga.h"
+#include "genealg.h"
 
 class Algorithm;
 class Fitness;
 class Individual;
 class Population;
 
+
+//Individual methods
 Individual::Individual() {}
 
 Individual::Individual(int sampleLength) {
     this->setGeneLength(sampleLength);
-    this->sequence = QVector<double>(geneLength);
+    this->sequence = QVector<float>(geneLength);
 }
 
 void Individual::generateIndividual(){
     for(int i = 0; i < size(); i++){
-        double gene = (double) rand();
+        float gene = (float) rand();
         sequence[i] = gene;
     }
 }
@@ -23,11 +25,11 @@ void Individual::setGeneLength(int len){
     this->geneLength = len;
 }
 
-double Individual::getGene(int index){
+float Individual::getGene(int index){
     return this->sequence.at(index);
 }
 
-void Individual::setGene(int index, double value){
+void Individual::setGene(int index, float value){
     this->sequence[index] = value;
     this->fit = 0;
 }
@@ -46,7 +48,7 @@ int Individual::getFit(){
 
 
 
-
+//Population methods
 Population::Population(int sampleSize, int populationSize, bool initialized) {
     this->individuals = QVector<Individual>(populationSize);
     if(initialized){
@@ -82,10 +84,10 @@ void Population::saveIndividual(int index, Individual indiv){
 
 
 
-
+//Algorithm Methods
 Algorithm::Algorithm() {}
 
-Algorithm::Algorithm(double uniform, double mutation,
+Algorithm::Algorithm(float uniform, float mutation,
                      int children, int sample, bool elite){
     this->uniformRate = uniform;
     this->mutationRate = mutation;
@@ -141,7 +143,7 @@ Individual Algorithm::crossover(Individual indiv1, Individual indiv2){
 void Algorithm::mutate(Individual indiv){
     for(int i = 0; i < indiv.size(); ++i){
         if(rand() <= this->mutationRate){
-            double gene = (double) rand();
+            float gene = (float) rand();
             indiv.setGene(i, gene);
         }
     }
@@ -159,8 +161,8 @@ Individual Algorithm::childSelect(Population parent){
 
 
 
-
-void Fitness::setSolution(QVector<double> newSolution){
+//Fitness methods
+void Fitness::setSolution(QVector<float> newSolution){
     solution = newSolution;
 }
 
@@ -179,7 +181,9 @@ int Fitness::getMaxFitness(){
 }
 
 
-GA::GA(QVector<QVector<double> > input)
+
+//GA method
+GeneAlg::GeneAlg(QVector<QVector<float> > input)
 {
     //QVector<Individual> solutions = QVector<Individual>();
 
@@ -199,4 +203,8 @@ GA::GA(QVector<QVector<double> > input)
         myPop = start.evolvePopulation(myPop);
         generationCount++;
     }
+}
+
+QVector<float> GeneAlg::run(){
+
 }

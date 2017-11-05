@@ -2,6 +2,7 @@
 #define GA_H
 #include <QVector>
 #include "stdlib.h"
+#include "ialgorithm.h"
 
 class Individual{
 public:
@@ -9,14 +10,14 @@ public:
     Individual(int sampleLength);
     void generateIndividual();
     void setGeneLength(int len);
-    double getGene(int index);
-    void setGene(int index, double value);
+    float getGene(int index);
+    void setGene(int index, float value);
     int size();
     int getFit();
 private:
     int fit = 0;
     int geneLength = 0;
-    QVector<double> sequence;
+    QVector<float> sequence;
 
 };
 
@@ -39,13 +40,13 @@ class Algorithm
 {
 public:
     Algorithm();
-    Algorithm(double uniform, double mutation,
+    Algorithm(float uniform, float mutation,
               int children, int sample, bool elite);
     Population evolvePopulation(Population parent);
 
 private:
-    double uniformRate = 0.5;
-    double mutationRate = 0.015;
+    float uniformRate = 0.5;
+    float mutationRate = 0.015;
     int childPop = 5;
     int sampleSize = 0;
     bool elitism = true;
@@ -58,21 +59,22 @@ private:
 class Fitness
 {
 public:
-    QVector<double> solution;
+    QVector<float> solution;
 
     Fitness() {}
 
-    void setSolution(QVector<double> newSolution);
+    void setSolution(QVector<float> newSolution);
     int getFitness(Individual* in);
     int getMaxFitness();
 };
 
 
 
-class GA
+class GeneAlg : public IAlgorithm
 {
 public:
-    GA(QVector<QVector<double> > input);
+    GeneAlg(QVector<QVector<float> > input);
+    QVector<float> run();
 };
 
 #endif // GA_H

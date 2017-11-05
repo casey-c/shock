@@ -32,14 +32,20 @@ SOURCES += \
         sound.cpp \
         soundcontainer.cpp \
         aboutwindow.cpp \
-    ga.cpp
+    genealg.cpp \
+    ialgorithm.cpp \
+    algosettings.cpp \
+    param.cpp
 
 HEADERS += \
         mainwindow.h \
         sound.h \
         soundcontainer.h \
         aboutwindow.h \
-    ga.h
+    genealg.h \
+    ialgorithm.h \
+    algosettings.h \
+    param.h
 
 FORMS += \
         mainwindow.ui \
