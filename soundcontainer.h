@@ -31,6 +31,7 @@ private slots:
     void on_btnDeselectAll_clicked();
 
     void on_tabVolSlider_sliderMoved(int position);
+    void on_sndFileDropped(QString path);
 
 private:
     Ui::SoundContainer *ui;
@@ -38,6 +39,7 @@ private:
 
     void shiftSoundPos(Sound* const &snd, int offset);
     void addSound(Sound* snd);
+    void removeSound(Sound* snd);
 };
 
 #endif // SOUNDCONTAINER_H

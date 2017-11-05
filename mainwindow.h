@@ -21,6 +21,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+signals:
+    void sig_sndFileDropped(QString path);
+
 private:
     QVector<Sound*> soundVector;
     Ui::MainWindow* ui;
@@ -29,6 +32,8 @@ private:
     SoundContainer* sndCont;
     AboutWindow* abtWindow;
     ControlPanel* ctrlPanel;
+    void dragEnterEvent(QDragEnterEvent *e);
+    void dropEvent(QDropEvent* event);
 private slots:
     void on_actionAbout_triggered();
 };

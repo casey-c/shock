@@ -8,6 +8,8 @@ SoundContainer::SoundContainer(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->frame->setLayout(ui->verticalLayout);
+    QObject::connect(this->parentWidget(),
+                     SIGNAL(sig_sndFileDropped(QString)), SLOT(on_sndFileDropped(QString)));
 }
 
 SoundContainer::~SoundContainer()
@@ -40,15 +42,26 @@ void SoundContainer::on_btnAdd_clicked()
     }
 }
 
+void SoundContainer::removeSound(Sound* snd){
+    ui->sndLayout->removeWidget(snd);
+    sounds.removeOne(snd);
+    delete snd;
+}
+
 void SoundContainer::on_btnRemove_clicked()
 {
-    for(QList<Sound*>::iterator itr = sounds.begin(); itr != sounds.end(); ++itr){
+    QList<Sound*>::iterator itr = sounds.begin();
+    while(itr != sounds.end()){
         if((*itr)->selected()){
             Sound* snd = *itr;
-            ui->sndLayout->removeWidget(snd);
-            itr = sounds.erase(itr); --itr;
-            delete snd;
+            removeSound(snd);
+            if(!sounds.empty()){
+                itr = sounds.begin();
+                continue;
+            }
         }
+
+        ++itr;
     }
 }
 
@@ -90,4 +103,9 @@ void SoundContainer::on_tabVolSlider_sliderMoved(int position)
     for(QList<Sound*>::iterator itr = sounds.begin(); itr != sounds.end(); ++itr){
         (*itr)->setVolumeMod(position);
     }
+}
+
+void SoundContainer::on_sndFileDropped(QString path){
+    Sound* snd = new Sound(this, path);
+    addSound(snd);
 }
