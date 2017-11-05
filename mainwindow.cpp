@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "waveformwidget.h"
 #include <QFileDialog>
 #include <QString>
 #include <QDebug>
@@ -15,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tab1->setLayout(ui->grLayout);
     ui->grLayout->addWidget(sndCont);
 
+    QObject::connect(sndCont, SIGNAL(sig_loadToWorkspace(Sound*)), this, SLOT(loadSoundToWorkspace(Sound*)));
     ctrlPanel = new ControlPanel();
     ui->gridFrame->layout()->addWidget(ctrlPanel);
 
@@ -22,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->shockframe->layout()->removeWidget(ui->shockButton);
     ui->shockframe->layout()->addWidget(workspace);
     ui->shockframe->layout()->addWidget(ui->shockButton);
+
+
+    QObject::connect(this, SIGNAL(sig_loadSndToWorkspace(Sound*)), workspace, SLOT(loadSound(Sound*)));
 }
 
 MainWindow::~MainWindow()
@@ -41,4 +46,9 @@ void MainWindow::on_actionAbout_triggered()
     abtWindow = new AboutWindow();
     abtWindow->show();
     abtWindow->raise();
+}
+
+void MainWindow::loadSoundToWorkspace(Sound* snd)
+{
+    emit sig_loadSndToWorkspace(snd);
 }

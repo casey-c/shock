@@ -105,3 +105,9 @@ void Sound::adjustVolume(){
 void Sound::on_sliderVol_sliderMoved(){
     adjustVolume();
 }
+
+void Sound::on_loadToWorkspace_clicked()
+{
+    //play();
+    emit sig_loadSoundToWorkspace(this);
+}

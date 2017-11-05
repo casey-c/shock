@@ -20,6 +20,9 @@ public:
     explicit SoundContainer(QWidget *parent = 0);
     ~SoundContainer();
 
+signals:
+    void sig_loadToWorkspace(Sound* snd);
+
 private slots:
     void on_btnAdd_clicked();
     void on_btnRemove_clicked();
@@ -31,6 +34,7 @@ private slots:
     void on_btnDeselectAll_clicked();
 
     void on_tabVolSlider_sliderMoved(int position);
+    void loadSoundToWorkspace(Sound* snd);
 
 private:
     Ui::SoundContainer *ui;

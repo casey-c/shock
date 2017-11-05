@@ -22,6 +22,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+signals:
+    void sig_loadSndToWorkspace(Sound* snd);
+
 private:
     QVector<Sound*> soundVector;
     Ui::MainWindow* ui;
@@ -32,6 +35,7 @@ private:
     Workspace* workspace;
 private slots:
     void on_actionAbout_triggered();
+    void loadSoundToWorkspace(Sound* snd);
 };
 
 #endif // MAINWINDOW_H
