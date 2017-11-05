@@ -1,6 +1,7 @@
 #include "soundcontainer.h"
 #include "ui_soundcontainer.h"
 #include <QDebug>
+#include <QScrollBar>
 
 SoundContainer::SoundContainer(QWidget *parent) :
     QWidget(parent),
@@ -23,6 +24,12 @@ SoundContainer::~SoundContainer()
 
 void SoundContainer::addSound(Sound* snd){
     ui->sndLayout->insertWidget(ui->sndLayout->count() - 1, snd);
+    qApp->processEvents();
+    qApp->processEvents();
+
+    ui->scrollArea->verticalScrollBar()
+            ->triggerAction(QAbstractSlider::SliderToMaximum);
+
     snd->setVolumeMod(ui->tabVolSlider->value());
     sounds.push_back(snd);
     QObject::connect(snd, SIGNAL(sig_shiftUp()), SLOT(shiftSndUp()));
