@@ -7,6 +7,7 @@
 class IAlgorithm
 {
 public:
+    IAlgorithm(){}
     IAlgorithm(AlgoSettings input)
         :settings(input)
     {}

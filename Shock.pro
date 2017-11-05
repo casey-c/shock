@@ -34,7 +34,7 @@ SOURCES += \
         aboutwindow.cpp \
     genealg.cpp \
     algosettings.cpp \
-    param.cpp
+    param.cpp \
     controlpanel.cpp
 
 HEADERS += \
@@ -45,7 +45,7 @@ HEADERS += \
     genealg.h \
     ialgorithm.h \
     algosettings.h \
-    param.h
+    param.h \
     controlpanel.h
 
 FORMS += \
