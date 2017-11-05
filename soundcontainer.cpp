@@ -42,15 +42,26 @@ void SoundContainer::on_btnAdd_clicked()
     }
 }
 
+void SoundContainer::removeSound(Sound* snd){
+    ui->sndLayout->removeWidget(snd);
+    sounds.removeOne(snd);
+    delete snd;
+}
+
 void SoundContainer::on_btnRemove_clicked()
 {
-    for(QList<Sound*>::iterator itr = sounds.begin(); itr != sounds.end(); ++itr){
+    QList<Sound*>::iterator itr = sounds.begin();
+    while(itr != sounds.end()){
         if((*itr)->selected()){
             Sound* snd = *itr;
-            ui->sndLayout->removeWidget(snd);
-            itr = sounds.erase(itr); --itr;
-            delete snd;
+            removeSound(snd);
+            if(!sounds.empty()){
+                itr = sounds.begin();
+                continue;
+            }
         }
+
+        ++itr;
     }
 }
 

@@ -39,6 +39,7 @@ private:
 
     void shiftSoundPos(Sound* const &snd, int offset);
     void addSound(Sound* snd);
+    void removeSound(Sound* snd);
 };
 
 #endif // SOUNDCONTAINER_H
