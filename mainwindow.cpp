@@ -7,6 +7,8 @@
 #include <QMimeData>
 #include <QDirIterator>
 
+#include "genealg.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)

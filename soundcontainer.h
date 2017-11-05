@@ -18,6 +18,8 @@ class SoundContainer : public QWidget
 
 public:
     explicit SoundContainer(QWidget *parent = 0);
+    int size();
+
     ~SoundContainer();
 
 private slots:

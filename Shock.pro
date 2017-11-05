@@ -32,6 +32,9 @@ SOURCES += \
         sound.cpp \
         soundcontainer.cpp \
         aboutwindow.cpp \
+    genealg.cpp \
+    algosettings.cpp \
+    param.cpp
     controlpanel.cpp
 
 HEADERS += \
@@ -39,6 +42,10 @@ HEADERS += \
         sound.h \
         soundcontainer.h \
         aboutwindow.h \
+    genealg.h \
+    ialgorithm.h \
+    algosettings.h \
+    param.h
     controlpanel.h
 
 FORMS += \

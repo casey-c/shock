@@ -22,6 +22,10 @@ SoundContainer::~SoundContainer()
     delete ui;
 }
 
+int SoundContainer::size(){
+    return sounds.size();
+}
+
 void SoundContainer::addSound(Sound* snd){
     ui->sndLayout->insertWidget(ui->sndLayout->count() - 1, snd);
     qApp->processEvents();
