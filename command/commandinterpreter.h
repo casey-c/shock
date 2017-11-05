@@ -1,15 +1,18 @@
 #ifndef COMMANDINTERPRETER_H
 #define COMMANDINTERPRETER_H
 
-#include<QStack>
+#include <QObject>
+#include <QStack>
 #include "icommand.h"
 
 /*
  * The command interpreter is responsible for actually running commands. It
  * stores the undo and redo history.
  */
-class CommandInterpreter
+class CommandInterpreter : public QObject
 {
+    Q_OBJECT
+
 public:
     CommandInterpreter() {}
 

@@ -20,8 +20,8 @@ public:
     virtual bool act() = 0;
     virtual bool undo() = 0;
 
-    bool redo() final { act(); }
-    QString toString() const final { return plainText; }
+    bool redo() { return act(); }
+    QString toString() const { return plainText; }
 
 protected:
     QString plainText;
