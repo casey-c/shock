@@ -8,6 +8,8 @@
 #include <QSpacerItem>
 #include <QFrame>
 
+#include "command/caddsound.h"
+
 namespace Ui {
 class SoundContainer;
 }
@@ -37,7 +39,11 @@ private:
     QList<Sound*> sounds;
 
     void shiftSoundPos(Sound* const &snd, int offset);
+
     void addSound(Sound* snd);
+    void removeSound(Sound* snd);
+
+    friend class CAddSound;
 };
 
 #endif // SOUNDCONTAINER_H

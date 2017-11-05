@@ -33,7 +33,8 @@ SOURCES += \
         soundcontainer.cpp \
         aboutwindow.cpp \
     controlpanel.cpp \
-    command/commandinterpreter.cpp
+    command/commandinterpreter.cpp \
+    command/caddsound.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,7 +43,8 @@ HEADERS += \
         aboutwindow.h \
     controlpanel.h \
     command/icommand.h \
-    command/commandinterpreter.h
+    command/commandinterpreter.h \
+    command/caddsound.h
 
 FORMS += \
         mainwindow.ui \

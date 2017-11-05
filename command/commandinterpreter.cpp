@@ -1,16 +1,27 @@
 #include "commandinterpreter.h"
+////////////////////////////////////////////////////////////////////////////////
+///                              Static Methods                              ///
+////////////////////////////////////////////////////////////////////////////////
+
+CommandInterpreter& CommandInterpreter::getInstance() {
+    static CommandInterpreter instance;
+    return instance;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///                Actual functionality acts on the singleton                ///
+////////////////////////////////////////////////////////////////////////////////
 
 /*
  * Run a command and if it is successful, add it to the undoStack and update
  * the menus accordingly.
  */
-void CommandInterpreter::run(ICommand *command) {
+void CommandInterpreter::run(ICommand* command) {
     if (command->act()) {
         undoStack.push(command);
 
-        // Note: this may need more complicated logic if any of our commands
-        // utilize dynamic memory allocation: i.e. we may need to cleanup
-        // memory leaks
+        for (ICommand* command : redoStack)
+            delete command;
         redoStack.clear();
 
         updateMenuText();

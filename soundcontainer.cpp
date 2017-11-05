@@ -91,3 +91,10 @@ void SoundContainer::on_tabVolSlider_sliderMoved(int position)
         (*itr)->setVolumeMod(position);
     }
 }
+
+
+void SoundContainer::removeSound(Sound* s) {
+    sounds.removeOne(s);
+    ui->sndLayout->removeWidget(s);
+}
+

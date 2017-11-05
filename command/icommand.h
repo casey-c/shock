@@ -17,6 +17,8 @@
 class ICommand
 {
 public:
+    virtual ~ICommand(){}
+
     virtual bool act() = 0;
     virtual bool undo() = 0;
 
