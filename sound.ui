@@ -221,16 +221,16 @@
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton{
-	font-size: 14pt;
+	font-size: 20pt;
 }</string>
            </property>
            <property name="text">
-            <string notr="true">▶️</string>
+            <string notr="true">▶</string>
            </property>
            <property name="iconSize">
             <size>
-             <width>20</width>
-             <height>20</height>
+             <width>30</width>
+             <height>30</height>
             </size>
            </property>
            <property name="default">
@@ -252,16 +252,23 @@
            <property name="maximumSize">
             <size>
              <width>30</width>
-             <height>25</height>
+             <height>30</height>
             </size>
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton{
-	font-size: 14pt;
+	font-size: 10pt;
+	font-weight: bold;
 }</string>
            </property>
            <property name="text">
-            <string>⏸</string>
+            <string>||</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
            </property>
            <property name="flat">
             <bool>true</bool>
@@ -279,16 +286,25 @@
            <property name="maximumSize">
             <size>
              <width>30</width>
-             <height>25</height>
+             <height>30</height>
             </size>
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton{
-	font-size: 14pt;
+	font-size: 17pt;
 }</string>
            </property>
            <property name="text">
-            <string>⏹</string>
+            <string>◼</string>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>30</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>false</bool>
            </property>
            <property name="flat">
             <bool>true</bool>
