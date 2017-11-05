@@ -32,14 +32,17 @@ SOURCES += \
         sound.cpp \
         soundcontainer.cpp \
         aboutwindow.cpp \
-    controlpanel.cpp
+    controlpanel.cpp \
+    command/commandinterpreter.cpp
 
 HEADERS += \
         mainwindow.h \
         sound.h \
         soundcontainer.h \
         aboutwindow.h \
-    controlpanel.h
+    controlpanel.h \
+    command/icommand.h \
+    command/commandinterpreter.h
 
 FORMS += \
         mainwindow.ui \
