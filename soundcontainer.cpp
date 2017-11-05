@@ -8,6 +8,8 @@ SoundContainer::SoundContainer(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->frame->setLayout(ui->verticalLayout);
+    QObject::connect(this->parentWidget(),
+                     SIGNAL(sig_sndFileDropped(QString)), SLOT(on_sndFileDropped(QString)));
 }
 
 SoundContainer::~SoundContainer()
@@ -90,4 +92,9 @@ void SoundContainer::on_tabVolSlider_sliderMoved(int position)
     for(QList<Sound*>::iterator itr = sounds.begin(); itr != sounds.end(); ++itr){
         (*itr)->setVolumeMod(position);
     }
+}
+
+void SoundContainer::on_sndFileDropped(QString path){
+    Sound* snd = new Sound(this, path);
+    addSound(snd);
 }
