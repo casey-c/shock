@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QList>
-#include <sndfile.h>
+#include <sndfile.hh>
 #include "audioutil.h"
 
 class WaveformWidget : public QWidget

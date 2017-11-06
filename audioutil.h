@@ -2,7 +2,7 @@
 #define AUDIOUTIL_H
 
 #include <QVector>
-#include <sndfile.h>
+#include <sndfile.hh>
 
 class AudioUtil {
 public:

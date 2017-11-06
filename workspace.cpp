@@ -17,8 +17,6 @@ Workspace::~Workspace()
 }
 
 
-
-
 void Workspace::loadSound(Sound* sound){
 
     if (this->soundLoaded) {

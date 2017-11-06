@@ -5,6 +5,7 @@
 #include <QString>
 #include <QMediaPlayer>
 #include <QLayoutItem>
+#include <QFileInfo>
 
 namespace Ui {
 class Sound;

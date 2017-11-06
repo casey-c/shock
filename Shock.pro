@@ -36,7 +36,9 @@ SOURCES += \
     algosettings.cpp \
     param.cpp \
     controlpanel.cpp \
-    workspace.cpp
+    workspace.cpp \
+    waveformwidget.cpp \
+    audioutil.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -48,7 +50,9 @@ HEADERS += \
     algosettings.h \
     param.h \
     controlpanel.h \
-    workspace.h
+    workspace.h \
+    waveformwidget.h \
+    audioutil.h
 
 FORMS += \
         mainwindow.ui \
@@ -57,3 +61,8 @@ FORMS += \
         aboutwindow.ui \
     controlpanel.ui \
     workspace.ui
+
+win32: LIBS += -L$$PWD/../../../../../../../libsndfile/lib/ -llibsndfile-1
+
+INCLUDEPATH += $$PWD/../../../../../../../libsndfile/include
+DEPENDPATH += $$PWD/../../../../../../../libsndfile/include
