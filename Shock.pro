@@ -35,7 +35,10 @@ SOURCES += \
     genealg.cpp \
     algosettings.cpp \
     param.cpp \
-    controlpanel.cpp
+    controlpanel.cpp \
+    workspace.cpp \
+    waveformwidget.cpp \
+    audioutil.cpp
     workspace.cpp
 
 HEADERS += \
@@ -47,7 +50,10 @@ HEADERS += \
     ialgorithm.h \
     algosettings.h \
     param.h \
-    controlpanel.h
+    controlpanel.h \
+    audioutil.h \
+    workspace.h \
+    waveformwidget.h
     workspace.h
 
 FORMS += \
