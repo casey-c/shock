@@ -35,7 +35,7 @@ SOURCES += \
     genealg.cpp \
     algosettings.cpp \
     param.cpp \
-    controlpanel.cpp \
+    controlpanel.cpp
     workspace.cpp
 
 HEADERS += \
@@ -47,7 +47,7 @@ HEADERS += \
     ialgorithm.h \
     algosettings.h \
     param.h \
-    controlpanel.h \
+    controlpanel.h
     workspace.h
 
 FORMS += \
