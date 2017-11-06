@@ -152,7 +152,7 @@ void Algorithm::mutate(Individual indiv){
 Individual Algorithm::childSelect(Population parent){
     Population result = Population(this->sampleSize, this->childPop, false);
     for(int i = 0; i < this->childPop; ++i){
-        int randomID = (int) rand * parent.size();
+        int randomID = (int) rand() * parent.size();
         result.saveIndividual(i, parent.getIndividual(randomID));
     }
     Individual fittest = result.getFittest();
