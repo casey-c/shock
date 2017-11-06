@@ -39,7 +39,6 @@ SOURCES += \
     workspace.cpp \
     waveformwidget.cpp \
     audioutil.cpp
-    workspace.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -54,7 +53,6 @@ HEADERS += \
     audioutil.h \
     workspace.h \
     waveformwidget.h
-    workspace.h
 
 FORMS += \
         mainwindow.ui \
@@ -63,4 +61,5 @@ FORMS += \
         aboutwindow.ui \
     controlpanel.ui \
     workspace.ui
+
 unix|win32: LIBS += -lsndfile
