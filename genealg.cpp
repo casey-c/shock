@@ -9,11 +9,13 @@ class Population;
 //Individual methods
 Individual::Individual() {}
 
+// Create an individual with sample length
 Individual::Individual(int sampleLength) {
     this->setGeneLength(sampleLength);
     this->sequence = QVector<float>(geneLength);
 }
 
+// Fills in the individual with random points
 void Individual::generateIndividual(){
     for(int i = 0; i < size(); i++){
         float gene = (float) rand();
@@ -21,23 +23,28 @@ void Individual::generateIndividual(){
     }
 }
 
+// Sets the length of gene
 void Individual::setGeneLength(int len){
     this->geneLength = len;
 }
 
+// Gets Gene at a specific index
 float Individual::getGene(int index){
     return this->sequence.at(index);
 }
 
+// Sets gene at a specicic index with a specific value
 void Individual::setGene(int index, float value){
     this->sequence[index] = value;
     this->fit = 0;
 }
 
+// Returns length of the sequence
 int Individual::size(){
     return this->sequence.length();
 }
 
+// Get the fitness of the individual
 int Individual::getFit(){
     if(this->fit == 0){
         Fitness find;
@@ -49,6 +56,8 @@ int Individual::getFit(){
 
 
 //Population methods
+
+// Create a population with a specific population
 Population::Population(int sampleSize, int populationSize, bool initialized) {
     this->individuals = QVector<Individual>(populationSize);
     if(initialized){
@@ -60,10 +69,12 @@ Population::Population(int sampleSize, int populationSize, bool initialized) {
     }
 }
 
+// Get an individual at an index
 Individual Population::getIndividual(int index){
     return this->individuals[index];
 }
 
+// Get the fittest of the population
 Individual Population::getFittest(){
     Individual fittest = individuals[0];
     for(int i = 0; i < this->size(); ++i){
@@ -74,10 +85,12 @@ Individual Population::getFittest(){
     return fittest;
 }
 
+// Return the number of individuals in population
 int Population::size(){
     return this->individuals.length();
 }
 
+// Write an idividual in the population
 void Population::saveIndividual(int index, Individual indiv){
     this->individuals[index] = indiv;
 }
@@ -87,6 +100,7 @@ void Population::saveIndividual(int index, Individual indiv){
 //Algorithm Methods
 Algorithm::Algorithm() {}
 
+// Set the settings
 Algorithm::Algorithm(double uniform, double mutation,
                      int children, int sample, bool elite){
     this->uniformRate = uniform;
@@ -96,7 +110,7 @@ Algorithm::Algorithm(double uniform, double mutation,
     this->elitism = elite;
 }
 
-
+// Start evolving populations, crossing over and generating new children
 Population Algorithm::evolvePopulation(Population parent){
     this->sampleSize = parent.getIndividual(0).size();
     Population newPopulation = Population(sampleSize, parent.size(), false);
@@ -125,8 +139,7 @@ Population Algorithm::evolvePopulation(Population parent){
     return newPopulation;
 }
 
-
-
+// Switching the gene based on the given uniform rate
 Individual Algorithm::crossover(Individual indiv1, Individual indiv2){
     Individual newChild = Individual(indiv1.size());
 
@@ -140,6 +153,7 @@ Individual Algorithm::crossover(Individual indiv1, Individual indiv2){
     return newChild;
 }
 
+// Randomly introduce a random gene to prevent too early convergence
 void Algorithm::mutate(Individual indiv){
     for(int i = 0; i < indiv.size(); ++i){
         if(rand() <= this->mutationRate){
@@ -149,6 +163,7 @@ void Algorithm::mutate(Individual indiv){
     }
 }
 
+// Select the fittest child
 Individual Algorithm::childSelect(Population parent){
     Population result = Population(this->sampleSize, this->childPop, false);
     for(int i = 0; i < this->childPop; ++i){
@@ -162,10 +177,13 @@ Individual Algorithm::childSelect(Population parent){
 
 
 //Fitness methods
+
+// Set the best solution
 void Fitness::setSolution(QVector<float> newSolution){
     solution = newSolution;
 }
 
+// Get the fitness of an individual based on the result
 int Fitness::getFitness(Individual* in){
     int fitness = 0;
     Individual individual = *in;
@@ -175,16 +193,17 @@ int Fitness::getFitness(Individual* in){
     return fitness;
 }
 
+// Get the most fit
 int Fitness::getMaxFitness(){
     int maxFitness = this->solution.length();
     return maxFitness;
 }
 
+//GA methods
 
 GeneAlg::GeneAlg(){}
 
-
-//GA method
+// Set the settings
 GeneAlg::GeneAlg(AlgoSettings settings)
 {
     //if(settings != NULL){
@@ -196,6 +215,7 @@ GeneAlg::GeneAlg(AlgoSettings settings)
     //}
 }
 
+// overrides IAlgorithm's method
 QVector<float> GeneAlg::run(QVector<QVector<float> > input){
     //QVector<Individual> solutions = QVector<Individual>();
 
