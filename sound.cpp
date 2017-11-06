@@ -112,5 +112,5 @@ void Sound::on_sliderVol_valueChanged(){
 
 bool Sound::validSoundFile(QString path){
     QFileInfo fi(path);
-    return fi.isFile() && fi.suffix() == "wav" || fi.suffix() == "mp3";
+    return (fi.isFile()) && (fi.suffix() == "wav" || fi.suffix() == "mp3");
 }
