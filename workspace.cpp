@@ -8,7 +8,7 @@ Workspace::Workspace(QWidget *parent) :
     ui(new Ui::Workspace)
 {
     ui->setupUi(this);
-    this->soundLoaded = false;
+    soundLoaded = false;
 }
 
 Workspace::~Workspace()
@@ -16,17 +16,14 @@ Workspace::~Workspace()
     delete ui;
 }
 
-
-
-
 void Workspace::loadSound(Sound* sound){
 
-    if (this->soundLoaded) {
+    if (soundLoaded) {
         unloadSound();
     }
 
-    this->snd = sound;
-    this->soundLoaded = true;
+    snd = sound;
+    soundLoaded = true;
 
     WaveformWidget* w = new WaveformWidget(this, snd->getFileName());
 
