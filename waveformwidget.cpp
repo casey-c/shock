@@ -112,9 +112,9 @@ void WaveformWidget::overviewDraw(QPaintEvent* evt) {
     int minY = evt->region().boundingRect().y();
     int maxY = evt->region().boundingRect().bottomRight().y();
 
-//    qDebug() << "min" << minX << "max" << maxX;
+    qDebug() << "min" << minX << "max" << maxX;
 
-//    qDebug() << "min" << minY << "max" << maxY;
+    qDebug() << "min" << minY << "max" << maxY;
 
 
     int numChannels = peakList.size();

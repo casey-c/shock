@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "sound.h"
+#include "waveformwidget.h"
 
 namespace Ui {
     class Workspace;
@@ -25,6 +26,7 @@ private:
     Ui::Workspace *ui;
     bool soundLoaded;
     Sound* snd;
+    WaveformWidget* child;
 };
 
 #endif // WORKSPACE_H

@@ -7,7 +7,8 @@ Workspace::Workspace(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Workspace)
 {
-
+    ui->setupUi(this);
+    this->soundLoaded = false;
 }
 
 Workspace::~Workspace()
@@ -19,30 +20,39 @@ Workspace::~Workspace()
 
 
 void Workspace::loadSound(Sound* sound){
+
+    if (this->soundLoaded) {
+        unloadSound();
+    }
+
     this->snd = sound;
     this->soundLoaded = true;
 
-    qDebug() << "trying to display waveform!!" << snd->getFileName();
+
+
 
     WaveformWidget* w = new WaveformWidget(this, snd->getFileName());
     //w->setMinimumHeight(40);
 
-    qDebug() << "trying..." << w;
-
+    //w->setParent(this);
 
     //TODO I need help here. I have no clue how to get the UI to display the waveform :(
 
+    //ui->frame->setLayout(ui->gridLayout);
+
     ui->gridLayout->addWidget(w);
-    //ui->workspaceWaveform->addWidget(w);
-
-
-    qDebug() << "trying..." << w;
-
-    ui->setupUi(this);
+    child = w;
 }
 
 void Workspace::unloadSound()
 {
+    // TODO need help here
+
+
     //this->snd = null;
     this->soundLoaded = false;
+    qDebug() << "removing" << snd->getFileName();
+    ui->gridLayout->removeWidget(child);
+
+    qDebug() << this->children();
 }
