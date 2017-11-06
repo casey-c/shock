@@ -35,7 +35,8 @@ SOURCES += \
     genealg.cpp \
     algosettings.cpp \
     param.cpp \
-    controlpanel.cpp
+    controlpanel.cpp \
+    workspace.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -46,11 +47,13 @@ HEADERS += \
     ialgorithm.h \
     algosettings.h \
     param.h \
-    controlpanel.h
+    controlpanel.h \
+    workspace.h
 
 FORMS += \
         mainwindow.ui \
         sound.ui \
         soundcontainer.ui \
         aboutwindow.ui \
-    controlpanel.ui
+    controlpanel.ui \
+    workspace.ui

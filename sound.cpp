@@ -2,7 +2,8 @@
 #include "ui_sound.h"
 #include <QDebug>
 #include <QRegExp>
-#include <soundcontainer.h>
+//#include <soundcontainer.h>
+//#include "waveformwidget.h"
 
 Sound::Sound(QWidget *parent, QString fn) :
     QWidget(parent),
@@ -109,4 +110,10 @@ void Sound::on_sliderVol_sliderMoved(){
 bool Sound::validSoundFile(QString path){
     QFileInfo fi(path);
     return fi.isFile() && fi.suffix() == "wav" || fi.suffix() == "mp3";
+}
+
+void Sound::on_loadToWorkspace_clicked()
+{
+    //play();
+    emit sig_loadSoundToWorkspace(this);
 }

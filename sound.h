@@ -31,6 +31,9 @@ public:
 signals:
     void sig_shiftUp();
     void sig_shiftDown();
+    void sig_loadToWorkspace();
+    void sig_loadSoundToWorkspace(Sound* snd);
+
 
 private slots:
     void on_btnPlay_clicked();
@@ -41,6 +44,7 @@ private slots:
     void on_leName_returnPressed();
     void adjustVolume();
     void on_sliderVol_sliderMoved();
+    void on_loadToWorkspace_clicked();
 
 private:
     Ui::Sound *ui;

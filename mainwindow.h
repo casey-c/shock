@@ -4,10 +4,11 @@
 #include <QMainWindow>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
-#include <soundcontainer.h>
+#include "soundcontainer.h"
 #include "sound.h"
-#include <aboutwindow.h>
-#include <controlpanel.h>
+#include "aboutwindow.h"
+#include "controlpanel.h"
+#include "workspace.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,17 +23,23 @@ public:
     ~MainWindow();
 
 signals:
+    void sig_loadSndToWorkspace(Sound* snd);
+
+signals:
     void sig_sndFileDropped(QString path);
 
 private:
     Ui::MainWindow* ui;
     SoundContainer* sndCont;
+
     AboutWindow* abtWindow;
     ControlPanel* ctrlPanel;
+    Workspace* workspace;
     void dragEnterEvent(QDragEnterEvent *e);
     void dropEvent(QDropEvent* event);
 private slots:
-    void on_actionAbout_triggered();
+    void on_actionAbout_triggered();    
+    void loadSoundToWorkspace(Sound* snd);
 };
 
 #endif // MAINWINDOW_H
