@@ -2,6 +2,7 @@
 #include "ui_sound.h"
 #include <QDebug>
 #include <QRegExp>
+#include <QFileInfo>
 //#include <soundcontainer.h>
 //#include "waveformwidget.h"
 
