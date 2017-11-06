@@ -4,6 +4,8 @@
 #include "stdlib.h"
 #include "algosettings.h"
 
+
+//Abstract algorithm class which other algoritms will be based off of
 class IAlgorithm
 {
 public:

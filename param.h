@@ -3,6 +3,7 @@
 
 #include <QString>
 
+// Storage for a specific setting
 class Param
 {
 public:
