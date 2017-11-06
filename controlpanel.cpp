@@ -8,13 +8,15 @@ ControlPanel::ControlPanel(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //set valid ranges for randomness and time
     ui->randomnessLE->setValidator(new QDoubleValidator(0.00, 1.00, 2, this));
     ui->minutesLE->setValidator(new QIntValidator(0, 59, this));
     ui->secondsLE->setValidator(new QIntValidator(0, 59, this));
 
-    infinite = false;
+    infinite = false; //initialize time settings
     mins = 0;
     secs = 0;
+
 
     QObject::connect(ui->minutesLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
     QObject::connect(ui->secondsLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
@@ -43,12 +45,14 @@ void ControlPanel::on_randomnessLE_returnPressed()
 
 void ControlPanel::on_randomnessLE_editingFinished()
 {
+    //set the slider to the line edit's value
     randomness = (ui->randomnessLE->text()).toDouble();
     ui->randomnessSlider->setValue((int) (randomness * 100));
 }
 
 void ControlPanel::on_randomnessSlider_valueChanged(int value)
 {
+    //set the line edit to the slider's value
     randomness = (double)value / 100;
     ui->randomnessLE->setText(QString::number(randomness));
 }
@@ -63,9 +67,11 @@ void ControlPanel::on_infiniteSoundChk_toggled(bool checked)
 }
 
 void ControlPanel::on_time_changed(){
+    //get time settings from line edits
     mins = ui->minutesLE->text().toInt();
     secs = ui->minutesLE->text().toInt();
 
+    //make "12:6" look like time: "12:06"
     QLineEdit* le = qobject_cast<QLineEdit*>(sender());
     if(le->text().length() == 1){
         le->setText("0" + le->text());

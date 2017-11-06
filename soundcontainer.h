@@ -32,7 +32,7 @@ private slots:
 
     void on_btnDeselectAll_clicked();
 
-    void on_tabVolSlider_sliderMoved(int position);
+    void on_tabVolSlider_valueChanged(int position);
     void on_sndFileDropped(QString path);
 
 private:

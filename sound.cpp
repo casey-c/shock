@@ -4,14 +4,17 @@
 #include <QRegExp>
 #include <soundcontainer.h>
 
+//create a new sound widget with filepath fn
 Sound::Sound(QWidget *parent, QString fn) :
     QWidget(parent),
     ui(new Ui::Sound)
 {
     ui->setupUi(this);
     setPath(fn);
-    ui->leName->setText(fn.replace(QRegExp(".+/"), ""));
+    ui->leName->setText(fn.replace(QRegExp(".+/"), "")); //strip folders off of filename and display it
 
+    //set the background of the line edit to match the background
+    // (so it looks like a label but it's editable)
     QPalette palette = ui->leName->palette();
     QColor color = palette.color( QPalette::Disabled, QPalette::Base );
     palette.setColor( QPalette::Normal, QPalette::Base, color );
@@ -94,6 +97,7 @@ void Sound::adjustVolume(){
 
     qreal value = (volumeMod / qreal(100.0)) * ui->sliderVol->value();
 
+    //convert from logarithmic scale to linear
     qreal linearVolume = QAudio::convertVolume( value / qreal(100.0),
                                                QAudio::LogarithmicVolumeScale,
                                                QAudio::LinearVolumeScale);
@@ -102,7 +106,7 @@ void Sound::adjustVolume(){
     player.setVolume(actualVolume);
 }
 
-void Sound::on_sliderVol_sliderMoved(){
+void Sound::on_sliderVol_valueChanged(){
     adjustVolume();
 }
 
