@@ -36,6 +36,7 @@ SOURCES += \
     algosettings.cpp \
     param.cpp \
     controlpanel.cpp
+    workspace.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -47,10 +48,12 @@ HEADERS += \
     algosettings.h \
     param.h \
     controlpanel.h
+    workspace.h
 
 FORMS += \
         mainwindow.ui \
         sound.ui \
         soundcontainer.ui \
         aboutwindow.ui \
-    controlpanel.ui
+    controlpanel.ui \
+    workspace.ui

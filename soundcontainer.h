@@ -22,6 +22,9 @@ public:
 
     ~SoundContainer();
 
+signals:
+    void sig_loadToWorkspace(Sound* snd);
+
 private slots:
     void on_btnAdd_clicked();
     void on_btnRemove_clicked();
@@ -32,6 +35,7 @@ private slots:
 
     void on_btnDeselectAll_clicked();
 
+    void loadSoundToWorkspace(Sound* snd);
     void on_tabVolSlider_valueChanged(int position);
     void on_sndFileDropped(QString path);
 

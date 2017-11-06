@@ -2,7 +2,8 @@
 #include "ui_sound.h"
 #include <QDebug>
 #include <QRegExp>
-#include <soundcontainer.h>
+//#include <soundcontainer.h>
+//#include "waveformwidget.h"
 
 //create a new sound widget with filepath fn
 Sound::Sound(QWidget *parent, QString fn) :
@@ -108,6 +109,12 @@ void Sound::adjustVolume(){
 
 void Sound::on_sliderVol_valueChanged(){
     adjustVolume();
+}
+
+void Sound::on_loadToWorkspace_clicked()
+{
+    //play();
+    emit sig_loadSoundToWorkspace(this);
 }
 
 bool Sound::validSoundFile(QString path){

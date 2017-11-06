@@ -40,7 +40,13 @@ void SoundContainer::addSound(Sound* snd){
 
     QObject::connect(snd, SIGNAL(sig_shiftUp()), SLOT(shiftSndUp()));
     QObject::connect(snd, SIGNAL(sig_shiftDown()), SLOT(shiftSndDown()));
+    QObject::connect(snd, SIGNAL(sig_loadSoundToWorkspace(Sound*)), this, SLOT(loadSoundToWorkspace(Sound*)));
 }
+
+void SoundContainer::loadSoundToWorkspace(Sound* snd) {
+    emit sig_loadToWorkspace(snd);
+}
+
 
 void SoundContainer::on_btnAdd_clicked()
 {
