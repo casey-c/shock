@@ -177,7 +177,7 @@ void AudioUtil::populateCache() {
         fileCache.append(chunk[i]);
 
 
-    qDebug() << "in populate: fileCache size is" << fileCache.size();
+    //qDebug() << "in populate: fileCache size is" << fileCache.size();
 }
 
 QVector<double> AudioUtil::getAllFrames() {
