@@ -24,6 +24,7 @@ public:
 
 signals:
     void sig_loadToWorkspace(Sound* snd);
+    void sig_soundDeleted(Sound* snd);
 
 private slots:
     void on_btnAdd_clicked();
@@ -35,8 +36,8 @@ private slots:
 
     void on_btnDeselectAll_clicked();
 
-    void on_tabVolSlider_sliderMoved(int position);
     void loadSoundToWorkspace(Sound* snd);
+    void on_tabVolSlider_valueChanged(int position);
     void on_sndFileDropped(QString path);
 
 private:

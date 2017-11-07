@@ -4,6 +4,7 @@
 #include "stdlib.h"
 #include "ialgorithm.h"
 
+// Belongs to GA, stores a individual's gene sequence
 class Individual{
 public:
     Individual();
@@ -21,7 +22,7 @@ private:
 
 };
 
-
+// Population stores the individuals of a generation
 class Population
 {
 public:
@@ -34,7 +35,7 @@ private:
     QVector<Individual> individuals;
 };
 
-
+// The actual algorithm to be used
 class Algorithm
 {
 public:
@@ -55,6 +56,7 @@ private:
     Individual childSelect(Population parent);
 };
 
+// Function to find the most fit solution
 class Fitness
 {
 public:
@@ -67,8 +69,7 @@ public:
     int getMaxFitness();
 };
 
-
-
+// Uses the IAlgorithm interface
 class GeneAlg : public IAlgorithm
 {
 public:

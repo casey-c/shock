@@ -8,23 +8,21 @@ Workspace::Workspace(QWidget *parent) :
     ui(new Ui::Workspace)
 {
     ui->setupUi(this);
-    this->soundLoaded = false;
+    soundLoaded = false;
 }
 
-Workspace::~Workspace()
-{
+Workspace::~Workspace(){
     delete ui;
 }
 
-
 void Workspace::loadSound(Sound* sound){
 
-    if (this->soundLoaded) {
+    if (soundLoaded) {
         unloadSound();
     }
 
-    this->snd = sound;
-    this->soundLoaded = true;
+    snd = sound;
+    soundLoaded = true;
 
     WaveformWidget* w = new WaveformWidget(this, snd->getFileName());
 
@@ -32,9 +30,14 @@ void Workspace::loadSound(Sound* sound){
     child = w;
 }
 
-void Workspace::unloadSound()
-{
-    this->soundLoaded = false;
+void Workspace::checkSound(Sound* sound){
+    if (snd == sound){
+        unloadSound();
+    }
+}
+
+void Workspace::unloadSound(){
+    soundLoaded = false;
     qDebug() << "removing " << snd->getFileName() << " from workspace";
     ui->gridLayout->removeWidget(child);
 

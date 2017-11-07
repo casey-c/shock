@@ -23,10 +23,8 @@ public:
     ~MainWindow();
 
 signals:
-    void sig_loadSndToWorkspace(Sound* snd);
-
-signals:
     void sig_sndFileDropped(QString path);
+    void sig_loadSndToWorkspace(Sound* snd);
 
 private:
     Ui::MainWindow* ui;

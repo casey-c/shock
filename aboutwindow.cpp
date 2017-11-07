@@ -6,22 +6,26 @@ AboutWindow::AboutWindow(QWidget *parent) :
     ui(new Ui::AboutWindow)
 {
     ui->setupUi(this);
-    this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint);
+    this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint); //remove "?" button
     ui->sectionsGrBox->setLayout(ui->verticalLayout);
 
     addButton("The Project");
     addButton("The Developers");
     addButton("Other");
 
+    //stick the spacer under the buttons
     ui->verticalLayout->removeItem(ui->verticalSpacer);
     ui->verticalLayout->addItem(ui->verticalSpacer);
 
+
+    //format the text (html, wordwrap)
     ui->lblAbout->setTextFormat(Qt::RichText);
     ui->lblAbout->setTextInteractionFlags(Qt::TextBrowserInteraction);
     ui->lblAbout->setOpenExternalLinks(true);
     ui->lblAbout->setWordWrap(true);
 }
 
+//add a button to the about window
 void AboutWindow::addButton(QString name){
     QPushButton* btn = new QPushButton(QString(name));
     sectionBtns.push_back(btn);

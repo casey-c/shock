@@ -44,8 +44,8 @@ private slots:
     void on_btnShiftDown_clicked();
     void on_leName_returnPressed();
     void adjustVolume();
-    void on_sliderVol_sliderMoved();
     void on_loadToWorkspace_clicked();
+    void on_sliderVol_valueChanged();
 
 private:
     Ui::Sound *ui;

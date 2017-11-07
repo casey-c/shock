@@ -60,9 +60,12 @@ FORMS += \
         soundcontainer.ui \
         aboutwindow.ui \
     controlpanel.ui \
+    workspace.ui \
     workspace.ui
 
-win32: LIBS += -L$$PWD/../../../../../../../libsndfile/lib/ -llibsndfile-1
+win32: LIBS += -llibsndfile-1
+
+unix|win32: LIBS += -L$$PWD/../../../../../../../libsndfile/lib/ -llibsndfile-1
 
 INCLUDEPATH += $$PWD/../../../../../../../libsndfile/include
 DEPENDPATH += $$PWD/../../../../../../../libsndfile/include

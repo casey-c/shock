@@ -21,6 +21,7 @@ public:
 
 private slots:
     void loadSound(Sound* snd);
+    void checkSound(Sound* snd);
 
 private:
     Ui::Workspace *ui;
