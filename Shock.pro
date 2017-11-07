@@ -32,36 +32,35 @@ SOURCES += \
         sound.cpp \
         soundcontainer.cpp \
         aboutwindow.cpp \
-    genealg.cpp \
-    algosettings.cpp \
-    param.cpp \
-    controlpanel.cpp \
-    workspace.cpp \
-    waveformwidget.cpp \
-    audioutil.cpp
+        genealg.cpp \
+        algosettings.cpp \
+        param.cpp \
+        controlpanel.cpp \
+        workspace.cpp \
+        waveformwidget.cpp \
+        audioutil.cpp
 
 HEADERS += \
         mainwindow.h \
         sound.h \
         soundcontainer.h \
         aboutwindow.h \
-    genealg.h \
-    ialgorithm.h \
-    algosettings.h \
-    param.h \
-    controlpanel.h \
-    workspace.h \
-    waveformwidget.h \
-    audioutil.h
+        genealg.h \
+        ialgorithm.h \
+        algosettings.h \
+        param.h \
+        controlpanel.h \
+        workspace.h \
+        waveformwidget.h \
+        audioutil.h
 
 FORMS += \
         mainwindow.ui \
         sound.ui \
         soundcontainer.ui \
         aboutwindow.ui \
-    controlpanel.ui \
-    workspace.ui \
-    workspace.ui
+        controlpanel.ui \
+        workspace.ui
 
 win32: LIBS += -llibsndfile-1
 
