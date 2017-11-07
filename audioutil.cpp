@@ -132,8 +132,6 @@ QVector<double> AudioUtil::peakForRegion(int start, int end) {
 
             regionPeak.append(max0);
             regionPeak.append(max1);
-
-            return regionPeak;
         }
         else if (getNumChannels() == 1) {
 
@@ -147,13 +145,13 @@ QVector<double> AudioUtil::peakForRegion(int start, int end) {
             }
 
             regionPeak.append(max0);
-            return regionPeak;
         }
     }
     else if (fileHandlingMode == DISK_MODE) {
         qWarning() << "ERROR: DISKMODE NOT HANDLED";
-        return regionPeak;
     }
+
+    return regionPeak;
 }
 
 void AudioUtil::populateCache() {

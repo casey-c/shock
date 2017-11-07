@@ -16,6 +16,9 @@ Workspace::~Workspace(){
 }
 
 void Workspace::loadSound(Sound* sound){
+    if(snd == sound){
+        return;
+    }
 
     if (soundLoaded) {
         unloadSound();
@@ -24,13 +27,11 @@ void Workspace::loadSound(Sound* sound){
     snd = sound;
     soundLoaded = true;
 
-    WaveformWidget* w = new WaveformWidget(this, snd->getFileName());
-
-    ui->gridLayout->addWidget(w);
-    child = w;
+    dispWaveform = new WaveformWidget(this, snd->getFileName());
+    ui->gridLayout->addWidget(dispWaveform);
 }
 
-void Workspace::checkSound(Sound* sound){
+void Workspace::validateSound(Sound* sound){
     if (snd == sound){
         unloadSound();
     }
@@ -39,10 +40,10 @@ void Workspace::checkSound(Sound* sound){
 void Workspace::unloadSound(){
     soundLoaded = false;
     qDebug() << "removing " << snd->getFileName() << " from workspace";
-    ui->gridLayout->removeWidget(child);
+    ui->gridLayout->removeWidget(dispWaveform);
 
     //qDebug() << this->children();
-    delete child;
+    delete dispWaveform;
 
     ui->retranslateUi(this);
 }

@@ -21,13 +21,13 @@ public:
 
 private slots:
     void loadSound(Sound* snd);
-    void checkSound(Sound* snd);
+    void validateSound(Sound* snd);
 
 private:
     Ui::Workspace *ui;
     bool soundLoaded;
     Sound* snd;
-    WaveformWidget* child;
+    WaveformWidget* dispWaveform;
 };
 
 #endif // WORKSPACE_H

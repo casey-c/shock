@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->shockframe->layout()->addWidget(ui->shockButton);
 
     QObject::connect(sndCont, SIGNAL(sig_loadToWorkspace(Sound*)), workspace, SLOT(loadSound(Sound*)));
-    QObject::connect(sndCont, SIGNAL(sig_soundDeleted(Sound*)), workspace, SLOT(checkSound(Sound*)));
+    QObject::connect(sndCont, SIGNAL(sig_soundDeleted(Sound*)), workspace, SLOT(validateSound(Sound*)));
     //QObject::connect(this, SIGNAL(sig_loadSndToWorkspace(Sound*)), workspace, SLOT(loadSound(Sound*)));
     //QObject::connect(parent, SIGNAL(addToWorkspace(Sound*)), this, SLOT(loadSound(Sound*)));
 
