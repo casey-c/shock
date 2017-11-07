@@ -32,27 +32,22 @@ SOURCES += \
         sound.cpp \
         soundcontainer.cpp \
         aboutwindow.cpp \
-    genealg.cpp \
-    algosettings.cpp \
-    param.cpp \
     controlpanel.cpp \
     workspace.cpp \
+    audioutil.cpp \
     waveformwidget.cpp \
-    audioutil.cpp
+    workspace.cpp
 
 HEADERS += \
         mainwindow.h \
         sound.h \
         soundcontainer.h \
         aboutwindow.h \
-    genealg.h \
-    ialgorithm.h \
-    algosettings.h \
-    param.h \
     controlpanel.h \
-    audioutil.h \
     workspace.h \
-    waveformwidget.h
+    audioutil.h \
+    waveformwidget.h \
+    workspace.h
 
 FORMS += \
         mainwindow.ui \
@@ -60,6 +55,12 @@ FORMS += \
         soundcontainer.ui \
         aboutwindow.ui \
     controlpanel.ui \
+    workspace.ui \
     workspace.ui
 
-unix|win32: LIBS += -lsndfile
+win32: LIBS += -llibsndfile-1
+
+unix|win32: LIBS += -L$$PWD/../../../../../../../libsndfile/lib/ -llibsndfile-1
+
+INCLUDEPATH += $$PWD/../../../../../../../libsndfile/include
+DEPENDPATH += $$PWD/../../../../../../../libsndfile/include
