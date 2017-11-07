@@ -188,7 +188,7 @@ int Fitness::getFitness(Individual* in){
     int fitness = 0;
     Individual individual = *in;
     for(int i = 0; i < individual.size() && i < this->solution.length(); ++i){
-        fitness += abs(individual.getGene(i) - this->solution[i]);
+        fitness += qAbs(individual.getGene(i) - this->solution[i]);
     }
     return fitness;
 }
