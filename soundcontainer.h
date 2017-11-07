@@ -24,6 +24,7 @@ public:
 
 signals:
     void sig_loadToWorkspace(Sound* snd);
+    void sig_soundDeleted(Sound* snd);
 
 private slots:
     void on_btnAdd_clicked();

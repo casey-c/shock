@@ -62,6 +62,7 @@ void SoundContainer::on_btnAdd_clicked()
 }
 
 void SoundContainer::removeSound(Sound* snd){
+    emit sig_soundDeleted(snd);
     ui->sndLayout->removeWidget(snd);
     sounds.removeOne(snd);
     delete snd;

@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->grLayout->addWidget(sndCont);
 
     ctrlPanel = new ControlPanel(); //create control panel
-    QObject::connect(sndCont, SIGNAL(sig_loadToWorkspace(Sound*)), this, SLOT(loadSoundToWorkspace(Sound*)));
+    //QObject::connect(sndCont, SIGNAL(sig_loadToWorkspace(Sound*)), this, SLOT(loadSoundToWorkspace(Sound*)));
     ui->gridFrame->layout()->addWidget(ctrlPanel);
     setAcceptDrops(true);
 
@@ -29,21 +29,20 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->shockframe->layout()->addWidget(workspace);
     ui->shockframe->layout()->addWidget(ui->shockButton);
 
-
-    QObject::connect(this, SIGNAL(sig_loadSndToWorkspace(Sound*)), workspace, SLOT(loadSound(Sound*)));
+    QObject::connect(sndCont, SIGNAL(sig_loadToWorkspace(Sound*)), workspace, SLOT(loadSound(Sound*)));
+    QObject::connect(sndCont, SIGNAL(sig_soundDeleted(Sound*)), workspace, SLOT(checkSound(Sound*)));
+    //QObject::connect(this, SIGNAL(sig_loadSndToWorkspace(Sound*)), workspace, SLOT(loadSound(Sound*)));
     //QObject::connect(parent, SIGNAL(addToWorkspace(Sound*)), this, SLOT(loadSound(Sound*)));
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow(){
     delete sndCont;
     delete ui;
     delete ctrlPanel;
     delete workspace;
 }
 
-void MainWindow::on_actionAbout_triggered()
-{
+void MainWindow::on_actionAbout_triggered(){
     if(abtWindow != nullptr){ //make sure you get a fresh aboutWindow
         delete abtWindow;
     }
@@ -53,8 +52,7 @@ void MainWindow::on_actionAbout_triggered()
     abtWindow->raise();
 }
 
-void MainWindow::loadSoundToWorkspace(Sound* snd)
-{
+void MainWindow::loadSoundToWorkspace(Sound* snd){
     emit sig_loadSndToWorkspace(snd);
 }
 
