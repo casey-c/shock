@@ -25,8 +25,11 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="3" column="2" colspan="3">
     <widget class="QFrame" name="frame">
+     <property name="styleSheet">
+      <string notr="true">background-color: #e7e7e7;</string>
+     </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Panel</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
@@ -87,6 +90,9 @@
       </item>
       <item row="2" column="1">
        <widget class="QPushButton" name="pushButton">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -134,6 +140,9 @@
       </item>
       <item row="1" column="0" rowspan="2">
        <widget class="QSlider" name="verticalSlider">
+        <property name="sliderPosition">
+         <number>99</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
