@@ -38,6 +38,13 @@ bool AudioUtil::setFile(QString filePath) {
     // Normalization
     sf_command(sndFile, SFC_SET_NORM_DOUBLE, NULL, SF_TRUE);
 
+
+    //conversion to mono
+
+    if (sfInfo->channels > 1) {
+        convertMono();
+        sndFile = sf_open(filePath.toStdString().c_str(), SFM_READ, sfInfo);
+    }
     if (fileHandlingMode == FULL_CACHE)
     {
         //fileCache.clear();
@@ -46,6 +53,28 @@ bool AudioUtil::setFile(QString filePath) {
 
     sndFileNotEmpty = true;
     return true;
+}
+
+void AudioUtil::convertMono() {
+    float *audioIn = new float[sfInfo->channels * sfInfo->frames];
+    sf_read_float(sndFile, audioIn, sfInfo->channels * sfInfo->frames);
+   // mixdown
+    float *audioOut = new float[sfInfo->frames];
+    for(int i = 0; i < sfInfo->frames; i++)
+    {
+        audioOut[i] = 0;
+        for(int j = 0; j < sfInfo->channels; j++)
+            audioOut[i] += audioIn[i*sfInfo->channels + j];
+        audioOut[i] /= sfInfo->channels;
+    }
+    sf_close(sndFile);
+    // write output
+    int frames = sfInfo->frames;
+    sfInfo->format = SF_FORMAT_WAV | SF_FORMAT_PCM_16;
+    sfInfo->channels = 1;
+    sndFile = sf_open((filePath).toStdString().c_str(), SFM_WRITE, sfInfo);
+    sf_write_float(sndFile, audioOut, frames);
+    sf_close(sndFile);
 }
 
 QVector<double> AudioUtil::calculateNormalizedPeaks() {
@@ -57,6 +86,14 @@ QVector<double> AudioUtil::calculateNormalizedPeaks() {
     sf_command(sndFile, SFC_CALC_NORM_MAX_ALL_CHANNELS,
                peaksPtr, sizeof(double)*getNumChannels());
 
+    double avg = 0;
+    for (int i = 0; i < getNumChannels(); ++i)
+        avg += peaksPtr[i];
+
+    peaks.push_back(avg/getNumChannels());
+
+    free(peaksPtr);
+    return peaks;
     for (int i = 0; i < getNumChannels(); ++i)
         peaks.push_back(peaksPtr[i]);
 
@@ -164,16 +201,42 @@ void AudioUtil::populateCache() {
     double* chunk = new double[readSize];
     int itemsRead = sf_read_double(sndFile, chunk, readSize);
 
+    int numChannels = getNumChannels();
+    int totalRead = 0;
+    double mono = 0;
+
+
     while (itemsRead == readSize) {
-        for (int i = 0; i < readSize; ++i)
-            fileCache.append(chunk[i]);
+        for (int i = 0; i < readSize; ++i) {
+            if (totalRead%numChannels == 0) {// only appends a single channel from a multi-channel sound
+                mono += chunk[i];
+                fileCache.append(mono/numChannels);
+                mono = 0;
+            }
+            else
+                mono += chunk[i];
+
+            totalRead++;
+        }
+
 
         itemsRead = sf_read_double(sndFile, chunk, readSize);
     }
 
-    for (int i = 0; i < itemsRead; ++i)
-        fileCache.append(chunk[i]);
+    for (int i = 0; i < itemsRead; ++i) {
+        if (totalRead%numChannels == 0) {// only appends a single channel from a multi-channel sound
+            mono += chunk[i];
+            fileCache.append(mono/numChannels);
+            mono = 0;
+        }
+        else
+            mono += chunk[i];
 
+        totalRead++;
+    }
+
+
+    sfInfo->channels = 1;
 
     //qDebug() << "in populate: fileCache size is" << fileCache.size();
 }
