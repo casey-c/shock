@@ -52,7 +52,9 @@
            </sizepolicy>
           </property>
           <property name="styleSheet">
-           <string notr="true">QSlider::handle { image: url(:/icons/circle.svg);}</string>
+           <string notr="true">QSlider::handle { image: url(:/icons/circle.svg);}
+QSlider::sub-page{background: #c7c7c7}
+QSlider::add-page{ background: #aacc77 }</string>
           </property>
           <property name="sliderPosition">
            <number>99</number>
