@@ -55,10 +55,10 @@
      id="layer1"
      transform="translate(0,-1020.3622)">
     <circle
-       style="fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:6;stroke-miterlimit:4;stroke-dasharray:none"
+       style="fill:#808080;fill-opacity:1;stroke:#333333;stroke-width:2.79999995;stroke-miterlimit:4;stroke-dasharray:none"
        id="path4136"
        cx="16"
        cy="1036.3622"
-       r="10.714279" />
+       r="14.419637" />
   </g>
 </svg>
