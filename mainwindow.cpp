@@ -25,9 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setAcceptDrops(true);
 
     workspace = new Workspace();
-    ui->shockframe->layout()->removeWidget(ui->shockButton);
     ui->shockframe->layout()->addWidget(workspace);
-    ui->shockframe->layout()->addWidget(ui->shockButton);
 
     QObject::connect(sndCont, SIGNAL(sig_loadToWorkspace(Sound*)), workspace, SLOT(loadSound(Sound*)));
     QObject::connect(sndCont, SIGNAL(sig_soundDeleted(Sound*)), workspace, SLOT(validateSound(Sound*)));
