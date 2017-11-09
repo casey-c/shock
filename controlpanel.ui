@@ -369,13 +369,25 @@
         <item>
          <widget class="QPushButton" name="pushButton_2">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>70</width>
+            <height>70</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>70</width>
+            <height>70</height>
+           </size>
+          </property>
           <property name="text">
-           <string>shock meme</string>
+           <string>shock</string>
           </property>
          </widget>
         </item>
