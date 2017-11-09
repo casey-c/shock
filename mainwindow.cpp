@@ -8,6 +8,7 @@
 #include <QMimeData>
 #include <QDirIterator>
 #include "genealg.h"
+#include "soundcard.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -35,6 +36,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //QObject::connect(parent, SIGNAL(addToWorkspace(Sound*)), this, SLOT(loadSound(Sound*)));
 
     setAcceptDrops(true);
+
+    QVBoxLayout* testLayout = new QVBoxLayout();
+    ui->tab2->setLayout(testLayout);
+    testLayout->addWidget(new SoundCard());
+    testLayout->addWidget(new SoundCard());
+
 }
 
 MainWindow::~MainWindow(){

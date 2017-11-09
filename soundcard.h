@@ -12,7 +12,7 @@ class SoundCard : public QWidget
     Q_OBJECT
 
 public:
-    explicit SoundCard(QWidget *parent = 0);
+    explicit SoundCard(QWidget* parent = 0);
     ~SoundCard();
 
 private:

@@ -6,6 +6,8 @@ SoundCard::SoundCard(QWidget *parent) :
     ui(new Ui::SoundCard)
 {
     ui->setupUi(this);
+
+    setStyleSheet(":hover {background-color: #eeeeee;}");
 }
 
 SoundCard::~SoundCard()
