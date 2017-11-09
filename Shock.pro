@@ -67,8 +67,3 @@ unix: LIBS += -lsndfile
 
 INCLUDEPATH += $$PWD/../../../../../../../libsndfile/include
 DEPENDPATH += $$PWD/../../../../../../../libsndfile/include
-
-RESOURCES += \
-    resources.qrc
-
-QMAKE_CXXFLAGS += -std=c++17
