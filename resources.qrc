@@ -6,5 +6,6 @@
         <file>icons/stop.svg</file>
         <file>icons/trash.svg</file>
         <file>icons/trash_thicc.svg</file>
+        <file>icons/trash_thicc_v2.svg</file>
     </qresource>
 </RCC>
