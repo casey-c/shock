@@ -51,6 +51,9 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="styleSheet">
+           <string notr="true">QSlider::handle { image: url(:/icons/circle.svg);}</string>
+          </property>
           <property name="sliderPosition">
            <number>99</number>
           </property>
