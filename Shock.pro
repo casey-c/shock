@@ -38,7 +38,8 @@ SOURCES += \
     controlpanel.cpp \
     workspace.cpp \
     waveformwidget.cpp \
-    audioutil.cpp
+    audioutil.cpp \
+    soundcard.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -52,7 +53,8 @@ HEADERS += \
     controlpanel.h \
     workspace.h \
     waveformwidget.h \
-    audioutil.h
+    audioutil.h \
+    soundcard.h
 
 FORMS += \
         mainwindow.ui \
@@ -61,10 +63,14 @@ FORMS += \
         aboutwindow.ui \
     controlpanel.ui \
     workspace.ui \
-    workspace.ui
+    workspace.ui \
+    soundcard.ui
 
 win32: LIBS += -L$$PWD/../../../../../../../libsndfile/lib/ -llibsndfile-1
 unix: LIBS += -lsndfile
 
 INCLUDEPATH += $$PWD/../../../../../../../libsndfile/include
 DEPENDPATH += $$PWD/../../../../../../../libsndfile/include
+
+RESOURCES += \
+    resources.qrc
