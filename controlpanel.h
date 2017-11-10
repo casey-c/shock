@@ -2,6 +2,8 @@
 #define CONTROLPANEL_H
 
 #include <QWidget>
+#include <QHash>
+#include "param.h"
 
 namespace Ui {
 class ControlPanel;
@@ -16,19 +18,17 @@ public:
     ~ControlPanel();
 
     int getTime();
-    double getRandomness();
 
+    void addRow(QList<QWidget*> widgets);
+    double getValue(QString key);
 private slots:
-    void on_randomnessLE_returnPressed();
-    void on_randomnessLE_editingFinished();
-    void on_randomnessSlider_valueChanged(int value);
     void on_infiniteSoundChk_toggled(bool checked);
     void on_time_changed();
 
 private:
     Ui::ControlPanel *ui;
     QString alg;
-    double randomness;
+    QHash<QString, Param*> data;
 
     bool infinite;
     int mins;

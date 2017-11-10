@@ -1,25 +1,26 @@
 #include "controlpanel.h"
 #include "ui_controlpanel.h"
 #include <QLineEdit>
+#include <QDebug>
 
 ControlPanel::ControlPanel(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ControlPanel)
 {
     ui->setupUi(this);
-
-    //set valid ranges for randomness and time
-    ui->randomnessLE->setValidator(new QDoubleValidator(0.00, 1.00, 2, this));
-    ui->minutesLE->setValidator(new QIntValidator(0, 59, this));
-    ui->secondsLE->setValidator(new QIntValidator(0, 59, this));
-
     infinite = false; //initialize time settings
     mins = 0;
     secs = 0;
 
-
     QObject::connect(ui->minutesLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
     QObject::connect(ui->secondsLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
+
+
+    Param* p = new Param("crab", 2.1);
+    MPElineEdit* m = new MPElineEdit(-4.1, 7.4, 1, 2.1, this);
+    QObject::connect(m, SIGNAL(sig_valueChanged(double)), p,
+                     SLOT(on_valueChanged(double)));
+
 }
 
 ControlPanel::~ControlPanel()
@@ -32,29 +33,6 @@ int ControlPanel::getTime(){
     if(infinite) return -1;
 
     return mins * 60 + secs;
-}
-
-double ControlPanel::getRandomness(){
-    return randomness;
-}
-
-void ControlPanel::on_randomnessLE_returnPressed()
-{
-    ui->randomnessLE->clearFocus();
-}
-
-void ControlPanel::on_randomnessLE_editingFinished()
-{
-    //set the slider to the line edit's value
-    randomness = (ui->randomnessLE->text()).toDouble();
-    ui->randomnessSlider->setValue((int) (randomness * 100));
-}
-
-void ControlPanel::on_randomnessSlider_valueChanged(int value)
-{
-    //set the line edit to the slider's value
-    randomness = (double)value / 100;
-    ui->randomnessLE->setText(QString::number(randomness));
 }
 
 
@@ -77,4 +55,20 @@ void ControlPanel::on_time_changed(){
         le->setText("0" + le->text());
     }
     le->clearFocus();
+}
+
+void ControlPanel::addRow(QList<QWidget*> widgets){
+    QHBoxLayout* l = new QHBoxLayout();
+    for(auto w: widgets){
+        l->addWidget(w);
+    }
+    ui->scrlLayout->addLayout(l);
+}
+
+double ControlPanel::getValue(QString key){
+    if(data.find(key) != data.end()){
+        return data[key]->getValue();
+    }else{
+        return 0.00;
+    }
 }
