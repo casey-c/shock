@@ -38,7 +38,10 @@ SOURCES += \
         controlpanel.cpp \
         workspace.cpp \
         waveformwidget.cpp \
-        audioutil.cpp
+        audioutil.cpp \
+    mutableparamelement.cpp \
+    mpeslider.cpp \
+    mpelineedit.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -52,7 +55,8 @@ HEADERS += \
         controlpanel.h \
         workspace.h \
         waveformwidget.h \
-        audioutil.h
+        audioutil.h \
+    mutableparamelement.h
 
 FORMS += \
         mainwindow.ui \

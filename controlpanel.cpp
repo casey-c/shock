@@ -18,8 +18,7 @@ ControlPanel::ControlPanel(QWidget *parent) :
 
     Param* p = new Param("crab", 2.1);
     MPElineEdit* m = new MPElineEdit(-4.1, 7.4, 1, 2.1, this);
-    QObject::connect(m, SIGNAL(sig_valueChanged(double)), p,
-                     SLOT(on_valueChanged(double)));
+
 
 }
 
