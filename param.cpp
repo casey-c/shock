@@ -14,6 +14,7 @@ void Param::addElement(QWidget* w){
 void Param::addMutableElement(MutableParamElement* w){
     QObject::connect(w, SIGNAL(sig_valueChanged(double)),
                      this, SLOT(on_valueChanged(double)));
+    elements.push_back(w);
 }
 
 QString Param::toString(){

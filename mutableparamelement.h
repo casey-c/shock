@@ -7,7 +7,7 @@
 #include <Qtmath>
 #include <QValidator>
 
-class MutableParamElement : virtual public QObject
+class MutableParamElement : public QWidget
 {
     Q_OBJECT
 signals:
@@ -20,7 +20,7 @@ public slots:
 class MPElineEdit: virtual public MutableParamElement, public QLineEdit{
     Q_OBJECT
 public:
-    MPElineEdit(double low, double high, int precision, double def,
+    explicit MPElineEdit(double low, double high, int precision, double def,
                 QWidget* parent = Q_NULLPTR);
 
 private:
@@ -31,7 +31,7 @@ private:
 class MPEslider: virtual public MutableParamElement, public QSlider{
     Q_OBJECT
 public:
-    MPEslider(Qt::Orientation orientation,
+    explicit MPEslider(Qt::Orientation orientation,
               double low, double high, double step, int precision, double def,
               QWidget* parent = Q_NULLPTR);
 private:

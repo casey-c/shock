@@ -10,7 +10,7 @@
 #include "mutableparamelement.h"
 
 // Storage for a specific setting
-class Param: public QObject{
+class Param: virtual public QObject{
     Q_OBJECT
 
 public:

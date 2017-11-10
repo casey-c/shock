@@ -5,6 +5,7 @@ MPEslider::MPEslider(Qt::Orientation orientation,
           QWidget* parent): QSlider(orientation, parent){
     QObject::connect(this, SIGNAL(valueChanged(int)),
                      this, SLOT(emitValChange()));
+
     div = (int) qPow(10, precision);
     setTickInterval(step * div);
     setMinimum(low * div);

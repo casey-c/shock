@@ -15,11 +15,8 @@ ControlPanel::ControlPanel(QWidget *parent) :
     QObject::connect(ui->minutesLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
     QObject::connect(ui->secondsLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
 
-
-    Param* p = new Param("crab", 2.1);
+    Param* p = new Param("crab", 2.1, this);
     MPElineEdit* m = new MPElineEdit(-4.1, 7.4, 1, 2.1, this);
-
-
 }
 
 ControlPanel::~ControlPanel()
