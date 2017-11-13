@@ -41,7 +41,8 @@ SOURCES += \
         audioutil.cpp \
     mutableparamelement.cpp \
     mutableelement_lineedit.cpp \
-    mutableelement_slider.cpp
+    mutableelement_slider.cpp \
+    mutableelement_checkbox.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -56,7 +57,10 @@ HEADERS += \
         workspace.h \
         waveformwidget.h \
         audioutil.h \
-    mutableparamelement.h
+    mutableparamelement.h \
+    mutableelement_lineedit.h \
+    mutableelement_slider.h \
+    mutableelement_checkbox.h
 
 FORMS += \
         mainwindow.ui \

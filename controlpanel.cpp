@@ -1,7 +1,5 @@
 #include "controlpanel.h"
 #include "ui_controlpanel.h"
-#include <QLineEdit>
-#include <QDebug>
 
 ControlPanel::ControlPanel(QWidget *parent) :
     QWidget(parent),
@@ -15,8 +13,23 @@ ControlPanel::ControlPanel(QWidget *parent) :
     QObject::connect(ui->minutesLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
     QObject::connect(ui->secondsLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
 
-    //Param* p = new Param("crab", 2.1, this);
-    //MPElineEdit* m = new MPElineEdit(-4.1, 7.4, 1, 2.1, this);
+    Param* p = new Param("crab", 0, 0, 50.44, 2);
+    p->addVisualElement(new QLabel("value"));
+
+    QSlider* s = new QSlider(Qt::Horizontal);
+    p->addMutableElement(s);
+
+    p->addVisualElement(new QLabel("here"));
+
+    QLineEdit* le = new QLineEdit();
+    p->addMutableElement(le);
+
+    p->addVisualElement(new QLabel("ok"));
+
+    QCheckBox* cb = new QCheckBox();
+    p->addMutableElement(cb);
+
+    addParam(p);
 }
 
 ControlPanel::~ControlPanel()
@@ -55,6 +68,9 @@ void ControlPanel::on_time_changed(){
 
 void ControlPanel::addRow(QList<QWidget*> widgets){
     QHBoxLayout* l = new QHBoxLayout();
+    l->setSpacing(4);
+    l->setMargin(2);
+
     for(auto w: widgets){
         l->addWidget(w);
     }

@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <QHash>
+#include <QLineEdit>
+#include <QSlider>
+#include <QDebug>
 #include "param.h"
 
 namespace Ui {
