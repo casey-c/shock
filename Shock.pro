@@ -39,9 +39,9 @@ SOURCES += \
         workspace.cpp \
         waveformwidget.cpp \
         audioutil.cpp \
-    mpeslider.cpp \
-    mpelineedit.cpp \
-    mutableparamelement.cpp
+    mutableparamelement.cpp \
+    mutableelement_lineedit.cpp \
+    mutableelement_slider.cpp
 
 HEADERS += \
         mainwindow.h \

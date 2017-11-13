@@ -9,7 +9,7 @@ class AlgoSettings
 public:
     AlgoSettings();
 private:
-    QList<Param> params;
+    QList<Param*> params;
 };
 
 #endif // ALGOSETTINGS_H

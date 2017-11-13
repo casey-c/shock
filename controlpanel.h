@@ -12,14 +12,13 @@ class ControlPanel;
 class ControlPanel : public QWidget
 {
     Q_OBJECT
-
 public:
     explicit ControlPanel(QWidget *parent = 0);
     ~ControlPanel();
 
     int getTime();
 
-    void addRow(QList<QWidget*> widgets);
+    void addParam(Param* p);
     double getValue(QString key);
 private slots:
     void on_infiniteSoundChk_toggled(bool checked);
@@ -33,6 +32,8 @@ private:
     bool infinite;
     int mins;
     int secs;
+
+    void addRow(QList<QWidget*> widgets);
 };
 
 #endif // CONTROLPANEL_H

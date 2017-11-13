@@ -11,12 +11,15 @@
 
 // Storage for a specific setting
 class Param: public QObject{
+    Q_OBJECT
 public:
     explicit Param(QString nm, double def = 0.00);
     void addVisualElement(QWidget* w);
 
     void addMutableElement(QSlider* w);
     void addMutableElement(QLineEdit* w);
+
+    const QList<QWidget*> getElements();
 
     QString toString();
     double getValue(){return value;}

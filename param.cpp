@@ -28,6 +28,10 @@ void Param::addMutableElement(QLineEdit* w){
     elements.push_back(ms);
 }
 
+const QList<QWidget*> Param::getElements(){
+    return elements;
+}
+
 QString Param::toString(){
     return "";
 }

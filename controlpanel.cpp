@@ -61,6 +61,10 @@ void ControlPanel::addRow(QList<QWidget*> widgets){
     ui->scrlLayout->addLayout(l);
 }
 
+void ControlPanel::addParam(Param* p){
+    addRow(p->getElements());
+}
+
 double ControlPanel::getValue(QString key){
     if(data.find(key) != data.end()){
         return data[key]->getValue();

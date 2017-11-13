@@ -11,7 +11,7 @@ class mutableParamElement: public QWidget{
     Q_OBJECT
 signals:
     void sig_valueChanged(double newval);
-private:
+private slots:
     virtual void emitValChange();
     virtual void on_valueChanged(double newval);
 };
@@ -24,6 +24,7 @@ public:
 private:
     QLineEdit* lineEdit;
 
+private slots:
     void emitValChange();
     void on_valueChanged(double newval);
 };
@@ -35,9 +36,9 @@ public:
               double low, double high, int precision, double def);
 private:
     QSlider* slider;
-
     int div;
 
+private slots:
     void emitValChange();
     void on_valueChanged(double newval);
 };
