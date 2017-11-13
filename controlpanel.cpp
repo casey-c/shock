@@ -13,7 +13,9 @@ ControlPanel::ControlPanel(QWidget *parent) :
     QObject::connect(ui->minutesLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
     QObject::connect(ui->secondsLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
 
-    Param* p = new Param("crab", 0, 0, 50.44, 2);
+
+/*********************PARAM EXAMPLE************************/
+    Param* p = new Param("prm", 3.33, -20, 50.44, 2);
     p->addVisualElement(new QLabel("value"));
 
     QSlider* s = new QSlider(Qt::Horizontal);
@@ -30,6 +32,8 @@ ControlPanel::ControlPanel(QWidget *parent) :
     p->addMutableElement(cb);
 
     addParam(p);
+
+    qDebug() << "value of prm is" << getValue("prm");
 }
 
 ControlPanel::~ControlPanel()
@@ -78,6 +82,7 @@ void ControlPanel::addRow(QList<QWidget*> widgets){
 }
 
 void ControlPanel::addParam(Param* p){
+    data[p->getName()] = p;
     addRow(p->getElements());
 }
 
@@ -85,6 +90,6 @@ double ControlPanel::getValue(QString key){
     if(data.find(key) != data.end()){
         return data[key]->getValue();
     }else{
-        return 0.00;
+        return 0.0;
     }
 }

@@ -29,6 +29,7 @@ public:
 
     QString toString();
     double getValue(){return value;}
+    QString getName(){return name;}
 
 signals:
     void changeValue(double newval);
