@@ -1,18 +1,22 @@
 #include "mutableparamelement.h"
 
 
-MPElineEdit::MPElineEdit(double low, double high, int precision, double def,
-            QWidget* parent): QLineEdit(parent){
-    QObject::connect(this, SIGNAL(editingFinished()),
+mutableElement_lineEdit::mutableElement_lineEdit(
+        QLineEdit* le,
+        double low, double high, int precision, double def)
+{
+    lineEdit = le;
+
+    QObject::connect(lineEdit, SIGNAL(editingFinished()),
                      this, SLOT(emitValChange()));
-    setText(QString::number(def));
-    setValidator(new QDoubleValidator(low, high, precision, this));
+    lineEdit->setText(QString::number(def));
+    lineEdit->setValidator(new QDoubleValidator(low, high, precision, this));
 }
 
-void MPElineEdit::emitValChange(){
-    emit sig_valueChanged(text().toDouble());
+void mutableElement_lineEdit::emitValChange(){
+    emit sig_valueChanged(lineEdit->text().toDouble());
 }
 
-void MPElineEdit::on_valueChanged(double newval){
-    setText(QString::number(newval));
+void mutableElement_lineEdit::on_valueChanged(double newval){
+    lineEdit->setText(QString::number(newval));
 }

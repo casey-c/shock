@@ -1,20 +1,31 @@
 #include "param.h"
 #include "mutableparamelement.h"
 
-Param::Param(QString nm, double def, QObject* parent):
-    QObject(parent){
+Param::Param(QString nm, double def){
     name = nm;
     value = def;
 }
 
-void Param::addElement(QWidget* w){
+void Param::addVisualElement(QWidget* w){
     elements.push_back(w);
 }
 
-void Param::addMutableElement(MutableParamElement* w){
-    QObject::connect(w, SIGNAL(sig_valueChanged(double)),
+void Param::addMutableElement(QSlider* w){
+    mutableElement_slider* ms =
+            new mutableElement_slider(w, low, high, precision, value);
+
+    QObject::connect(ms, SIGNAL(sig_valueChanged(double)),
                      this, SLOT(on_valueChanged(double)));
-    elements.push_back(w);
+    elements.push_back(ms);
+}
+
+void Param::addMutableElement(QLineEdit* w){
+    mutableElement_lineEdit* ms =
+            new mutableElement_lineEdit(w, low, high, precision, value);
+
+    QObject::connect(ms, SIGNAL(sig_valueChanged(double)),
+                     this, SLOT(on_valueChanged(double)));
+    elements.push_back(ms);
 }
 
 QString Param::toString(){

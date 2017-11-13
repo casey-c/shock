@@ -1,22 +1,25 @@
 #include "mutableparamelement.h"
 
-MPEslider::MPEslider(Qt::Orientation orientation,
-          double low, double high, double step, int precision, double def,
-          QWidget* parent): QSlider(orientation, parent){
-    QObject::connect(this, SIGNAL(valueChanged(int)),
+mutableElement_slider::mutableElement_slider(
+        QSlider* sl,
+        double low, double high, int precision, double def)
+{
+    slider = sl;
+
+    QObject::connect(slider, SIGNAL(valueChanged(int)),
                      this, SLOT(emitValChange()));
 
     div = (int) qPow(10, precision);
-    setTickInterval(step * div);
-    setMinimum(low * div);
-    setMaximum(high * div);
-    setValue(def * div);
+    slider->setTickInterval(div);
+    slider->setMinimum(low * div);
+    slider->setMaximum(high * div);
+    slider->setValue(def * div);
 }
 
-void MPEslider::emitValChange(){
-    emit sig_valueChanged((double) value() / (double) div);
+void mutableElement_slider::emitValChange(){
+    emit sig_valueChanged((double) slider->value() / (double) div);
 }
 
-void MPEslider::on_valueChanged(double newval){
-    setValue(newval * div);
+void mutableElement_slider::on_valueChanged(double newval){
+    slider->setValue(newval * div);
 }

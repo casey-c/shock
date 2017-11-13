@@ -7,34 +7,35 @@
 #include <Qtmath>
 #include <QValidator>
 
-class MutableParamElement : public QWidget
-{
+class mutableParamElement: public QWidget{
     Q_OBJECT
 signals:
     void sig_valueChanged(double newval);
-protected slots:
+private:
+    virtual void emitValChange();
     virtual void on_valueChanged(double newval);
-public slots:
 };
 
-class MPElineEdit: virtual public MutableParamElement, public QLineEdit{
+class mutableElement_lineEdit: public mutableParamElement{
     Q_OBJECT
 public:
-    explicit MPElineEdit(double low, double high, int precision, double def,
-                QWidget* parent = Q_NULLPTR);
-
+    explicit mutableElement_lineEdit(QLineEdit* le,
+                double low, double high, int precision, double def);
 private:
+    QLineEdit* lineEdit;
+
     void emitValChange();
     void on_valueChanged(double newval);
 };
 
-class MPEslider: virtual public MutableParamElement, public QSlider{
+class mutableElement_slider: public mutableParamElement{
     Q_OBJECT
 public:
-    explicit MPEslider(Qt::Orientation orientation,
-              double low, double high, double step, int precision, double def,
-              QWidget* parent = Q_NULLPTR);
+    explicit mutableElement_slider(QSlider* sl,
+              double low, double high, int precision, double def);
 private:
+    QSlider* slider;
+
     int div;
 
     void emitValChange();
