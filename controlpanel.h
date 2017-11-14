@@ -6,6 +6,7 @@
 #include <QLineEdit>
 #include <QSlider>
 #include <QDebug>
+#include "algosettings.h"
 #include "param.h"
 
 namespace Ui {
@@ -31,6 +32,8 @@ private:
     Ui::ControlPanel *ui;
     QString alg;
     QHash<QString, Param*> data;
+
+    AlgoSettings* settings;
 
     bool infinite;
     int mins;

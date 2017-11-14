@@ -42,7 +42,8 @@ SOURCES += \
     mutableparamelement.cpp \
     mutableelement_lineedit.cpp \
     mutableelement_slider.cpp \
-    mutableelement_checkbox.cpp
+    mutableelement_checkbox.cpp \
+    jsontemplateinterpreter.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -60,7 +61,9 @@ HEADERS += \
     mutableparamelement.h \
     mutableelement_lineedit.h \
     mutableelement_slider.h \
-    mutableelement_checkbox.h
+    mutableelement_checkbox.h \
+    jsoninterpreter.h \
+    jsontemplateinterpreter.h
 
 FORMS += \
         mainwindow.ui \

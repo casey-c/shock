@@ -13,8 +13,14 @@ ControlPanel::ControlPanel(QWidget *parent) :
     QObject::connect(ui->minutesLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
     QObject::connect(ui->secondsLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
 
+    settings = new AlgoSettings();
 
+    Param* p;
+    foreach(p, settings->getParams()){
+        addParam(p);
+    }
 /*********************PARAM EXAMPLE************************/
+    /*
     Param* p = new Param("prm", 3.33, -20, 50.44, 2);
     p->addVisualElement(new QLabel("value"));
 
@@ -34,6 +40,28 @@ ControlPanel::ControlPanel(QWidget *parent) :
     addParam(p);
 
     qDebug() << "value of prm is" << getValue("prm");
+*/
+
+    /*********************PARAM EXAMPLE************************//*
+    Param* p = new Param("Randomness", 0, 0, 1, 3);
+    p->addVisualElement(new QLabel("Randomness"));
+
+    QSlider* s = new QSlider(Qt::Horizontal);
+    p->addMutableElement(s);
+
+    //p->addVisualElement(new QLabel("here"));
+
+    QLineEdit* le = new QLineEdit();
+    p->addMutableElement(le);
+
+    //p->addVisualElement(new QLabel("ok"));
+
+    //QCheckBox* cb = new QCheckBox();
+    //p->addMutableElement(cb);
+
+    addParam(p);
+
+    qDebug() << "value of prm is" << getValue("prm");*/
 }
 
 ControlPanel::~ControlPanel()

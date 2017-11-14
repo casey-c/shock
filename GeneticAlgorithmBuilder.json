@@ -1,0 +1,37 @@
+{
+  "name": "Genetic Algorithm",
+  "data": [
+    {
+      "name": "Uniform Rate",
+      "def": "0",
+      "low": "0",
+      "hi": "1",
+      "precision": "3",
+      "type": "text,slider,box"
+    },
+    {
+      "name": "Mutation Rate",
+      "def": "0",
+      "low": "0",
+      "hi": "1",
+      "precision": "3",
+      "type": "text,slider,box"
+    },
+    {
+      "name": "Child Population Size",
+      "def": "5",
+      "low": "1",
+      "hi": "20",
+      "precision": "0",
+      "type": "text,slider,box"
+    },
+    {
+      "name": "Elitism",
+      "def": "0",
+      "low": "0",
+      "hi": "1",
+      "precision": "0",
+      "type": "text,check"
+    }
+  ]
+}
