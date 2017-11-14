@@ -254,7 +254,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="shockButton">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -272,6 +272,9 @@
             <width>70</width>
             <height>70</height>
            </size>
+          </property>
+          <property name="toolTip">
+           <string>Run the Algorithm Selected</string>
           </property>
           <property name="text">
            <string>shock</string>
@@ -299,8 +302,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>251</width>
-           <height>421</height>
+           <width>257</width>
+           <height>433</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">

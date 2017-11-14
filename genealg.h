@@ -60,11 +60,11 @@ private:
 class Fitness
 {
 public:
-    QVector<float> solution;
+    QVector<QVector<float> > * solution;
 
     Fitness() {}
 
-    void setSolution(QVector<float> newSolution);
+    void setSolution(QVector<QVector<float> > * newSolution);
     int getFitness(Individual* in);
     int getMaxFitness();
 };

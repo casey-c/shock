@@ -70,6 +70,8 @@ void ControlPanel::on_time_changed(){
     le->clearFocus();
 }
 
+void ControlPanel::on_shockButton_pressed(){}
+
 void ControlPanel::addRow(QList<QWidget*> widgets){
     QHBoxLayout* l = new QHBoxLayout();
     l->setSpacing(4);

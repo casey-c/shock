@@ -26,6 +26,7 @@ public:
 private slots:
     void on_infiniteSoundChk_toggled(bool checked);
     void on_time_changed();
+    void on_shockButton_pressed();
 
 private:
     Ui::ControlPanel *ui;

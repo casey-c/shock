@@ -10,6 +10,7 @@ public:
     AlgoSettings();
 private:
     QList<Param*> params;
+    QString name;
 };
 
 #endif // ALGOSETTINGS_H
