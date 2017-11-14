@@ -3,7 +3,7 @@
   "data": [
     {
       "name": "Uniform Rate",
-      "def": "0",
+      "def": "0.5",
       "low": "0",
       "hi": "1",
       "precision": "3",
@@ -11,7 +11,7 @@
     },
     {
       "name": "Mutation Rate",
-      "def": "0",
+      "def": "0.015",
       "low": "0",
       "hi": "1",
       "precision": "3",
@@ -27,11 +27,19 @@
     },
     {
       "name": "Elitism",
-      "def": "0",
+      "def": "1",
       "low": "0",
       "hi": "1",
       "precision": "0",
       "type": "text,check"
+    },
+	{
+      "name": "Generations",
+      "def": "5",
+      "low": "1",
+      "hi": "100",
+      "precision": "0",
+      "type": "text,slider,box"
     }
   ]
 }

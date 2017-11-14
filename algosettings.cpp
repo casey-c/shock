@@ -13,7 +13,7 @@ AlgoSettings::AlgoSettings()
 
     QList<QPair<QString,QString>*>* dat = json->getData();
 
-    int def;
+    double def;
     int hi;
     int low;
     QString name;
@@ -23,7 +23,7 @@ AlgoSettings::AlgoSettings()
     for(QList<QPair<QString,QString>*>::iterator itr = dat->begin(); itr != dat->end(); ++itr){
         QPair<QString,QString> currentPair = **itr;
         if(currentPair.first == "def"){
-            def = currentPair.second.toInt();
+            def = currentPair.second.toDouble();
         }
         if(currentPair.first == "hi"){
             hi = currentPair.second.toInt();
@@ -47,17 +47,20 @@ AlgoSettings::AlgoSettings()
                 if(*pIter == "text"){
                     p->addVisualElement(new QLabel(name));
                 }
-                if(*pIter == "slider"){
+                else if(*pIter == "slider"){
                     QSlider* s = new QSlider(Qt::Horizontal);
                     p->addMutableElement(s);
                 }
-                if(*pIter == "box"){
+                else if(*pIter == "box"){
                     QLineEdit* le = new QLineEdit();
                     p->addMutableElement(le);
                 }
-                if(*pIter == "check"){
+                else if(*pIter == "check"){
                     QCheckBox* cb = new QCheckBox();
                     p->addMutableElement(cb);
+                }
+                else{
+                    p->addVisualElement(new QLabel(*pIter));
                 }
             }
 
