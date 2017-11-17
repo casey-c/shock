@@ -22,7 +22,7 @@ private:
     QString name;
 
     void addParam(QString name, double def, double high,
-                  double low, int precision, QStringList widgetTypes);
+                  double low, int precision, QJsonArray widgetTypes);
 };
 
 #endif // ALGOSETTINGS_H

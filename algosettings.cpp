@@ -26,8 +26,8 @@ AlgoSettings::AlgoSettings()
         low = jsonObj.value("low").toDouble();
         precision = jsonObj.value("precision").toInt();
 
-        QStringList widgetTypes =
-                jsonObj.value("widgets").toString().split(",");
+        QJsonArray widgetTypes =
+                jsonObj.value("widgets").toArray();
 
         addParam(name, def, high, low, precision, widgetTypes);
     }
@@ -35,18 +35,22 @@ AlgoSettings::AlgoSettings()
 
 
 void AlgoSettings::addParam(QString name, double def, double high,
-                            double low, int precision, QStringList widgetTypes){
+                            double low, int precision, QJsonArray widgetTypes){
     Param* p = new Param(name, def, low, high, precision);
 
-    for(QString wt : widgetTypes){
-        if(wt == "label")
-            p->addVisualElement(new QLabel(name));
-        else if(wt == "slider")
+    for(QJsonValue wtv : widgetTypes){
+        QString wt = wtv.toString();
+
+        if(wt == "slider")
             p->addMutableElement(new QSlider(Qt::Horizontal));
         else if(wt == "lineedit")
             p->addMutableElement(new QLineEdit());
         else if(wt == "checkbox")
             p->addMutableElement(new QCheckBox());
+        else if(wt == "label")
+            p->addVisualElement(new QLabel(name));
+        else if(wt.startsWith("label:"))
+            p->addVisualElement(new QLabel(wt.remove(0,6).trimmed()));
     }
 
     params.append(p);
