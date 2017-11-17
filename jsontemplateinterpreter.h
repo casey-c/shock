@@ -11,7 +11,7 @@ public:
     bool readFromFile(QString file) override;
 
     QString getName() {return this->name;}
-    QList<QPair<QString,QString>*>* getData() {return data;}
+    QJsonArray getData() {return data;}
 };
 
 #endif // JSONTEMPLATEINTERPRETER_H

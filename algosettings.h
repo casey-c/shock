@@ -20,6 +20,9 @@ public:
 private:
     QList<Param*> params;
     QString name;
+
+    void addParam(QString name, double def, double high,
+                  double low, int precision, QStringList widgetTypes);
 };
 
 #endif // ALGOSETTINGS_H

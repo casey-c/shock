@@ -20,7 +20,7 @@ public:
     virtual bool readFromFile(QString file) = 0;
 
 protected:
-    QList<QPair<QString,QString>*>* data;
+    QJsonArray data;
     QString name;
 };
 
