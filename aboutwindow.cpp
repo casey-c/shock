@@ -9,14 +9,16 @@ AboutWindow::AboutWindow(QWidget *parent) :
     this->setWindowFlags(this->windowFlags() & ~Qt::WindowContextHelpButtonHint); //remove "?" button
     ui->sectionsGrBox->setLayout(ui->verticalLayout);
 
-    addButton("The Project");
-    addButton("The Developers");
-    addButton("Other");
+    initSectionText();
+
+    addButton("The Project", "proj");
+    addButton("The Developers", "devs");
+    addButton("Getting Started", "getstart");
+    addButton("Other", "other");
 
     //stick the spacer under the buttons
     ui->verticalLayout->removeItem(ui->verticalSpacer);
     ui->verticalLayout->addItem(ui->verticalSpacer);
-
 
     //format the text (html, wordwrap)
     ui->lblAbout->setTextFormat(Qt::RichText);
@@ -25,10 +27,25 @@ AboutWindow::AboutWindow(QWidget *parent) :
     ui->lblAbout->setWordWrap(true);
 }
 
+void AboutWindow::initSectionText(){
+    sectionText["proj"] = "<b>Shock</b><br>\
+               Shock is a program that uses machine learning \
+               techniques to manufacture new sounds that imitate \
+               existing ones, the results of which can be used in a \
+               large variety of applications.";
+    sectionText["devs"] = "<b>Team Shock</b><br>Brian Mottola<br>Casey Conway\
+               <br>Jesse Zhou<br>Shamus Cardon<br><br>\
+               <a href=\"https://github.com/casey-c/shock\">GitHub</a>";
+    sectionText["getstart"] = "<b>Getting Started</b><br> \
+               If you use this program you're probably \
+               a very bright individual so figure it out.";
+    sectionText["other"] = ":)";
+}
+
 //add a button to the about window
-void AboutWindow::addButton(QString name){
-    QPushButton* btn = new QPushButton(QString(name));
-    sectionBtns.push_back(btn);
+void AboutWindow::addButton(QString btnLabel, QString whichDesc){
+    QPushButton* btn = new QPushButton(QString(btnLabel));
+    sectionBtns[btn] = whichDesc;
     ui->verticalLayout->addWidget(btn);
     QObject::connect(btn, SIGNAL(clicked()), this, SLOT(on_sectionBtn_clicked()));
     btn->setFlat(true);
@@ -36,51 +53,26 @@ void AboutWindow::addButton(QString name){
 
 void AboutWindow::on_sectionBtn_clicked(){
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
-    QString btnText = buttonSender->text();
-    qint32 btnNum;
 
-    QString bold = "QPushButton {\
-        font-size: 8pt;\
-        font-weight: bold;\
-    }";
-
-    QString normal = "QPushButton {\
-        font-size: 8pt;\
-    }";
-
-    for(int i = 0; i < sectionBtns.size(); ++i){
-        sectionBtns[i]->setStyleSheet(normal);
-
-        if(btnText == sectionBtns[i]->text())
-            btnNum = i;
+    for(QPushButton* p : sectionBtns.keys()){
+        p->setStyleSheet(styleNormal);
     }
 
-    sectionBtns[btnNum]->setStyleSheet(bold);
-
-    QString txt;
-    if(btnNum == 0){
-        txt = "<b>Shock</b><br>\
-               Shock is a program that uses machine learning \
-               techniques to manufacture new sounds that imitate \
-               existing ones, the results of which can be used in a \
-               large variety of applications.";
-    }
-    else if(btnNum == 1){
-        txt = "<b>Team Shock</b><br>Brian Mottola<br>Casey Conway\
-               <br>Jesse Zhou<br>Shamus Cardon<br><br>\
-               <a href=\"https://github.com/casey-c/shock\">GitHub</a>";
-    }
-    else if(btnNum == 2){
-        txt = ":)";
-    }
-
-    ui->lblAbout->setText(txt);
+    buttonSender->setStyleSheet(styleBold);
+    ui->lblAbout->setText(sectionText[sectionBtns[buttonSender]]);
 }
 
-AboutWindow::~AboutWindow()
-{
-    for(int i = 0; i < sectionBtns.size(); ++i)
-        delete sectionBtns[i];
+AboutWindow::~AboutWindow(){
+    for(QPushButton* p : sectionBtns.keys())
+        delete p;
 
     delete ui;
 }
+
+const QString AboutWindow::styleBold = "QPushButton {\
+                           font-size: 8pt;\
+                           font-weight: bold;\
+                           }";
+const QString AboutWindow::styleNormal = "QPushButton {\
+                             font-size: 8pt;\
+                             }";

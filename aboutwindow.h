@@ -20,9 +20,14 @@ public:
 
 private:
     Ui::AboutWindow *ui;
-    QVector<QPushButton*> sectionBtns;
-    void addButton(QString name);
+    QHash<QPushButton*, QString> sectionBtns;
+    QHash<QString, QString> sectionText;
+    void addButton(QString btnLabel, QString whichDesc);
+    void initSectionText();
 
+
+    static const QString styleNormal;
+    static const QString styleBold;
 private slots:
     void on_sectionBtn_clicked();
 };
