@@ -26,10 +26,10 @@ AlgoSettings::AlgoSettings()
             def = currentPair.second.toDouble();
         }
         if(currentPair.first == "hi"){
-            hi = currentPair.second.toInt();
+            hi = currentPair.second.toDouble();
         }
         if(currentPair.first == "low"){
-            low = currentPair.second.toInt();
+            low = currentPair.second.toDouble();
         }
         if(currentPair.first == "name"){
             name = currentPair.second;
