@@ -34,13 +34,13 @@ void SoundCard::removeSelf(){
 }
 
 void SoundCard::openContextMenu(){
-    contextMenu->exec();
+    contextMenu->exec(this->mapFromGlobal(QCursor::pos()));
 }
 
 void SoundCard::mousePressEvent(QMouseEvent* evt) {
     if (evt->button() & Qt::RightButton)
     {
-
+        openContextMenu();
     }
     else if (evt->button() & Qt::LeftButton)
     {
