@@ -9,6 +9,7 @@
 #include <QDirIterator>
 #include "genealg.h"
 #include "soundcard.h"
+#include "soundcontainer2.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -39,8 +40,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QVBoxLayout* testLayout = new QVBoxLayout();
     ui->tab2->setLayout(testLayout);
-    testLayout->addWidget(new SoundCard());
-    testLayout->addWidget(new SoundCard());
+    testLayout->addWidget(new SoundContainer2(this));
 
 }
 

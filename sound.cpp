@@ -21,6 +21,7 @@ Sound::Sound(QWidget *parent, QString fn) :
     QColor color = palette.color( QPalette::Disabled, QPalette::Base );
     palette.setColor( QPalette::Normal, QPalette::Base, color );
     ui->leName->setPalette( palette );
+
 }
 
 Sound::~Sound()
