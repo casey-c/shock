@@ -1,9 +1,13 @@
 #include "soundcard.h"
 #include "ui_soundcard.h"
+#include <QMouseEvent>
+#include <QDebug>
+#include <QTimer>
 
 SoundCard::SoundCard(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::SoundCard)
+    ui(new Ui::SoundCard),
+    firstClick(true)
 {
     ui->setupUi(this);
 
@@ -18,7 +22,37 @@ SoundCard::SoundCard(QWidget *parent) :
     //ui->lineEdit->clearFocus();
 }
 
+void SoundCard::mousePressEvent(QMouseEvent* evt) {
+    if (evt->button() & Qt::RightButton)
+    {
+
+    }
+    else if (evt->button() & Qt::LeftButton)
+    {
+        if (firstClick)
+        {
+            qDebug() << "single click";
+            firstClick = false;
+            QTimer::singleShot(1000, this, SLOT(doubleClickExpired()));
+        }
+        else
+        {
+            qDebug() << "double click";
+            // add to workspace
+        }
+
+    }
+    QWidget::mousePressEvent(evt);
+}
+
 SoundCard::~SoundCard()
 {
     delete ui;
+}
+
+
+void SoundCard::doubleClickExpired() {
+    //qDebug() << "double click expired";
+    if (!firstClick)
+        firstClick = true;
 }

@@ -57,10 +57,17 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="maximumSize">
+           <size>
+            <width>10</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="styleSheet">
            <string notr="true">QSlider::handle { image: url(:/icons/circle.svg);}
-QSlider::sub-page{background: #c7c7c7}
-QSlider::add-page{ background: #aacc77 }</string>
+QSlider::sub-page{background: #c7c7c7; width: 47}
+QSlider::add-page{ background: #aacc77; width: 7 }
+QSlider::groove:vertical{width: 40px}</string>
           </property>
           <property name="sliderPosition">
            <number>99</number>

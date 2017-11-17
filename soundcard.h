@@ -17,6 +17,11 @@ public:
 
 private:
     Ui::SoundCard *ui;
+    bool firstClick;
+    void mousePressEvent(QMouseEvent *event) override;
+
+private slots:
+    void doubleClickExpired();
 };
 
 #endif // SOUNDCARD_H
