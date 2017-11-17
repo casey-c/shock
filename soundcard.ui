@@ -29,6 +29,18 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
+   <property name="leftMargin">
+    <number>5</number>
+   </property>
+   <property name="topMargin">
+    <number>5</number>
+   </property>
+   <property name="rightMargin">
+    <number>5</number>
+   </property>
+   <property name="bottomMargin">
+    <number>5</number>
+   </property>
    <item row="0" column="0">
     <widget class="QFrame" name="frame">
      <property name="sizePolicy">
@@ -64,10 +76,12 @@
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">QSlider::handle { image: url(:/icons/circle.svg);}
-QSlider::sub-page{background: #c7c7c7; width: 47}
-QSlider::add-page{ background: #aacc77; width: 7 }
-QSlider::groove:vertical{width: 40px}</string>
+           <string notr="true">QSlider::handle { image: url(:/icons/circle.svg)}
+QSlider::sub-page{background: #c7c7c7;
+				width: 0 px}
+QSlider::add-page{ background: #aacc77;
+				width: 7 px}
+QSlider::groovevertical{width: 10px}</string>
           </property>
           <property name="sliderPosition">
            <number>99</number>
@@ -161,7 +175,7 @@ QSlider::groove:vertical{width: 40px}</string>
            <bool>false</bool>
           </property>
           <property name="placeholderText">
-           <string>sound name</string>
+           <string>name</string>
           </property>
          </widget>
         </item>

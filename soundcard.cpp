@@ -4,13 +4,13 @@
 #include <QDebug>
 #include <QTimer>
 
-SoundCard::SoundCard(QWidget *parent) :
+SoundCard::SoundCard(SoundContainer2* ctr, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SoundCard),
     firstClick(true)
 {
     ui->setupUi(this);
-
+    myContainer = ctr;
     setStyleSheet(":hover {background-color: #eeeeee;}");
 
     //set the background of the line edit to match the background
@@ -20,6 +20,21 @@ SoundCard::SoundCard(QWidget *parent) :
     //palette.setColor( QPalette::Normal, QPalette::Base, color );
     //ui->lineEdit->setPalette( palette );
     //ui->lineEdit->clearFocus();
+
+    contextMenu = new QMenu();
+
+    QAction* a = new QAction("Remove");
+    QObject::connect(a, SIGNAL(triggered()),
+                     this, SLOT(removeSelf()));
+    contextMenu->addAction(a);
+}
+
+void SoundCard::removeSelf(){
+    emit removeMe(this);
+}
+
+void SoundCard::openContextMenu(){
+    contextMenu->exec();
 }
 
 void SoundCard::mousePressEvent(QMouseEvent* evt) {
