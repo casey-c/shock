@@ -4,7 +4,7 @@
 #include <QDebug>
 #include <QTimer>
 
-SoundCard::SoundCard(QWidget *parent) :
+SoundCard::SoundCard(QWidget *parent, QString soundFile) :
     QWidget(parent),
     ui(new Ui::SoundCard),
     firstClick(true)
@@ -14,6 +14,26 @@ SoundCard::SoundCard(QWidget *parent) :
     QObject::connect(ui->leName, SIGNAL(returnPressed()),
                      this, SLOT(finishNameEdit()));
 
+    mediaPlayer = new QMediaPlayer();
+
+    QObject::connect(mediaPlayer, SIGNAL(positionChanged(qint64)),
+                     this, SLOT(updateSeekBar(qint64)));
+
+    QObject::connect(ui->seekBar, SIGNAL(sliderMoved(int)),
+                     this, SLOT(seekTo(int)));
+
+    QObject::connect(ui->seekBar, SIGNAL(sliderPressed()),
+                     mediaPlayer, SLOT(pause()));
+
+    QObject::connect(ui->seekBar, SIGNAL(sliderReleased()),
+                     mediaPlayer, SLOT(play()));
+
+    mediaPlayer->setMedia(
+                QMediaContent(
+                    QUrl::fromLocalFile(soundFile)));
+
+    mediaPlayer->setNotifyInterval(200);
+    mediaPlayer->play();
 
     contextMenu = new QMenu();
 
@@ -80,4 +100,18 @@ void SoundCard::doubleClickExpired() {
 
 void SoundCard::finishNameEdit(){
     ui->leName->clearFocus();
+}
+
+void SoundCard::updateSeekBar(qint64 pos){
+    if(!ui->seekBar->isSliderDown()){
+        ui->seekBar->setValue(
+            ((double)pos / (double)mediaPlayer->duration())
+            * ui->seekBar->maximum());
+    }
+}
+
+void SoundCard::seekTo(int pos){
+    mediaPlayer->setPosition(
+                ((double)pos / (double)ui->seekBar->maximum())
+                * mediaPlayer->duration());
 }

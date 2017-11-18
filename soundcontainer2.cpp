@@ -38,7 +38,7 @@ SoundContainer2::SoundContainer2(QWidget *parent) :
     ui->listWidget->setPalette(palette);
     //ui->listWidget->setSelectionMode(QAbstractItemView::MultiSelection);
 
-    for (int i = 0; i < 10; ++i)
+    for (int i = 0; i < 1; ++i)
     {
         QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
         item->setBackgroundColor(QColor(245,245,245));

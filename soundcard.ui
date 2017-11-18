@@ -92,7 +92,10 @@ QSlider::groovevertical{width: 10px}</string>
          </widget>
         </item>
         <item row="0" column="6" rowspan="2">
-         <widget class="QSlider" name="horizontalSlider">
+         <widget class="QSlider" name="seekBar">
+          <property name="maximum">
+           <number>1000</number>
+          </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
