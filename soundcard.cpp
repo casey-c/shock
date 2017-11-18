@@ -4,22 +4,16 @@
 #include <QDebug>
 #include <QTimer>
 
-SoundCard::SoundCard(SoundContainer2* ctr, QWidget *parent) :
+SoundCard::SoundCard(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SoundCard),
     firstClick(true)
 {
     ui->setupUi(this);
-    myContainer = ctr;
     setStyleSheet(":hover {background-color: #eeeeee;}");
+    QObject::connect(ui->leName, SIGNAL(returnPressed()),
+                     this, SLOT(finishNameEdit()));
 
-    //set the background of the line edit to match the background
-    // (so it looks like a label but it's editable)
-    //QPalette palette = ui->lineEdit->palette();
-    //QColor color = palette.color( QPalette::Disabled, QPalette::Base );
-    //palette.setColor( QPalette::Normal, QPalette::Base, color );
-    //ui->lineEdit->setPalette( palette );
-    //ui->lineEdit->clearFocus();
 
     contextMenu = new QMenu();
 
@@ -27,41 +21,53 @@ SoundCard::SoundCard(SoundContainer2* ctr, QWidget *parent) :
     QObject::connect(a, SIGNAL(triggered()),
                      this, SLOT(removeSelf()));
     contextMenu->addAction(a);
+
+    a = new QAction("Add To Workspace");
+    QObject::connect(a, SIGNAL(triggered()),
+                     this, SLOT(addSelfToWorkspace()));
+    contextMenu->addAction(a);
+
+    a = new QAction("Save A Copy As...");
+    QObject::connect(a, SIGNAL(triggered()),
+                     this, SLOT(saveCopyOfSelf()));
+    contextMenu->addAction(a);
 }
 
 void SoundCard::removeSelf(){
     emit removeMe(this);
 }
 
+void SoundCard::addSelfToWorkspace(){
+    emit addMeToWorkspace(this);
+}
+
+void SoundCard::saveCopyOfSelf(){
+    //todo
+}
+
 void SoundCard::openContextMenu(){
-    contextMenu->exec(this->mapFromGlobal(QCursor::pos()));
+    contextMenu->exec(QCursor::pos());
 }
 
 void SoundCard::mousePressEvent(QMouseEvent* evt) {
-    if (evt->button() & Qt::RightButton)
-    {
+    if (evt->button() & Qt::RightButton){
         openContextMenu();
     }
-    else if (evt->button() & Qt::LeftButton)
-    {
-        if (firstClick)
-        {
+    else if (evt->button() & Qt::LeftButton){
+        if (firstClick){
             qDebug() << "single click";
             firstClick = false;
-            QTimer::singleShot(1000, this, SLOT(doubleClickExpired()));
+            QTimer::singleShot(500, this, SLOT(doubleClickExpired()));
         }
-        else
-        {
+        else{
             qDebug() << "double click";
-            // add to workspace
+            addSelfToWorkspace();
         }
-
     }
     QWidget::mousePressEvent(evt);
 }
 
-SoundCard::~SoundCard()
-{
+SoundCard::~SoundCard(){
     delete ui;
 }
 
@@ -70,4 +76,8 @@ void SoundCard::doubleClickExpired() {
     //qDebug() << "double click expired";
     if (!firstClick)
         firstClick = true;
+}
+
+void SoundCard::finishNameEdit(){
+    ui->leName->clearFocus();
 }

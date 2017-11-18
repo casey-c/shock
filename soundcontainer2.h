@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QListWidget>
+#include "soundcard.h"
 
 namespace Ui {
     class SoundContainer2;
@@ -19,6 +20,10 @@ public:
 private:
     Ui::SoundContainer2 *ui;
     QListWidget* list;
+    QHash<SoundCard*, QListWidgetItem*> cardToItemWidget;
+
+private slots:
+    void removeSoundCard(SoundCard* sc);
 };
 
 #endif // SOUNDCONTAINER2_H

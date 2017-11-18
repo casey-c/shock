@@ -1,6 +1,5 @@
 #include "soundcontainer2.h"
 #include "ui_soundcontainer2.h"
-#include "soundcard.h"
 #include <QListWidget>
 #include <QPainter>
 #include <QStyledItemDelegate>
@@ -44,9 +43,20 @@ SoundContainer2::SoundContainer2(QWidget *parent) :
         QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
         item->setBackgroundColor(QColor(245,245,245));
         SoundCard* sc = new SoundCard(this);
+
+        cardToItemWidget[sc] = item;
+
+        QObject::connect(sc, SIGNAL(removeMe(SoundCard*)),
+                         this, SLOT(removeSoundCard(SoundCard*)));
+
         item->setSizeHint(sc->minimumSizeHint());
         ui->listWidget->setItemWidget(item, sc);
     }
+}
+
+void SoundContainer2::removeSoundCard(SoundCard* sc){
+    ui->listWidget->takeItem(
+                ui->listWidget->row(cardToItemWidget[sc]));
 }
 
 SoundContainer2::~SoundContainer2()
