@@ -4,7 +4,7 @@
 #include <QDebug>
 #include <QTimer>
 
-SoundCard::SoundCard(QWidget *parent, QString soundFile) :
+SoundCard::SoundCard(QWidget *parent, QString sndFile) :
     QWidget(parent),
     ui(new Ui::SoundCard),
     firstClick(true)
@@ -14,26 +14,9 @@ SoundCard::SoundCard(QWidget *parent, QString soundFile) :
     QObject::connect(ui->leName, SIGNAL(returnPressed()),
                      this, SLOT(finishNameEdit()));
 
-    mediaPlayer = new QMediaPlayer();
-
-    QObject::connect(mediaPlayer, SIGNAL(positionChanged(qint64)),
-                     this, SLOT(updateSeekBar(qint64)));
-
-    QObject::connect(ui->seekBar, SIGNAL(sliderMoved(int)),
-                     this, SLOT(seekTo(int)));
-
-    QObject::connect(ui->seekBar, SIGNAL(sliderPressed()),
-                     mediaPlayer, SLOT(pause()));
-
-    QObject::connect(ui->seekBar, SIGNAL(sliderReleased()),
-                     mediaPlayer, SLOT(play()));
-
-    mediaPlayer->setMedia(
-                QMediaContent(
-                    QUrl::fromLocalFile(soundFile)));
-
-    mediaPlayer->setNotifyInterval(200);
-    mediaPlayer->play();
+    soundFile = sndFile;
+    ui->leName->setText(sndFile.replace(QRegExp(".+/"), ""));
+    setupMediaPlayer();
 
     contextMenu = new QMenu();
 
@@ -114,4 +97,61 @@ void SoundCard::seekTo(int pos){
     mediaPlayer->setPosition(
                 ((double)pos / (double)ui->seekBar->maximum())
                 * mediaPlayer->duration());
+}
+
+void SoundCard::setupMediaPlayer(){
+    mediaPlayer = new QMediaPlayer();
+    mediaPlayer->setNotifyInterval(200);
+    mediaPlayer->setMedia(
+                QMediaContent(
+                    QUrl::fromLocalFile(soundFile)));
+
+    QObject::connect(mediaPlayer, SIGNAL(positionChanged(qint64)),
+                     this, SLOT(updateSeekBar(qint64)));
+
+    QObject::connect(ui->seekBar, SIGNAL(sliderMoved(int)),
+                     this, SLOT(seekTo(int)));
+
+    QObject::connect(ui->seekBar, SIGNAL(sliderPressed()),
+                     this, SLOT(toggleSeeking()));
+
+    QObject::connect(ui->seekBar, SIGNAL(sliderReleased()),
+                     this, SLOT(toggleSeeking()));
+
+    QObject::connect(ui->btnStop, SIGNAL(pressed()),
+                     this, SLOT(stopPlayback()));
+
+    QObject::connect(ui->btnPlayPause, SIGNAL(pressed()),
+                     this, SLOT(togglePlayback()));
+}
+
+void SoundCard::togglePlayback(){
+    if(mediaPlayer->state() == QMediaPlayer::PlayingState){
+        mediaPlayer->pause();
+        ui->btnPlayPause->setIcon(QIcon(":/icons/play.svg"));
+    }
+    else{
+        mediaPlayer->play();
+        ui->btnPlayPause->setIcon(QIcon(":/icons/pause.svg"));
+    }
+}
+
+void SoundCard::toggleSeeking(){
+    static int i = 0;
+    static bool wasPlaying = false;
+
+    if(i == 0){
+        wasPlaying = mediaPlayer->state() == QMediaPlayer::PlayingState;
+        mediaPlayer->pause();
+        ++i;
+    }else{
+        i = 0;
+        if(wasPlaying)
+            mediaPlayer->play();
+    }
+}
+
+void SoundCard::stopPlayback(){
+    mediaPlayer->stop();
+    ui->btnPlayPause->setIcon(QIcon(":/icons/play.svg"));
 }

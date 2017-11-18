@@ -14,7 +14,8 @@ class SoundCard : public QWidget
     Q_OBJECT
 
 public:
-    explicit SoundCard(QWidget* parent = 0, QString soundFile = "C:/Users/bcmwo/Downloads/165194__ryding__road.wav");
+    explicit SoundCard(QWidget* parent = 0,
+                       QString sndFile = "C:/Users/bcmwo/Downloads/165194__ryding__road.wav");
     ~SoundCard();
 
 signals:
@@ -28,6 +29,8 @@ private:
     void openContextMenu();
     bool firstClick;
     void mousePressEvent(QMouseEvent *event) override;
+    QString soundFile;
+    void setupMediaPlayer();
 private slots:
     void doubleClickExpired();
     void finishNameEdit();
@@ -37,6 +40,9 @@ private slots:
     void saveCopyOfSelf();
     void updateSeekBar(qint64 pos);
     void seekTo(int pos);
+    void togglePlayback();
+    void toggleSeeking();
+    void stopPlayback();
 };
 
 #endif // SOUNDCARD_H
