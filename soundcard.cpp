@@ -85,27 +85,30 @@ void SoundCard::finishNameEdit(){
     ui->leName->clearFocus();
 }
 
+//change the seekbar's position to match the mediaplayer
 void SoundCard::updateSeekBar(qint64 pos){
     if(!ui->seekBar->isSliderDown()){
+        double mediaPositionRatio = (double)pos / (double)mediaPlayer->duration();
         ui->seekBar->setValue(
-            ((double)pos / (double)mediaPlayer->duration())
-            * ui->seekBar->maximum());
+            mediaPositionRatio * ui->seekBar->maximum());
     }
 }
 
+//change the mediaplayer's position to match the seekbar
 void SoundCard::seekTo(int pos){
+    double seekBarRatio = (double)pos / (double)ui->seekBar->maximum();
     mediaPlayer->setPosition(
-                ((double)pos / (double)ui->seekBar->maximum())
-                * mediaPlayer->duration());
+                seekBarRatio * mediaPlayer->duration());
 }
 
+//initialize media, connect signals and slots for media player
 void SoundCard::setupMediaPlayer(){
     mediaPlayer = new QMediaPlayer();
     mediaPlayer->setNotifyInterval(200);
     mediaPlayer->setMedia(
                 QMediaContent(
                     QUrl::fromLocalFile(soundFile)));
-
+//seeking
     QObject::connect(mediaPlayer, SIGNAL(positionChanged(qint64)),
                      this, SLOT(updateSeekBar(qint64)));
 
@@ -118,6 +121,7 @@ void SoundCard::setupMediaPlayer(){
     QObject::connect(ui->seekBar, SIGNAL(sliderReleased()),
                      this, SLOT(toggleSeeking()));
 
+//stop & play/pause
     QObject::connect(ui->btnStop, SIGNAL(pressed()),
                      this, SLOT(stopPlayback()));
 
@@ -125,6 +129,8 @@ void SoundCard::setupMediaPlayer(){
                      this, SLOT(togglePlayback()));
 }
 
+//play or pause the media and change button icon
+// depending on current state
 void SoundCard::togglePlayback(){
     if(mediaPlayer->state() == QMediaPlayer::PlayingState){
         mediaPlayer->pause();
@@ -136,6 +142,9 @@ void SoundCard::togglePlayback(){
     }
 }
 
+//fires when the seekbar is pressed or released:
+// pressing saves the state (playing or paused) and pauses media,
+// releasing restores the previous state
 void SoundCard::toggleSeeking(){
     static int i = 0;
     static bool wasPlaying = false;
@@ -151,6 +160,7 @@ void SoundCard::toggleSeeking(){
     }
 }
 
+//stop media and update icon
 void SoundCard::stopPlayback(){
     mediaPlayer->stop();
     ui->btnPlayPause->setIcon(QIcon(":/icons/play.svg"));
