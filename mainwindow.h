@@ -9,6 +9,7 @@
 #include "aboutwindow.h"
 #include "controlpanel.h"
 #include "workspace.h"
+#include "projectstate.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,6 +26,8 @@ public:
 signals:
     void sig_sndFileDropped(QString path);
     void sig_loadSndToWorkspace(Sound* snd);
+    void sig_SaveProject(QList<Sound*>);
+    void sig_LoadProject();
 
 private:
     Ui::MainWindow* ui;
@@ -33,10 +36,13 @@ private:
     AboutWindow* abtWindow;
     ControlPanel* ctrlPanel;
     Workspace* workspace;
+    ProjectState* projState;
     void dragEnterEvent(QDragEnterEvent *e);
     void dropEvent(QDropEvent* event);
 private slots:
-    void on_actionAbout_triggered();    
+    void on_actionAbout_triggered();
+    void on_actionSave_Project_triggered();
+    void on_actionOpen_Project_triggered();
     void loadSoundToWorkspace(Sound* snd);
 };
 

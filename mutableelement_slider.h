@@ -3,7 +3,7 @@
 
 #include "mutableparamelement.h"
 #include <QSlider>
-#include <Qtmath>
+#include <QtMath>
 
 class MutableElement_slider final: public MutableParamElement{
     Q_OBJECT

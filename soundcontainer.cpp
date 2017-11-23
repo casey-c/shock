@@ -48,8 +48,7 @@ void SoundContainer::loadSoundToWorkspace(Sound* snd) {
 }
 
 
-void SoundContainer::on_btnAdd_clicked()
-{
+void SoundContainer::on_btnAdd_clicked() {
     QStringList snds = QFileDialog::getOpenFileNames(this,
                                  "Import Sample",
                                  "",
@@ -61,16 +60,30 @@ void SoundContainer::on_btnAdd_clicked()
     }
 }
 
-void SoundContainer::removeSound(Sound* snd){
+void SoundContainer::removeSound(Sound* snd) {
     emit sig_soundDeleted(snd);
     ui->sndLayout->removeWidget(snd);
     sounds.removeOne(snd);
     delete snd;
 }
 
+void SoundContainer::removeAllSounds() {
+    qDebug() << "removing all sounds";
+
+    QList<Sound*>::iterator itr = sounds.begin();
+    while(itr != sounds.end()){
+        Sound* snd = *itr;
+        removeSound(snd);
+        if(!sounds.empty()){
+            itr = sounds.begin();
+            continue;
+        }
+        ++itr;
+    }
+}
+
 //remove all selected sounds
-void SoundContainer::on_btnRemove_clicked()
-{
+void SoundContainer::on_btnRemove_clicked() {
     QList<Sound*>::iterator itr = sounds.begin();
     while(itr != sounds.end()){
 
@@ -88,7 +101,7 @@ void SoundContainer::on_btnRemove_clicked()
     }
 }
 
-void SoundContainer::shiftSoundPos(Sound* const &snd, int offset){
+void SoundContainer::shiftSoundPos(Sound* const &snd, int offset) {
     int curIdx = ui->sndLayout->indexOf(snd);
 
     if(curIdx == -1 || curIdx + offset < 0 || curIdx + offset >= ui->sndLayout->count() - 1)
@@ -98,37 +111,38 @@ void SoundContainer::shiftSoundPos(Sound* const &snd, int offset){
     ui->sndLayout->insertWidget(curIdx + offset, snd);
 }
 
-void SoundContainer::shiftSndDown(){
+void SoundContainer::shiftSndDown() {
     shiftSoundPos(qobject_cast<Sound*>(sender()), 1);
 }
 
-void SoundContainer::shiftSndUp(){
+void SoundContainer::shiftSndUp() {
     shiftSoundPos(qobject_cast<Sound*>(sender()), -1);
 }
 
 
-void SoundContainer::on_btnSelectAll_clicked()
-{
+void SoundContainer::on_btnSelectAll_clicked() {
     for(QList<Sound*>::iterator itr = sounds.begin(); itr != sounds.end(); ++itr){
         (*itr)->setSelected(true);
     }
 }
 
-void SoundContainer::on_btnDeselectAll_clicked()
-{
+void SoundContainer::on_btnDeselectAll_clicked() {
     for(QList<Sound*>::iterator itr = sounds.begin(); itr != sounds.end(); ++itr){
         (*itr)->setSelected(false);
     }
 }
 
-void SoundContainer::on_tabVolSlider_valueChanged(int position)
-{
+void SoundContainer::on_tabVolSlider_valueChanged(int position) {
     for(QList<Sound*>::iterator itr = sounds.begin(); itr != sounds.end(); ++itr){
         (*itr)->setVolumeMod(position);
     }
 }
 
-void SoundContainer::on_sndFileDropped(QString path){
+void SoundContainer::on_sndFileDropped(QString path) {
     Sound* snd = new Sound(this, path);
     addSound(snd);
+}
+
+QList<Sound*> SoundContainer::getAllSounds() {
+    return sounds;
 }

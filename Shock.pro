@@ -42,7 +42,8 @@ SOURCES += \
     mutableparamelement.cpp \
     mutableelement_lineedit.cpp \
     mutableelement_slider.cpp \
-    mutableelement_checkbox.cpp
+    mutableelement_checkbox.cpp \
+    projectstate.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -60,7 +61,8 @@ HEADERS += \
     mutableparamelement.h \
     mutableelement_lineedit.h \
     mutableelement_slider.h \
-    mutableelement_checkbox.h
+    mutableelement_checkbox.h \
+    projectstate.h
 
 FORMS += \
         mainwindow.ui \
