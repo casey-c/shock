@@ -19,6 +19,7 @@ class SoundContainer : public QWidget
 public:
     explicit SoundContainer(QWidget *parent = 0);
     int size();
+    QList<Sound*> getAllSounds();
 
     ~SoundContainer();
 
@@ -33,12 +34,11 @@ private slots:
     void shiftSndDown();
 
     void on_btnSelectAll_clicked();
-
     void on_btnDeselectAll_clicked();
-
     void loadSoundToWorkspace(Sound* snd);
     void on_tabVolSlider_valueChanged(int position);
     void on_sndFileDropped(QString path);
+    void removeAllSounds();
 
 private:
     Ui::SoundContainer *ui;
@@ -47,6 +47,7 @@ private:
     void shiftSoundPos(Sound* const &snd, int offset);
     void addSound(Sound* snd);
     void removeSound(Sound* snd);
+
 };
 
 #endif // SOUNDCONTAINER_H

@@ -32,6 +32,13 @@ MainWindow::MainWindow(QWidget *parent) :
     //QObject::connect(this, SIGNAL(sig_loadSndToWorkspace(Sound*)), workspace, SLOT(loadSound(Sound*)));
     //QObject::connect(parent, SIGNAL(addToWorkspace(Sound*)), this, SLOT(loadSound(Sound*)));
 
+    projState = new ProjectState();
+    QObject::connect(this, SIGNAL(sig_SaveProject(QList<Sound*>)), projState, SLOT(saveProject(QList<Sound*>)));
+    QObject::connect(this, SIGNAL(sig_LoadProject()), projState, SLOT(loadProject()));
+    QObject::connect(projState,SIGNAL(sig_reloadSound(QString)),sndCont,SLOT(on_sndFileDropped(QString)));
+    QObject::connect(projState,SIGNAL(sig_removeLoadedSounds()),sndCont,SLOT(removeAllSounds()));
+
+
     setAcceptDrops(true);
 }
 
@@ -52,7 +59,20 @@ void MainWindow::on_actionAbout_triggered(){
     abtWindow->raise();
 }
 
+void MainWindow::on_actionSave_Project_triggered() {
+    qDebug() << "trying to save project";
+
+    emit sig_SaveProject(sndCont->getAllSounds());
+}
+
+void MainWindow::on_actionOpen_Project_triggered() {
+    qDebug() << "trying to load project";
+
+    emit sig_LoadProject();
+}
+
 void MainWindow::loadSoundToWorkspace(Sound* snd){
+    //qDebug() << "trying to load sounds";
     emit sig_loadSndToWorkspace(snd);
 }
 
