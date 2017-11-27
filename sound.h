@@ -6,6 +6,7 @@
 #include <QMediaPlayer>
 #include <QLayoutItem>
 #include <QFileInfo>
+#include "audioutil.h"
 
 namespace Ui {
 class Sound;
@@ -28,6 +29,8 @@ public:
     void setSelected(bool selected);
     void setVolumeMod(int x);
     static bool validSoundFile(QString path);
+
+    QVector<double> getData(){AudioUtil* a = new AudioUtil(fileName);data = a->getAllFrames();qDebug()<<data.size();return data;}
 
 signals:
     void sig_shiftUp();
@@ -53,7 +56,7 @@ private:
     QMediaPlayer player;
     int volumeMod;
     int actualVolume;
-
+    QVector<double> data;
     void setPath(QString fn);
 };
 

@@ -17,6 +17,7 @@ public:
     AlgoSettings();
 
     QList<Param*> getParams() {return params;}
+    QString getName() {return name;}
 private:
     QList<Param*> params;
     QString name;

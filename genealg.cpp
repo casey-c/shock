@@ -12,13 +12,13 @@ Individual::Individual() {}
 // Create an individual with sample length
 Individual::Individual(int sampleLength) {
     setGeneLength(sampleLength);
-    sequence = QVector<float>(geneLength);
+    sequence = QVector<double>(geneLength);
 }
 
 // Fills in the individual with random points
 void Individual::generateIndividual(){
     for(int i = 0; i < size(); i++){
-        float gene = (float) rand();
+        double gene = (double) rand();
         sequence[i] = gene;
     }
 }
@@ -29,12 +29,12 @@ void Individual::setGeneLength(int len){
 }
 
 // Gets Gene at a specific index
-float Individual::getGene(int index){
+double Individual::getGene(int index){
     return sequence.at(index);
 }
 
 // Sets gene at a specicic index with a specific value
-void Individual::setGene(int index, float value){
+void Individual::setGene(int index, double value){
     sequence[index] = value;
     fit = 0;
 }
@@ -46,10 +46,12 @@ int Individual::size(){
 
 // Get the fitness of the individual
 int Individual::getFit(){
+    qDebug() << "good so far fit";
     if(fit == 0){
         Fitness find;
         fit = find.getFitness(this);
     }
+    qDebug() << "good so far return fit";
     return fit;
 }
 
@@ -71,17 +73,23 @@ Population::Population(int sampleSize, int populationSize, bool initialized) {
 
 // Get an individual at an index
 Individual Population::getIndividual(int index){
+    qDebug() << "good so far get";
     return this->individuals[index];
 }
 
 // Get the fittest of the population
 Individual Population::getFittest(){
+    qDebug() << "good so far";
     Individual fittest = individuals[0];
+    qDebug() << "good so far";
     for(int i = 0; i < this->size(); ++i){
+        qDebug() << "good so far loop";
         if (fittest.getFit() >= getIndividual(i).getFit()){
+            qDebug() << "good so far if";
             fittest = getIndividual(i);
         }
     }
+    qDebug() << "good so far!";
     return fittest;
 }
 
@@ -92,7 +100,9 @@ int Population::size(){
 
 // Write an idividual in the population
 void Population::saveIndividual(int index, Individual indiv){
+    qDebug() << "save good so far" << individuals.size();
     individuals[index] = indiv;
+    qDebug() << "good so far";
 }
 
 
@@ -113,12 +123,13 @@ Algorithm::Algorithm(double uniform, double mutation,
 // Start evolving populations, crossing over and generating new children
 Population Algorithm::evolvePopulation(Population parent){
     this->sampleSize = parent.getIndividual(0).size();
+    qDebug() << "good so far1";
     Population newPopulation = Population(sampleSize, parent.size(), false);
-
+    qDebug() << "good so far2";
     if(this->elitism){
         newPopulation.saveIndividual(0, parent.getFittest());
     }
-
+    qDebug() << "good so far3";
     int elitismOffset;
     if(this->elitism){
         elitismOffset = 1;
@@ -157,7 +168,7 @@ Individual Algorithm::crossover(Individual indiv1, Individual indiv2){
 void Algorithm::mutate(Individual indiv){
     for(int i = 0; i < indiv.size(); ++i){
         if(rand() <= mutationRate){
-            float gene = (float) rand();
+            double gene = (double) rand();
             indiv.setGene(i, gene);
         }
     }
@@ -179,7 +190,7 @@ Individual Algorithm::childSelect(Population parent){
 //Fitness methods
 
 // Set the best solution
-void Fitness::setSolution(QVector<QVector<float>> * newSolution){
+void Fitness::setSolution(QVector<QVector<double>> * newSolution){
     solution = newSolution;
 }
 
@@ -206,7 +217,7 @@ int Fitness::getMaxFitness(){
 GeneAlg::GeneAlg(){}
 
 // Set the settings
-GeneAlg::GeneAlg(AlgoSettings settings)
+GeneAlg::GeneAlg(AlgoSettings* settings)
 {
     //if(settings != NULL){
     //uniformRate = settings;
@@ -218,8 +229,10 @@ GeneAlg::GeneAlg(AlgoSettings settings)
 }
 
 // overrides IAlgorithm's method
-QVector<float> GeneAlg::run(QVector<QVector<float> > input){
-    QVector<QVector<float>> * solutions = new QVector<QVector<float>>;
+QVector<double> GeneAlg::run(QVector<QVector<double> > input){
+    QVector<QVector<double>> * solutions = new QVector<QVector<double>>;
+
+    qDebug() << "good so far";
     //for(int i = 0; i < input.length(); i++){
     //     solutions.append(input[i]);
     //}
@@ -228,20 +241,27 @@ QVector<float> GeneAlg::run(QVector<QVector<float> > input){
 
     for(int i = 0; i < input.length(); i++){
         solutions->append(input[i]);
+        qDebug() << input[i].size();
+    }
+    for(int i = 0; i < input[0].length(); i++){
+        break;
+        qDebug() << input[0][i];
     }
     Fitness * checkFitness = new Fitness;
     checkFitness->setSolution(solutions);
-
-    Population myPop = Population(44100, 4, true);
-
-    int targetGen = 10;
-
+    qDebug() << "good so far";
+    Population myPop = Population(44100, 2, true);
+    qDebug() << myPop.size();
+    int targetGen = 1;
+    qDebug() << "good so far";
     int generationCount = 0;
-    Algorithm start;
+    Algorithm* start = new Algorithm();
+    qDebug() << "good so far";
     while(generationCount < targetGen){
-        myPop = start.evolvePopulation(myPop);
+        myPop = start->evolvePopulation(myPop);
+        qDebug() << "good so far" << generationCount;
         generationCount++;
     }
-    QVector<float> a;
+    QVector<double> a;
     return a;
 }

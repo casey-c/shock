@@ -17,7 +17,7 @@ MutableElement_lineEdit::MutableElement_lineEdit(
     int n = (qMax(QString::number(((int) low)).length(),
                   QString::number(((int) high)).length())
                   + precision) * 10;
-    lineEdit->setMinimumWidth(n);
+    lineEdit->setMinimumWidth(60);
     lineEdit->setMaximumWidth(n);
     lineEdit->setAlignment(Qt::AlignRight);
 

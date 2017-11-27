@@ -1,7 +1,5 @@
 #ifndef GA_H
 #define GA_H
-#include <QVector>
-#include "stdlib.h"
 #include "ialgorithm.h"
 
 // Belongs to GA, stores a individual's gene sequence
@@ -11,14 +9,14 @@ public:
     Individual(int sampleLength);
     void generateIndividual();
     void setGeneLength(int len);
-    float getGene(int index);
-    void setGene(int index, float value);
+    double getGene(int index);
+    void setGene(int index, double value);
     int size();
     int getFit();
 private:
     int fit = 0;
     int geneLength = 0;
-    QVector<float> sequence;
+    QVector<double> sequence;
 
 };
 
@@ -60,11 +58,11 @@ private:
 class Fitness
 {
 public:
-    QVector<QVector<float> > * solution;
+    QVector<QVector<double> > * solution;
 
     Fitness() {}
 
-    void setSolution(QVector<QVector<float> > * newSolution);
+    void setSolution(QVector<QVector<double> > * newSolution);
     int getFitness(Individual* in);
     int getMaxFitness();
 };
@@ -74,12 +72,12 @@ class GeneAlg : public IAlgorithm
 {
 public:
     GeneAlg();
-    GeneAlg(AlgoSettings settings);
-    QVector<float> run(QVector<QVector<float> > input) override;
+    GeneAlg(AlgoSettings* settings);
+    QVector<double> run(QVector<QVector<double> > input) override;
 
 private:
-    float uniformRate;
-    float mutationRate;
+    double uniformRate;
+    double mutationRate;
     int childPop;
     int sampleSize;
     bool elitism;

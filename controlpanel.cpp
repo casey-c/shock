@@ -98,6 +98,17 @@ void ControlPanel::on_time_changed(){
     le->clearFocus();
 }
 
+void ControlPanel::on_shockButton_pressed(){
+    QString setting = settings->getName();
+    QVector<QVector<double>> input = cont->getAllData();
+    if(input.size() == 0)
+        return;
+    if(setting == "Genetic Algorithm"){
+        GeneAlg* run = new GeneAlg(settings);
+        run->run(input);
+    }
+}
+
 void ControlPanel::addRow(QList<QWidget*> widgets){
     QHBoxLayout* l = new QHBoxLayout();
     l->setSpacing(4);
@@ -112,6 +123,10 @@ void ControlPanel::addRow(QList<QWidget*> widgets){
 void ControlPanel::addParam(Param* p){
     data[p->getName()] = p;
     addRow(p->getElements());
+}
+
+void ControlPanel::removeParam(Param *p){
+    data.remove(p->getName());
 }
 
 double ControlPanel::getValue(QString key){

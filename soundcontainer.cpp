@@ -26,6 +26,15 @@ int SoundContainer::size(){
     return sounds.size();
 }
 
+QVector<QVector<double>> SoundContainer::getAllData(){
+    Sound* snd;
+    //allData = new QVector<QVector<double>>;
+    foreach(snd, sounds){
+        allData.append(snd->getData());
+    }
+    return allData;
+}
+
 void SoundContainer::addSound(Sound* snd){
     ui->sndLayout->insertWidget(ui->sndLayout->count() - 1, snd);
     qApp->processEvents();//make sure the widget has drawn fully
