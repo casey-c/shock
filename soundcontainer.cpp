@@ -136,10 +136,16 @@ void SoundContainer::on_tabVolSlider_valueChanged(int position) {
     }
 }
 
-void SoundContainer::on_sndFileDropped(QString path) {
-    Sound* snd = new Sound(this, path);
+void SoundContainer::on_sndFileDropped(QString path, QString fileName) {
+    Sound* snd = new Sound(this, path, fileName);
     addSound(snd);
 }
+
+/*
+void SoundContainer::on_sndFileDropped(QString path, QString fileName) {
+    Sound* snd = new Sound(this, path, fileName);
+    addSound(snd);
+}*/
 
 QList<Sound*> SoundContainer::getAllSounds() {
     return sounds;

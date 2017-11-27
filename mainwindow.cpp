@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     projState = new ProjectState();
     QObject::connect(this, SIGNAL(sig_SaveProject(QList<Sound*>)), projState, SLOT(saveProject(QList<Sound*>)));
     QObject::connect(this, SIGNAL(sig_LoadProject()), projState, SLOT(loadProject()));
-    QObject::connect(projState,SIGNAL(sig_reloadSound(QString)),sndCont,SLOT(on_sndFileDropped(QString)));
+    QObject::connect(projState,SIGNAL(sig_reloadSound(QString,QString)),sndCont,SLOT(on_sndFileDropped(QString,QString)));
     QObject::connect(projState,SIGNAL(sig_removeLoadedSounds()),sndCont,SLOT(removeAllSounds()));
 
 

@@ -11,7 +11,8 @@ public:
     explicit ProjectState(QObject *parent = nullptr);
 
 signals:
-    void sig_reloadSound(QString filePath);
+    void sig_reloadSound(QString filePath, QString fileName);
+    //void sig_reloadSound(QString filePath, QString fileName);
     void sig_removeLoadedSounds();
 
 public slots:

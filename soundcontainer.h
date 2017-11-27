@@ -37,7 +37,8 @@ private slots:
     void on_btnDeselectAll_clicked();
     void loadSoundToWorkspace(Sound* snd);
     void on_tabVolSlider_valueChanged(int position);
-    void on_sndFileDropped(QString path);
+    //void on_sndFileDropped(QString path);
+    void on_sndFileDropped(QString path, QString fileName = "");
     void removeAllSounds();
 
 private:
