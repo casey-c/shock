@@ -11,6 +11,7 @@ AboutWindow::AboutWindow(QWidget *parent) :
 
     initSectionText();
 
+    //add buttons to navigate about window
     addButton("The Project", "proj");
     addButton("The Developers", "devs");
     addButton("Getting Started", "getstart");
@@ -28,6 +29,7 @@ AboutWindow::AboutWindow(QWidget *parent) :
 }
 
 void AboutWindow::initSectionText(){
+    //map section names to what the specific section says
     sectionText["proj"] = "<b>Shock</b><br>\
                Shock is a program that uses machine learning \
                techniques to manufacture new sounds that imitate \
@@ -43,6 +45,8 @@ void AboutWindow::initSectionText(){
 }
 
 //add a button to the about window
+//the button text is "btnLabel" and clicking it makes the window display
+// the description associated with "whichDesc"
 void AboutWindow::addButton(QString btnLabel, QString whichDesc){
     QPushButton* btn = new QPushButton(QString(btnLabel));
     sectionBtns[btn] = whichDesc;
@@ -52,13 +56,16 @@ void AboutWindow::addButton(QString btnLabel, QString whichDesc){
 }
 
 void AboutWindow::on_sectionBtn_clicked(){
+    //get which button was clicked
     QPushButton* buttonSender = qobject_cast<QPushButton*>(sender());
 
+    //unbold all buttons then bold the clicked one
     for(QPushButton* p : sectionBtns.keys()){
         p->setStyleSheet(styleNormal);
     }
-
     buttonSender->setStyleSheet(styleBold);
+
+    //update the display to show correct section description
     ui->lblAbout->setText(sectionText[sectionBtns[buttonSender]]);
 }
 
@@ -69,6 +76,7 @@ AboutWindow::~AboutWindow(){
     delete ui;
 }
 
+//stylesheets for bold and normal button text
 const QString AboutWindow::styleBold = "QPushButton {\
                            font-size: 8pt;\
                            font-weight: bold;\

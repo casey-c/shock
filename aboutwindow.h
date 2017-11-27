@@ -20,11 +20,11 @@ public:
 
 private:
     Ui::AboutWindow *ui;
-    QHash<QPushButton*, QString> sectionBtns;
-    QHash<QString, QString> sectionText;
+    QHash<QPushButton*, QString> sectionBtns; //maps button to description tag
+    QHash<QString, QString> sectionText;      //maps description tag to description
+
     void addButton(QString btnLabel, QString whichDesc);
     void initSectionText();
-
 
     static const QString styleNormal;
     static const QString styleBold;
