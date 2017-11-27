@@ -17,7 +17,7 @@ class Sound : public QWidget
     Q_OBJECT
 
 public:
-    explicit Sound(QWidget *parent = 0, QString fn = "");
+    explicit Sound(QWidget *parent = 0, QString fn = "", QString fileText = "");
     ~Sound();
 
     QString getFileName();
@@ -43,6 +43,8 @@ public:
         sf_close(sf);
         return data;
     }
+
+    QString getText();
 
 signals:
     void sig_shiftUp();

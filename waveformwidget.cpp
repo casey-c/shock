@@ -76,19 +76,13 @@ void WaveformWidget::recalculatePeaks() {
 
 
     // Note:
-    // Peak list is a list of lists: outer list contains channels, inner list
-    // contains data for a single channel
-
-    for (int i = 0; i < srcAudioFile->getNumChannels(); ++i)
-        peakList.append(QList<double>());
-
+    // Peak list is a list of doubles. The list contains data for a single channel
 
     for (int i = 0; i < totalFrames; i += frameIncrement) {
         regionMax = srcAudioFile->peakForRegion(i, i + frameIncrement);
 
-        QList< QList<double> >::iterator it = peakList.begin();
-        for ( int j = 0; it != peakList.end() && j < regionMax.size(); ++it, ++j)
-            (*it).append(qAbs(regionMax[j]));
+        for (int j=0; j < regionMax.size(); ++j)
+            peakList.append(regionMax[j]);
     }
 }
 
@@ -112,32 +106,26 @@ void WaveformWidget::overviewDraw(QPaintEvent* evt) {
     int minY = evt->region().boundingRect().y();
     int maxY = evt->region().boundingRect().bottomRight().y();
 
-    //qDebug() << "min" << minX << "max" << maxX;
+    //qDebug() << "minX" << minX << "maxX" << maxX;
 
-    //qDebug() << "min" << minY << "max" << maxY;
+    //qDebug() << "minY" << minY << "maxY" << maxY;
 
 
-    int numChannels = peakList.size();
-    //int channelHeight = height() / numChannels;
-
+    int numChannels = 1;
 
     int totalHeight = maxY-minY;
     int channelHeight = totalHeight/numChannels;
 
-
-    QList< QList<double> >::iterator itr = peakList.begin();
-    for (int i = 0 ; i < numChannels; ++i, ++itr) {
+    for (int i = 0 ; i < numChannels; ++i) {
         int mid = totalHeight*(1+2*(i))/(numChannels*2);
-        //int top = mid + channelHeight / 2;
-        //int bot = mid - channelHeight / 2;
 
-        QList<double> channelPeaks = (*itr);
+        QList<double> channelPeaks = peakList;
 
         QList<double>::iterator itr2 = channelPeaks.begin();
         for ( int x = minX; itr2 != channelPeaks.end() && x < maxX; ++itr2, ++x ) {
             double peak = (*itr2);
             double y1 = mid + peak * scaleFactor * channelHeight/2;
-            double y2 = mid - peak * scaleFactor * channelHeight/2; // TODO: scale these by height/4 to make big
+            double y2 = mid - peak * scaleFactor * channelHeight/2;
 
             //qDebug() << "drawingLine" << x << y1 << x << y2 << numChannels;
 

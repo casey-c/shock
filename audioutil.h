@@ -27,6 +27,8 @@ public:
     void setFileHandlingMode(FileHandlingMode mode);
 
 private:
+    void convertMono();
+
     QVector<double> data;
     FileHandlingMode fileHandlingMode;
     QString filePath;

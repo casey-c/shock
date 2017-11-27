@@ -24,7 +24,9 @@ void ProjectState::loadProject() {
     for (int i = 0; i < size; ++i) {
         settings.setArrayIndex(i);
         QString filePath = settings.value("fileLocation").toString();
-        emit sig_reloadSound(filePath);
+        QString fileText = settings.value("fileText").toString();
+
+        emit sig_reloadSound(filePath,fileText);
     }
     settings.endArray();
 }
@@ -36,13 +38,12 @@ bool isValidFileName(QString fileName) {
         if (fileName.length() < 6)
             valid = false;
 
-        QString validEnd = "kcohs."; // .shock backwards
+        QString validEnd = "kcohs."; // ".shock" backwards
 
         if (valid) { // only perorm the loop ckeck if it can still be valid
             for (int i=0; i < 6; ++i) {
                 if (fileName[fileName.length()-(i+1)] != validEnd[i]) {
                     valid = false;
-                    qDebug() << fileName[fileName.length()-i] << "!=" << validEnd[i];
                 }
             }
         }
@@ -65,6 +66,8 @@ void ProjectState::saveProject(QList<Sound*> loadedSounds) {
 
         if (isValidFileName(fileName))
             break;
+        else
+            qDebug() << "You must enter a valid file extension (or no extension)";
     }
 
     QSettings settings(fileName, QSettings::IniFormat);
@@ -74,9 +77,9 @@ void ProjectState::saveProject(QList<Sound*> loadedSounds) {
         // should get whatever the user named the file too (and cuts, depending on how we do that)
         // currently only keeps track of file location (which is all that is needed to reload the sounds)
         QString t_str = loadedSounds[i]->getFileName();
-        qDebug() << t_str;
         settings.setArrayIndex(i);
         settings.setValue("fileLocation", t_str); // use similair calls to this for each trait of a 'sound'
+        settings.setValue("fileText", loadedSounds[i]->getText());
     }
     settings.endArray();
 }

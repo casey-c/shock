@@ -7,13 +7,17 @@
 //#include "waveformwidget.h"
 
 //create a new sound widget with filepath fn
-Sound::Sound(QWidget *parent, QString fn) :
+Sound::Sound(QWidget *parent, QString fn, QString fileText) :
     QWidget(parent),
     ui(new Ui::Sound)
 {
     ui->setupUi(this);
     setPath(fn);
-    ui->leName->setText(fn.replace(QRegExp(".+/"), "")); //strip folders off of filename and display it
+
+    if (fileText == "")
+        ui->leName->setText(fn.replace(QRegExp(".+/"), "")); //strip folders off of filename and display it
+    else
+        ui->leName->setText((fileText));
 
     //set the background of the line edit to match the background
     // (so it looks like a label but it's editable)
@@ -124,4 +128,8 @@ void Sound::on_loadToWorkspace_clicked()
 bool Sound::validSoundFile(QString path){
     QFileInfo fi(path);
     return (fi.isFile()) && (fi.suffix() == "wav" || fi.suffix() == "mp3");
+}
+
+QString Sound::getText() {
+    return ui->leName->text();
 }
