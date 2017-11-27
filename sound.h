@@ -16,7 +16,7 @@ class Sound : public QWidget
     Q_OBJECT
 
 public:
-    explicit Sound(QWidget *parent = 0, QString fn = "");
+    explicit Sound(QWidget *parent = 0, QString fn = "", QString fileText = "");
     ~Sound();
 
     QString getFileName();
@@ -28,6 +28,8 @@ public:
     void setSelected(bool selected);
     void setVolumeMod(int x);
     static bool validSoundFile(QString path);
+
+    QString getText();
 
 signals:
     void sig_shiftUp();
