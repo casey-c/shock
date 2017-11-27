@@ -68,8 +68,6 @@ void SoundContainer::removeSound(Sound* snd) {
 }
 
 void SoundContainer::removeAllSounds() {
-    qDebug() << "removing all sounds";
-
     QList<Sound*>::iterator itr = sounds.begin();
     while(itr != sounds.end()){
         Sound* snd = *itr;
