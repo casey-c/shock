@@ -13,7 +13,7 @@ public:
     IAlgorithm(AlgoSettings input)
         :settings(input)
     {}
-    virtual QVector<double> run(QVector<QVector<double> > input) = 0;
+    virtual QVector<short> run(QVector<QVector<short> > input) = 0;
 protected:
     AlgoSettings settings;
 };

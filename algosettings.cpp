@@ -3,7 +3,7 @@
 AlgoSettings::AlgoSettings()
 {
     JSONTemplateInterpreter* json = new JSONTemplateInterpreter();
-    bool d = json->readFromFile("templates/genalg.json");
+    bool d = json->readFromFile("c:/users/bcmwo/documents/shock/shock/genalg.json");
     if(!d){
         qDebug() << "OH NO!";
     }

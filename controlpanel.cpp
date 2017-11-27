@@ -19,49 +19,6 @@ ControlPanel::ControlPanel(QWidget *parent) :
     foreach(p, settings->getParams()){
         addParam(p);
     }
-/*********************PARAM EXAMPLE************************/
-    /*
-    Param* p = new Param("prm", 3.33, -20, 50.44, 2);
-    p->addVisualElement(new QLabel("value"));
-
-    QSlider* s = new QSlider(Qt::Horizontal);
-    p->addMutableElement(s);
-
-    p->addVisualElement(new QLabel("here"));
-
-    QLineEdit* le = new QLineEdit();
-    p->addMutableElement(le);
-
-    p->addVisualElement(new QLabel("ok"));
-
-    QCheckBox* cb = new QCheckBox();
-    p->addMutableElement(cb);
-
-    addParam(p);
-
-    qDebug() << "value of prm is" << getValue("prm");
-*/
-
-    /*********************PARAM EXAMPLE************************//*
-    Param* p = new Param("Randomness", 0, 0, 1, 3);
-    p->addVisualElement(new QLabel("Randomness"));
-
-    QSlider* s = new QSlider(Qt::Horizontal);
-    p->addMutableElement(s);
-
-    //p->addVisualElement(new QLabel("here"));
-
-    QLineEdit* le = new QLineEdit();
-    p->addMutableElement(le);
-
-    //p->addVisualElement(new QLabel("ok"));
-
-    //QCheckBox* cb = new QCheckBox();
-    //p->addMutableElement(cb);
-
-    addParam(p);
-
-    qDebug() << "value of prm is" << getValue("prm");*/
 }
 
 ControlPanel::~ControlPanel()
@@ -100,12 +57,27 @@ void ControlPanel::on_time_changed(){
 
 void ControlPanel::on_shockButton_pressed(){
     QString setting = settings->getName();
-    QVector<QVector<double>> input = cont->getAllData();
+    QVector<QVector<short>> input = cont->getAllData();
+
     if(input.size() == 0)
         return;
+
     if(setting == "Genetic Algorithm"){
-        GeneAlg* run = new GeneAlg(settings);
-        run->run(input);
+        GeneAlg* alg = new GeneAlg(settings);
+        QVector<short> result = alg->run(input);
+
+        SF_INFO info;
+        info.samplerate = 44100;
+        info.channels = 1;
+        info.format = SF_FORMAT_WAV | SF_FORMAT_PCM_16 | SF_ENDIAN_LITTLE;
+
+        qDebug() << sf_format_check(&info);
+
+        SNDFILE* sf = sf_open("out.wav", SFM_WRITE, &info);
+
+        sf_write_short(sf, result.data(), result.size());
+
+        sf_close(sf);
     }
 }
 

@@ -26,7 +26,7 @@ int SoundContainer::size(){
     return sounds.size();
 }
 
-QVector<QVector<double>> SoundContainer::getAllData(){
+QVector<QVector<short>> SoundContainer::getAllData(){
     Sound* snd;
     //allData = new QVector<QVector<double>>;
     foreach(snd, sounds){

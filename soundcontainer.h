@@ -19,7 +19,7 @@ class SoundContainer : public QWidget
 public:
     explicit SoundContainer(QWidget *parent = 0);
     int size();
-    QVector<QVector<double> > getAllData();
+    QVector<QVector<short> > getAllData();
     ~SoundContainer();
 
 signals:
@@ -43,7 +43,7 @@ private slots:
 private:
     Ui::SoundContainer *ui;
     QList<Sound*> sounds;
-    QVector<QVector<double> > allData;
+    QVector<QVector<short> > allData;
     void shiftSoundPos(Sound* const &snd, int offset);
     void addSound(Sound* snd);
     void removeSound(Sound* snd);

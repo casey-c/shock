@@ -30,7 +30,19 @@ public:
     void setVolumeMod(int x);
     static bool validSoundFile(QString path);
 
-    QVector<double> getData(){AudioUtil* a = new AudioUtil(fileName);data = a->getAllFrames();qDebug()<<data.size();return data;}
+    QVector<short> getData(){
+        SF_INFO info;
+        info.format = 0;
+        SNDFILE* sf = sf_open(fileName.toLatin1().data(), SFM_READ, &info);
+        QVector<short> data;
+        short srt;
+        while(sf_read_short(sf, &srt, 1) != 0){
+            data.push_back(srt);
+        }
+
+        sf_close(sf);
+        return data;
+    }
 
 signals:
     void sig_shiftUp();

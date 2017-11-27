@@ -1,4 +1,7 @@
 #include "genealg.h"
+#include <QGlobal.h>
+#include <QTime>
+#include <climits>
 
 class Algorithm;
 class Fitness;
@@ -12,13 +15,13 @@ Individual::Individual() {}
 // Create an individual with sample length
 Individual::Individual(int sampleLength) {
     setGeneLength(sampleLength);
-    sequence = QVector<double>(geneLength);
+    sequence = QVector<short>(geneLength);
 }
 
 // Fills in the individual with random points
 void Individual::generateIndividual(){
     for(int i = 0; i < size(); i++){
-        double gene = (double) rand();
+        short gene = qrand() % (SHRT_MAX - SHRT_MIN + 1) + SHRT_MIN;
         sequence[i] = gene;
     }
 }
@@ -29,12 +32,12 @@ void Individual::setGeneLength(int len){
 }
 
 // Gets Gene at a specific index
-double Individual::getGene(int index){
+short Individual::getGene(int index){
     return sequence.at(index);
 }
 
 // Sets gene at a specicic index with a specific value
-void Individual::setGene(int index, double value){
+void Individual::setGene(int index, short value){
     sequence[index] = value;
     fit = 0;
 }
@@ -74,7 +77,9 @@ Population::Population(int sampleSize, int populationSize, bool initialized) {
 // Get an individual at an index
 Individual Population::getIndividual(int index){
     qDebug() << "good so far get";
+    qDebug() << index << "requested and size is" << individuals.size();
     return this->individuals[index];
+    qDebug() << "gfin";
 }
 
 // Get the fittest of the population
@@ -118,6 +123,9 @@ Algorithm::Algorithm(double uniform, double mutation,
     this->childPop = children;
     this->sampleSize = sample;
     this->elitism = elite;
+
+    QTime time = QTime::currentTime();
+    qsrand((uint)time.msec());
 }
 
 // Start evolving populations, crossing over and generating new children
@@ -136,14 +144,25 @@ Population Algorithm::evolvePopulation(Population parent){
     } else{
         elitismOffset = 0;
     }
+
+    qDebug() << "4";
     for(int i = 0; i < parent.size(); ++i){
+        qDebug() << i << "a";
         Individual indiv1 = childSelect(parent);
+        qDebug() << i << "b";
         Individual indiv2 = childSelect(parent);
+        qDebug() << i << "c";
         Individual newIndiv = crossover(indiv1, indiv2);
+        qDebug() << i << "d";
         newPopulation.saveIndividual(i, newIndiv);
+        qDebug() << i << "e";
     }
 
+    qDebug() << "cream";
+
     for(int i = elitismOffset; i < newPopulation.size(); ++i){
+        qDebug() << "about to mutate indiv" << i;
+
         mutate(newPopulation.getIndividual(i));
     }
 
@@ -166,9 +185,11 @@ Individual Algorithm::crossover(Individual indiv1, Individual indiv2){
 
 // Randomly introduce a random gene to prevent too early convergence
 void Algorithm::mutate(Individual indiv){
+
+    qDebug() << "mutating";
     for(int i = 0; i < indiv.size(); ++i){
         if(rand() <= mutationRate){
-            double gene = (double) rand();
+            short gene = qrand() % (SHRT_MAX - SHRT_MIN + 1) + SHRT_MIN;
             indiv.setGene(i, gene);
         }
     }
@@ -177,8 +198,12 @@ void Algorithm::mutate(Individual indiv){
 // Select the fittest child
 Individual Algorithm::childSelect(Population parent){
     Population result = Population(sampleSize, childPop, false);
+
+    qDebug() << "X";
+
     for(int i = 0; i < this->childPop; ++i){
-        int randomID = (int) rand() * parent.size();
+        int randomID = qrand() % parent.size();
+        qDebug() << randomID;
         result.saveIndividual(i, parent.getIndividual(randomID));
     }
     Individual fittest = result.getFittest();
@@ -190,7 +215,7 @@ Individual Algorithm::childSelect(Population parent){
 //Fitness methods
 
 // Set the best solution
-void Fitness::setSolution(QVector<QVector<double>> * newSolution){
+void Fitness::setSolution(QVector<QVector<short>> * newSolution){
     solution = newSolution;
 }
 
@@ -229,8 +254,8 @@ GeneAlg::GeneAlg(AlgoSettings* settings)
 }
 
 // overrides IAlgorithm's method
-QVector<double> GeneAlg::run(QVector<QVector<double> > input){
-    QVector<QVector<double>> * solutions = new QVector<QVector<double>>;
+QVector<short> GeneAlg::run(QVector<QVector<short> > input){
+    QVector<QVector<short>> * solutions = new QVector<QVector<short>>;
 
     qDebug() << "good so far";
     //for(int i = 0; i < input.length(); i++){
@@ -250,7 +275,7 @@ QVector<double> GeneAlg::run(QVector<QVector<double> > input){
     Fitness * checkFitness = new Fitness;
     checkFitness->setSolution(solutions);
     qDebug() << "good so far";
-    Population myPop = Population(44100, 2, true);
+    Population myPop = Population(44100, 4, true);
     qDebug() << myPop.size();
     int targetGen = 1;
     qDebug() << "good so far";
@@ -262,6 +287,17 @@ QVector<double> GeneAlg::run(QVector<QVector<double> > input){
         qDebug() << "good so far" << generationCount;
         generationCount++;
     }
-    QVector<double> a;
+    QVector<short> a;
+
+    for(int i = 0; i < myPop.size(); ++i){
+        Individual ind = myPop.getIndividual(i);
+
+        for(int j = 0; j < ind.size(); ++j){
+            a.push_back(ind.getGene(j));
+        }
+    }
+
+    qDebug() << "done";
+
     return a;
 }
