@@ -60,14 +60,10 @@ void MainWindow::on_actionAbout_triggered(){
 }
 
 void MainWindow::on_actionSave_Project_triggered() {
-    qDebug() << "trying to save project";
-
     emit sig_SaveProject(sndCont->getAllSounds());
 }
 
 void MainWindow::on_actionOpen_Project_triggered() {
-    qDebug() << "trying to load project";
-
     emit sig_LoadProject();
 }
 

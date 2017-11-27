@@ -1,6 +1,7 @@
 #include "projectstate.h"
 #include <QJsonArray>
 #include <QSettings>
+#include <QFileDialog>
 
 ProjectState::ProjectState(QObject *parent) : QObject(parent)
 {
@@ -8,14 +9,16 @@ ProjectState::ProjectState(QObject *parent) : QObject(parent)
 }
 
 void ProjectState::loadProject() {
-    qDebug() << "removing current sound files";
+
+    QString saveFile = QFileDialog::getOpenFileName((QWidget*)this->parent(),"Open Project","","Shock Files (*.shock)");
+
+    if (saveFile == "")
+        return;
 
     emit sig_removeLoadedSounds();
 
 
-    qDebug() << "loading project";
-
-    QSettings settings("Shock3", "Shock3");
+    QSettings settings(saveFile, QSettings::IniFormat);
 
     int size = settings.beginReadArray("sounds");
     for (int i = 0; i < size; ++i) {
@@ -26,12 +29,45 @@ void ProjectState::loadProject() {
     settings.endArray();
 }
 
+bool isValidFileName(QString fileName) {
+    bool valid = true;
+
+    if (fileName.contains('.')) {
+        if (fileName.length() < 6)
+            valid = false;
+
+        QString validEnd = "kcohs."; // .shock backwards
+
+        if (valid) { // only perorm the loop ckeck if it can still be valid
+            for (int i=0; i < 6; ++i) {
+                if (fileName[fileName.length()-(i+1)] != validEnd[i]) {
+                    valid = false;
+                    qDebug() << fileName[fileName.length()-i] << "!=" << validEnd[i];
+                }
+            }
+        }
+    }
+
+    return valid;
+}
+
 void ProjectState::saveProject(QList<Sound*> loadedSounds) {
     //list of all sounds loaded is passed in
 
-    qDebug() << "ceating qsettings";
+    QString fileName;
 
-    QSettings settings("Shock3", "Shock3");
+    while (true) { // loop until you get a valid file name
+        fileName = QFileDialog::getSaveFileName((QWidget*)this->parent(),tr("Save Project Settings"),"",tr("Shock config file (*.shock)"));
+
+        if (!fileName.contains('.')) {
+            fileName.append(".shock");
+        }
+
+        if (isValidFileName(fileName))
+            break;
+    }
+
+    QSettings settings(fileName, QSettings::IniFormat);
 
     settings.beginWriteArray("sounds");
     for (int i=0; i < loadedSounds.size(); ++i) {
