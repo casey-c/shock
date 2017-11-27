@@ -6,6 +6,7 @@
 #include <QMediaPlayer>
 #include <QLayoutItem>
 #include <QFileInfo>
+#include "audioutil.h"
 
 namespace Ui {
 class Sound;
@@ -28,6 +29,20 @@ public:
     void setSelected(bool selected);
     void setVolumeMod(int x);
     static bool validSoundFile(QString path);
+
+    QVector<float> getData(){
+        SF_INFO info;
+        info.format = 0;
+        SNDFILE* sf = sf_open(fileName.toLatin1().data(), SFM_READ, &info);
+        QVector<float> data;
+        float srt;
+        while(sf_read_float(sf, &srt, 1) != 0){
+            data.push_back(srt);
+        }
+
+        sf_close(sf);
+        return data;
+    }
 
 signals:
     void sig_shiftUp();
@@ -53,7 +68,7 @@ private:
     QMediaPlayer player;
     int volumeMod;
     int actualVolume;
-
+    QVector<double> data;
     void setPath(QString fn);
 };
 

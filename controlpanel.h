@@ -6,7 +6,10 @@
 #include <QLineEdit>
 #include <QSlider>
 #include <QDebug>
+#include "algosettings.h"
+#include "genealg.h"
 #include "param.h"
+#include "soundcontainer.h"
 
 namespace Ui {
 class ControlPanel;
@@ -22,6 +25,9 @@ public:
     int getTime();
 
     void addParam(Param* p);
+    void removeParam(Param* p);
+    void setCont(SoundContainer* p) {cont = p;}
+
     double getValue(QString key);
 private slots:
     void on_infiniteSoundChk_toggled(bool checked);
@@ -33,10 +39,12 @@ private:
     QString alg;
     QHash<QString, Param*> data;
 
+    AlgoSettings* settings;
+
     bool infinite;
     int mins;
     int secs;
-
+    SoundContainer* cont;
     void addRow(QList<QWidget*> widgets);
 };
 

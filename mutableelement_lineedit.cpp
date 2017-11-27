@@ -1,4 +1,5 @@
 #include "mutableelement_lineedit.h"
+#include <QtGlobal>
 
 MutableElement_lineEdit::MutableElement_lineEdit(
         QLineEdit* le,
@@ -11,6 +12,14 @@ MutableElement_lineEdit::MutableElement_lineEdit(
 
     QObject::connect(lineEdit, SIGNAL(editingFinished()),
                      this, SLOT(emitValChange()));
+
+
+    int n = (qMax(QString::number(((int) low)).length(),
+                  QString::number(((int) high)).length())
+                  + precision) * 10;
+    lineEdit->setMinimumWidth(60);
+    lineEdit->setMaximumWidth(n);
+    lineEdit->setAlignment(Qt::AlignRight);
 
     lineEdit->setText(QString::number(def));
     lineEdit->setValidator(new QDoubleValidator(low, high, precision, this));

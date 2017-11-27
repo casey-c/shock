@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //QObject::connect(sndCont, SIGNAL(sig_loadToWorkspace(Sound*)), this, SLOT(loadSoundToWorkspace(Sound*)));
     ui->gridFrame->layout()->addWidget(ctrlPanel);
     setAcceptDrops(true);
-
+    ctrlPanel->setCont(sndCont);
     workspace = new Workspace();
     ui->shockframe->layout()->addWidget(workspace);
 

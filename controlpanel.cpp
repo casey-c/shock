@@ -13,27 +13,12 @@ ControlPanel::ControlPanel(QWidget *parent) :
     QObject::connect(ui->minutesLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
     QObject::connect(ui->secondsLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
 
+    settings = new AlgoSettings();
 
-/*********************PARAM EXAMPLE************************/
-    Param* p = new Param("prm", 3.33, -20, 50.44, 2);
-    p->addVisualElement(new QLabel("value"));
-
-    QSlider* s = new QSlider(Qt::Horizontal);
-    p->addMutableElement(s);
-
-    p->addVisualElement(new QLabel("here"));
-
-    QLineEdit* le = new QLineEdit();
-    p->addMutableElement(le);
-
-    p->addVisualElement(new QLabel("ok"));
-
-    QCheckBox* cb = new QCheckBox();
-    p->addMutableElement(cb);
-
-    addParam(p);
-
-    qDebug() << "value of prm is" << getValue("prm");
+    Param* p;
+    foreach(p, settings->getParams()){
+        addParam(p);
+    }
 }
 
 ControlPanel::~ControlPanel()
@@ -70,7 +55,34 @@ void ControlPanel::on_time_changed(){
     le->clearFocus();
 }
 
-void ControlPanel::on_shockButton_pressed(){}
+void ControlPanel::on_shockButton_pressed(){
+    QString setting = settings->getName();
+    QVector<QVector<float>> input = cont->getAllData();
+
+    if(input.size() == 0)
+        return;
+
+    if(setting == "Genetic Algorithm"){
+        GeneAlg* alg = new GeneAlg(settings);
+        QVector<float> result = alg->run(input);
+
+        for(float f: result)
+            qDebug() << f;
+
+        SF_INFO info;
+        info.samplerate = 44100;
+        info.channels = 1;
+        info.format = SF_FORMAT_WAV | SF_FORMAT_FLOAT;
+
+        qDebug() << sf_format_check(&info);
+
+        SNDFILE* sf = sf_open("out.wav", SFM_WRITE, &info);
+
+        sf_write_float(sf, result.data(), result.size());
+
+        sf_close(sf);
+    }
+}
 
 void ControlPanel::addRow(QList<QWidget*> widgets){
     QHBoxLayout* l = new QHBoxLayout();
@@ -86,6 +98,10 @@ void ControlPanel::addRow(QList<QWidget*> widgets){
 void ControlPanel::addParam(Param* p){
     data[p->getName()] = p;
     addRow(p->getElements());
+}
+
+void ControlPanel::removeParam(Param *p){
+    data.remove(p->getName());
 }
 
 double ControlPanel::getValue(QString key){

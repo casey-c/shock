@@ -1,4 +1,7 @@
 #include "genealg.h"
+#include <QGlobal.h>
+#include <QTime>
+#include <climits>
 
 class Algorithm;
 class Fitness;
@@ -18,7 +21,7 @@ Individual::Individual(int sampleLength) {
 // Fills in the individual with random points
 void Individual::generateIndividual(){
     for(int i = 0; i < size(); i++){
-        float gene = (float) rand();
+        float gene = ((float)(qrand() % (2000) - 1000)) / 1000;
         sequence[i] = gene;
     }
 }
@@ -50,6 +53,7 @@ int Individual::getFit(){
         Fitness find;
         fit = find.getFitness(this);
     }
+
     return fit;
 }
 
@@ -82,6 +86,7 @@ Individual Population::getFittest(){
             fittest = getIndividual(i);
         }
     }
+
     return fittest;
 }
 
@@ -108,11 +113,15 @@ Algorithm::Algorithm(double uniform, double mutation,
     this->childPop = children;
     this->sampleSize = sample;
     this->elitism = elite;
+
+    QTime time = QTime::currentTime();
+    qsrand((uint)time.msec());
 }
 
 // Start evolving populations, crossing over and generating new children
 Population Algorithm::evolvePopulation(Population parent){
     this->sampleSize = parent.getIndividual(0).size();
+
     Population newPopulation = Population(sampleSize, parent.size(), false);
 
     if(this->elitism){
@@ -125,6 +134,7 @@ Population Algorithm::evolvePopulation(Population parent){
     } else{
         elitismOffset = 0;
     }
+
     for(int i = 0; i < parent.size(); ++i){
         Individual indiv1 = childSelect(parent);
         Individual indiv2 = childSelect(parent);
@@ -157,7 +167,7 @@ Individual Algorithm::crossover(Individual indiv1, Individual indiv2){
 void Algorithm::mutate(Individual indiv){
     for(int i = 0; i < indiv.size(); ++i){
         if(rand() <= mutationRate){
-            float gene = (float) rand();
+            float gene = ((float)(qrand() % (2000) - 1000)) / 1000;
             indiv.setGene(i, gene);
         }
     }
@@ -166,8 +176,10 @@ void Algorithm::mutate(Individual indiv){
 // Select the fittest child
 Individual Algorithm::childSelect(Population parent){
     Population result = Population(sampleSize, childPop, false);
-    for(int i = 0; i < childPop; ++i){
-        int randomID = (int) rand() * parent.size();
+
+    for(int i = 0; i < this->childPop; ++i){
+        int randomID = qrand() % parent.size();
+
         result.saveIndividual(i, parent.getIndividual(randomID));
     }
     Individual fittest = result.getFittest();
@@ -208,43 +220,42 @@ GeneAlg::GeneAlg(){
 }
 
 // Set the settings
-GeneAlg::GeneAlg(AlgoSettings settings)
+GeneAlg::GeneAlg(AlgoSettings* settings)
 {
-    //if(settings != NULL){
-    //uniformRate = settings;
-    //mutationRate = settings;
-    //childPop = settings;
-    //sampleSize = settings;
-    //elitism = settings;
-    //}
+    //?
 }
 
 // overrides IAlgorithm's method
 QVector<float> GeneAlg::run(QVector<QVector<float> > input){
     QVector<QVector<float>> * solutions = new QVector<QVector<float>>;
 
-    //for(int i = 0; i < input.length(); i++){
-    //     solutions.append(input[i]);
-    //}
-
-    //Fitness.setSolution(solutions[0]);
-
-
     for(int i = 0; i < input.length(); i++){
         solutions->append(input[i]);
+        qDebug() << input[i].size();
+    }
+    for(int i = 0; i < input[0].length(); i++){
+        break;
+        qDebug() << input[0][i];
     }
     Fitness * checkFitness = new Fitness;
     checkFitness->setSolution(solutions);
     Population myPop = Population(44100, 4, true);
-
-    int targetGen = 10;
-
+    int targetGen = 1;
     int generationCount = 0;
-    Algorithm start;
+    Algorithm* start = new Algorithm();
     while(generationCount < targetGen){
-        myPop = start.evolvePopulation(myPop);
+        myPop = start->evolvePopulation(myPop);
         generationCount++;
     }
     QVector<float> a;
+
+    for(int i = 0; i < myPop.size(); ++i){
+        Individual ind = myPop.getIndividual(i);
+
+        for(int j = 0; j < ind.size(); ++j){
+            a.push_back(ind.getGene(j));
+        }
+    }
+
     return a;
 }

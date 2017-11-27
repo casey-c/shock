@@ -1,7 +1,5 @@
 #ifndef GA_H
 #define GA_H
-#include <QVector>
-#include "stdlib.h"
 #include "ialgorithm.h"
 
 // Belongs to GA, stores a individual's gene sequence
@@ -74,12 +72,12 @@ class GeneAlg : public IAlgorithm
 {
 public:
     GeneAlg();
-    GeneAlg(AlgoSettings settings);
+    GeneAlg(AlgoSettings* settings);
     QVector<float> run(QVector<QVector<float> > input) override;
 
 private:
-    float uniformRate;
-    float mutationRate;
+    double uniformRate;
+    double mutationRate;
     int childPop;
     int sampleSize;
     bool elitism;
