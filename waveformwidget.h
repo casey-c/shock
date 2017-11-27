@@ -31,7 +31,7 @@ private:
     DrawingMode currentDrawingMode;
     FileHandlingMode currentFileHandlingMode;
 
-    QList< QList<double> >  peakList;
+    QList<double>  peakList;
     QVector<double> dataVector;
     double maxPeak;
     double padding;
