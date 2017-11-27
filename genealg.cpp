@@ -15,13 +15,13 @@ Individual::Individual() {}
 // Create an individual with sample length
 Individual::Individual(int sampleLength) {
     setGeneLength(sampleLength);
-    sequence = QVector<short>(geneLength);
+    sequence = QVector<float>(geneLength);
 }
 
 // Fills in the individual with random points
 void Individual::generateIndividual(){
     for(int i = 0; i < size(); i++){
-        short gene = qrand() % (SHRT_MAX - SHRT_MIN + 1) + SHRT_MIN;
+        float gene = ((float)(qrand() % (2000) - 1000)) / 1000;
         sequence[i] = gene;
     }
 }
@@ -32,12 +32,12 @@ void Individual::setGeneLength(int len){
 }
 
 // Gets Gene at a specific index
-short Individual::getGene(int index){
+float Individual::getGene(int index){
     return sequence.at(index);
 }
 
 // Sets gene at a specicic index with a specific value
-void Individual::setGene(int index, short value){
+void Individual::setGene(int index, float value){
     sequence[index] = value;
     fit = 0;
 }
@@ -167,7 +167,7 @@ Individual Algorithm::crossover(Individual indiv1, Individual indiv2){
 void Algorithm::mutate(Individual indiv){
     for(int i = 0; i < indiv.size(); ++i){
         if(rand() <= mutationRate){
-            short gene = qrand() % (SHRT_MAX - SHRT_MIN + 1) + SHRT_MIN;
+            float gene = ((float)(qrand() % (2000) - 1000)) / 1000;
             indiv.setGene(i, gene);
         }
     }
@@ -191,7 +191,7 @@ Individual Algorithm::childSelect(Population parent){
 //Fitness methods
 
 // Set the best solution
-void Fitness::setSolution(QVector<QVector<short>> * newSolution){
+void Fitness::setSolution(QVector<QVector<float>> * newSolution){
     solution = newSolution;
 }
 
@@ -224,8 +224,8 @@ GeneAlg::GeneAlg(AlgoSettings* settings)
 }
 
 // overrides IAlgorithm's method
-QVector<short> GeneAlg::run(QVector<QVector<short> > input){
-    QVector<QVector<short>> * solutions = new QVector<QVector<short>>;
+QVector<float> GeneAlg::run(QVector<QVector<float> > input){
+    QVector<QVector<float>> * solutions = new QVector<QVector<float>>;
 
     for(int i = 0; i < input.length(); i++){
         solutions->append(input[i]);
@@ -245,7 +245,7 @@ QVector<short> GeneAlg::run(QVector<QVector<short> > input){
         myPop = start->evolvePopulation(myPop);
         generationCount++;
     }
-    QVector<short> a;
+    QVector<float> a;
 
     for(int i = 0; i < myPop.size(); ++i){
         Individual ind = myPop.getIndividual(i);

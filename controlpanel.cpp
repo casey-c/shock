@@ -57,25 +57,28 @@ void ControlPanel::on_time_changed(){
 
 void ControlPanel::on_shockButton_pressed(){
     QString setting = settings->getName();
-    QVector<QVector<short>> input = cont->getAllData();
+    QVector<QVector<float>> input = cont->getAllData();
 
     if(input.size() == 0)
         return;
 
     if(setting == "Genetic Algorithm"){
         GeneAlg* alg = new GeneAlg(settings);
-        QVector<short> result = alg->run(input);
+        QVector<float> result = alg->run(input);
+
+        for(float f: result)
+            qDebug() << f;
 
         SF_INFO info;
         info.samplerate = 44100;
         info.channels = 1;
-        info.format = SF_FORMAT_WAV | SF_FORMAT_PCM_16 | SF_ENDIAN_LITTLE;
+        info.format = SF_FORMAT_WAV | SF_FORMAT_FLOAT;
 
         qDebug() << sf_format_check(&info);
 
         SNDFILE* sf = sf_open("out.wav", SFM_WRITE, &info);
 
-        sf_write_short(sf, result.data(), result.size());
+        sf_write_float(sf, result.data(), result.size());
 
         sf_close(sf);
     }

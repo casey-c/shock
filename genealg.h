@@ -9,14 +9,14 @@ public:
     Individual(int sampleLength);
     void generateIndividual();
     void setGeneLength(int len);
-    short getGene(int index);
-    void setGene(int index, short value);
+    float getGene(int index);
+    void setGene(int index, float value);
     int size();
     int getFit();
 private:
     int fit = 0;
     int geneLength = 0;
-    QVector<short> sequence;
+    QVector<float> sequence;
 
 };
 
@@ -58,11 +58,11 @@ private:
 class Fitness
 {
 public:
-    QVector<QVector<short> > * solution;
+    QVector<QVector<float> > * solution;
 
     Fitness() {}
 
-    void setSolution(QVector<QVector<short> > * newSolution);
+    void setSolution(QVector<QVector<float> > * newSolution);
     int getFitness(Individual* in);
     int getMaxFitness();
 };
@@ -73,7 +73,7 @@ class GeneAlg : public IAlgorithm
 public:
     GeneAlg();
     GeneAlg(AlgoSettings* settings);
-    QVector<short> run(QVector<QVector<short> > input) override;
+    QVector<float> run(QVector<QVector<float> > input) override;
 
 private:
     double uniformRate;
