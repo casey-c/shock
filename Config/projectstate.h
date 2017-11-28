@@ -2,7 +2,7 @@
 #define PROJECTSTATE_H
 
 #include <QObject>
-#include "sound.h"
+#include "Sound/sound.h"
 
 class ProjectState : public QObject
 {

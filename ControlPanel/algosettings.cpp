@@ -2,8 +2,11 @@
 
 AlgoSettings::AlgoSettings()
 {
+    //load in the genetic algorithm settings list from disk
+    //(containing all parameters, widgets to modify them, and min/max/default values
+    // e.g., "Randomness" parameter from 0 to 1, controlled by a slider and textbox)
     JSONTemplateInterpreter* json = new JSONTemplateInterpreter();
-    bool d = json->readFromFile("c:/users/bcmwo/documents/shock/shock/genalg.json");
+    bool d = json->readFromFile("templates/genalg.json");
     if(!d){
         qDebug() << "OH NO!";
     }
@@ -17,6 +20,8 @@ AlgoSettings::AlgoSettings()
 
     QJsonArray data = json->getData();
 
+    //for each object in the json file, get data and create
+    // a new Param widget for it
     for(int i = 0; i < data.size(); ++i){
         QJsonObject jsonObj = data[i].toObject();
 
@@ -38,6 +43,7 @@ void AlgoSettings::addParam(QString name, double def, double high,
                             double low, int precision, QJsonArray widgetTypes){
     Param* p = new Param(name, def, low, high, precision);
 
+    //add the widget types that the param contains
     for(QJsonValue wtv : widgetTypes){
         QString wt = wtv.toString();
 

@@ -2,7 +2,7 @@
 #define WORKSPACE_H
 
 #include <QWidget>
-#include "sound.h"
+#include "Sound/sound.h"
 #include "waveformwidget.h"
 
 namespace Ui {

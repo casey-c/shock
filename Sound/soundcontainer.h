@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QList>
-#include <sound.h>
+#include <Sound/sound.h>
 #include <QFileDialog>
 #include <QSpacerItem>
 #include <QFrame>

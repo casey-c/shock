@@ -10,6 +10,7 @@ ControlPanel::ControlPanel(QWidget *parent) :
     mins = 0;
     secs = 0;
 
+    //make sure values update when mins or secs change
     QObject::connect(ui->minutesLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
     QObject::connect(ui->secondsLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
 
@@ -33,7 +34,7 @@ int ControlPanel::getTime(){
     return mins * 60 + secs;
 }
 
-
+//disable changing time if it is infinite
 void ControlPanel::on_infiniteSoundChk_toggled(bool checked)
 {
     infinite = checked;
@@ -59,31 +60,37 @@ void ControlPanel::on_shockButton_pressed(){
     QString setting = settings->getName();
     QVector<QVector<float>> input = cont->getAllData();
 
+    //make sure there are sounds loaded
     if(input.size() == 0)
         return;
 
+    //initiate algorithm
     if(setting == "Genetic Algorithm"){
         GeneAlg* alg = new GeneAlg(settings);
+
+        //run algorithm
         QVector<float> result = alg->run(input);
 
         for(float f: result)
             qDebug() << f;
 
+        //set soundfile info before creating file to write to
         SF_INFO info;
         info.samplerate = 44100;
         info.channels = 1;
         info.format = SF_FORMAT_WAV | SF_FORMAT_FLOAT;
 
+        //make sure the format is valid
         qDebug() << sf_format_check(&info);
 
+        //write result to out.wav
         SNDFILE* sf = sf_open("out.wav", SFM_WRITE, &info);
-
         sf_write_float(sf, result.data(), result.size());
-
         sf_close(sf);
     }
 }
 
+//add a new row to the control panel
 void ControlPanel::addRow(QList<QWidget*> widgets){
     QHBoxLayout* l = new QHBoxLayout();
     l->setSpacing(4);
@@ -96,6 +103,7 @@ void ControlPanel::addRow(QList<QWidget*> widgets){
 }
 
 void ControlPanel::addParam(Param* p){
+    //store the parameter then add it to the display
     data[p->getName()] = p;
     addRow(p->getElements());
 }
@@ -104,6 +112,7 @@ void ControlPanel::removeParam(Param *p){
     data.remove(p->getName());
 }
 
+//get a stored parameter's value
 double ControlPanel::getValue(QString key){
     if(data.find(key) != data.end()){
         return data[key]->getValue();

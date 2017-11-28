@@ -1,17 +1,17 @@
 #include "mutableelement_lineedit.h"
 #include <QtGlobal>
 
-MutableElement_lineEdit::MutableElement_lineEdit(
+MutableElement_lineEdit::MutableElement_lineEdit( // allows text boxes to be used
         QLineEdit* le,
         double low, double high, int precision, double def)
 {
     lineEdit = le;
 
     QObject::connect(lineEdit, SIGNAL(returnPressed()),
-                     this, SLOT(dropFocus()));
+                     this, SLOT(dropFocus())); // connect signals and slots for element
 
     QObject::connect(lineEdit, SIGNAL(editingFinished()),
-                     this, SLOT(emitValChange()));
+                     this, SLOT(emitValChange())); // connect signals and slots for element
 
 
     int n = (qMax(QString::number(((int) low)).length(),
@@ -25,11 +25,11 @@ MutableElement_lineEdit::MutableElement_lineEdit(
     lineEdit->setValidator(new QDoubleValidator(low, high, precision, this));
 }
 
-void MutableElement_lineEdit::emitValChange(){
+void MutableElement_lineEdit::emitValChange(){ // used to link different mutable elements
     emit sig_valueChanged(lineEdit->text().toDouble());
 }
 
-void MutableElement_lineEdit::on_valueChanged(double newval){
+void MutableElement_lineEdit::on_valueChanged(double newval){ // used to link different mutable elements
     lineEdit->setText(QString::number(newval));
 }
 

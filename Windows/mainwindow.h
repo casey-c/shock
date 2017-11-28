@@ -4,12 +4,12 @@
 #include <QMainWindow>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
-#include "soundcontainer.h"
-#include "sound.h"
-#include "aboutwindow.h"
-#include "controlpanel.h"
-#include "workspace.h"
-#include "projectstate.h"
+#include "Sound/soundcontainer.h"
+#include "Sound/sound.h"
+#include "Windows/aboutwindow.h"
+#include "ControlPanel/controlpanel.h"
+#include "Workspace/workspace.h"
+#include "Config/projectstate.h"
 
 namespace Ui {
 class MainWindow;

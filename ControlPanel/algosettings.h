@@ -7,8 +7,8 @@
 #include <QDir>
 #include <QLineEdit>
 #include <QSlider>
-#include "param.h"
-#include "jsontemplateinterpreter.h"
+#include "ControlPanel/param.h"
+#include "Config/jsontemplateinterpreter.h"
 #include <QLabel>
 
 class AlgoSettings

@@ -6,7 +6,7 @@
 #include <QMediaPlayer>
 #include <QLayoutItem>
 #include <QFileInfo>
-#include "audioutil.h"
+#include "Workspace/audioutil.h"
 
 namespace Ui {
 class Sound;
