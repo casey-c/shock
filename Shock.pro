@@ -28,52 +28,52 @@ RC_ICONS = shockicon.ico
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
-        sound.cpp \
-        soundcontainer.cpp \
-        aboutwindow.cpp \
-        genealg.cpp \
-        algosettings.cpp \
-        param.cpp \
-        controlpanel.cpp \
-        workspace.cpp \
-        waveformwidget.cpp \
-        audioutil.cpp \
-    mutableparamelement.cpp \
-    mutableelement_lineedit.cpp \
-    mutableelement_slider.cpp \
-    mutableelement_checkbox.cpp \
-    jsontemplateinterpreter.cpp \
-    projectstate.cpp
+        Windows/mainwindow.cpp \
+        Sound/sound.cpp \
+        Sound/soundcontainer.cpp \
+        Windows/aboutwindow.cpp \
+        ControlPanel/genealg.cpp \
+        ControlPanel/algosettings.cpp \
+        ControlPanel/param.cpp \
+        ControlPanel/controlpanel.cpp \
+        Workspace/workspace.cpp \
+        Workspace/waveformwidget.cpp \
+        Workspace/audioutil.cpp \
+    ControlPanel/mutableparamelement.cpp \
+    ControlPanel/mutableelement_lineedit.cpp \
+    ControlPanel/mutableelement_slider.cpp \
+    ControlPanel/mutableelement_checkbox.cpp \
+    Config/jsontemplateinterpreter.cpp \
+    Config/projectstate.cpp
 
 HEADERS += \
-        mainwindow.h \
-        sound.h \
-        soundcontainer.h \
-        aboutwindow.h \
-        genealg.h \
-        ialgorithm.h \
-        algosettings.h \
-        param.h \
-        controlpanel.h \
-        workspace.h \
-        waveformwidget.h \
-        audioutil.h \
-    mutableparamelement.h \
-    mutableelement_lineedit.h \
-    mutableelement_slider.h \
-    mutableelement_checkbox.h \
-    jsoninterpreter.h \
-    jsontemplateinterpreter.h \
-    projectstate.h
+        Windows/mainwindow.h \
+        Sound/sound.h \
+        Sound/soundcontainer.h \
+        Windows/aboutwindow.h \
+        ControlPanel/genealg.h \
+        ControlPanel/ialgorithm.h \
+        ControlPanel/algosettings.h \
+        ControlPanel/param.h \
+        ControlPanel/controlpanel.h \
+        Workspace/workspace.h \
+        Workspace/waveformwidget.h \
+        Workspace/audioutil.h \
+    ControlPanel/mutableparamelement.h \
+    ControlPanel/mutableelement_lineedit.h \
+    ControlPanel/mutableelement_slider.h \
+    ControlPanel/mutableelement_checkbox.h \
+    Config/jsoninterpreter.h \
+    Config/jsontemplateinterpreter.h \
+    Config/projectstate.h
 
 FORMS += \
-        mainwindow.ui \
-        sound.ui \
-        soundcontainer.ui \
-        aboutwindow.ui \
-        controlpanel.ui \
-        workspace.ui
+        Windows/mainwindow.ui \
+        Sound/sound.ui \
+        Sound/soundcontainer.ui \
+        Windows/aboutwindow.ui \
+        ControlPanel/controlpanel.ui \
+        Workspace/workspace.ui
 
 win32: LIBS += -L$$PWD/../../../../../../../libsndfile/lib/ -llibsndfile-1
 unix: LIBS += -lsndfile
