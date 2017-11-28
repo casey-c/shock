@@ -5,7 +5,7 @@ JSONTemplateInterpreter::JSONTemplateInterpreter()
 
 }
 
-
+// take the json files from disk and load them into memory
 bool JSONTemplateInterpreter::readFromFile(QString file){
     QFile loadFile(file);
 

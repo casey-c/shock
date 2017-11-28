@@ -3,8 +3,6 @@
 #include <QDebug>
 #include <QRegExp>
 #include <QFileInfo>
-//#include <soundcontainer.h>
-//#include "waveformwidget.h"
 
 //create a new sound widget with filepath fn
 Sound::Sound(QWidget *parent, QString fn, QString fileText) :
@@ -25,23 +23,17 @@ Sound::Sound(QWidget *parent, QString fn, QString fileText) :
     QColor color = palette.color( QPalette::Disabled, QPalette::Base );
     palette.setColor( QPalette::Normal, QPalette::Base, color );
     ui->leName->setPalette( palette );
-    //AudioUtil* temp = new AudioUtil(fn);
-    //data = temp->getAllFrames();
-    //qDebug() << data.size();
 }
 
-Sound::~Sound()
-{
+Sound::~Sound() {
     delete ui;
 }
 
-QString Sound::getFileName()
-{
+QString Sound::getFileName() {
     return this->fileName;
 }
 
-void Sound::setPath(QString fn)
-{
+void Sound::setPath(QString fn) {
     this->fileName = fn;
     player.setMedia(QUrl::fromLocalFile(fn));
 }
@@ -62,18 +54,15 @@ void Sound::setSelected(bool selected){
     ui->checkBox->setChecked(selected);
 }
 
-void Sound::on_btnPlay_clicked()
-{
+void Sound::on_btnPlay_clicked() {
     play();
 }
 
-void Sound::on_btnPause_clicked()
-{
+void Sound::on_btnPause_clicked() {
     pause();
 }
 
-void Sound::on_btnStop_clicked()
-{
+void Sound::on_btnStop_clicked() {
     stop();
 }
 
@@ -81,18 +70,15 @@ bool Sound::selected(){
     return ui->checkBox->isChecked();
 }
 
-void Sound::on_btnShiftUp_clicked()
-{
+void Sound::on_btnShiftUp_clicked() {
     emit sig_shiftUp();
 }
 
-void Sound::on_btnShiftDown_clicked()
-{
+void Sound::on_btnShiftDown_clicked() {
     emit sig_shiftDown();
 }
 
-void Sound::on_leName_returnPressed()
-{
+void Sound::on_leName_returnPressed() {
     ui->leName->clearFocus();
 }
 
@@ -119,9 +105,7 @@ void Sound::on_sliderVol_valueChanged(){
     adjustVolume();
 }
 
-void Sound::on_loadToWorkspace_clicked()
-{
-    //play();
+void Sound::on_loadToWorkspace_clicked() {
     emit sig_loadSoundToWorkspace(this);
 }
 

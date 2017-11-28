@@ -78,6 +78,7 @@ void MainWindow::dragEnterEvent(QDragEnterEvent *e){
     }
 }
 
+// drag and drop folders onto the application
 void MainWindow::dropEvent(QDropEvent* event){
     //get the dropped files
     const QMimeData* mimeData = event->mimeData();

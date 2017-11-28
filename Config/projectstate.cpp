@@ -8,6 +8,7 @@ ProjectState::ProjectState(QObject *parent) : QObject(parent)
 
 }
 
+// load previously saved project from disk
 void ProjectState::loadProject() {
 
     QString saveFile = QFileDialog::getOpenFileName((QWidget*)this->parent(),"Open Project","","Shock Files (*.shock)");
@@ -30,6 +31,7 @@ void ProjectState::loadProject() {
     }
     settings.endArray();
 }
+
 
 bool isValidFileName(QString fileName) {
     bool valid = true;

@@ -13,8 +13,7 @@ SoundContainer::SoundContainer(QWidget *parent) :
                      SIGNAL(sig_sndFileDropped(QString)), SLOT(on_sndFileDropped(QString)));
 }
 
-SoundContainer::~SoundContainer()
-{
+SoundContainer::~SoundContainer() {
     for(QList<Sound*>::iterator itr = sounds.begin(); itr != sounds.end(); ++itr){
         delete *itr;
     }
@@ -127,12 +126,14 @@ void SoundContainer::shiftSndUp() {
 }
 
 
+// select all the sounds currently loaded for a batch operation
 void SoundContainer::on_btnSelectAll_clicked() {
     for(QList<Sound*>::iterator itr = sounds.begin(); itr != sounds.end(); ++itr){
         (*itr)->setSelected(true);
     }
 }
 
+// unchecks any selected sound
 void SoundContainer::on_btnDeselectAll_clicked() {
     for(QList<Sound*>::iterator itr = sounds.begin(); itr != sounds.end(); ++itr){
         (*itr)->setSelected(false);
@@ -149,12 +150,6 @@ void SoundContainer::on_sndFileDropped(QString path, QString fileName) {
     Sound* snd = new Sound(this, path, fileName);
     addSound(snd);
 }
-
-/*
-void SoundContainer::on_sndFileDropped(QString path, QString fileName) {
-    Sound* snd = new Sound(this, path, fileName);
-    addSound(snd);
-}*/
 
 QList<Sound*> SoundContainer::getAllSounds() {
     return sounds;
