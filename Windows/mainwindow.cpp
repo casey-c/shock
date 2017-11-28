@@ -1,13 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "waveformwidget.h"
+#include "Workspace/waveformwidget.h"
 #include <QFileDialog>
 #include <QString>
 #include <QDebug>
 #include <QVector>
 #include <QMimeData>
 #include <QDirIterator>
-#include "genealg.h"
+#include "ControlPanel/genealg.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

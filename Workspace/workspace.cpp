@@ -1,7 +1,7 @@
 #include "workspace.h"
 #include "ui_workspace.h"
 #include "waveformwidget.h"
-#include "sound.h"
+#include "Sound/sound.h"
 
 Workspace::Workspace(QWidget *parent) :
     QWidget(parent),

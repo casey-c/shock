@@ -9,7 +9,7 @@
 #include "algosettings.h"
 #include "genealg.h"
 #include "param.h"
-#include "soundcontainer.h"
+#include "Sound/soundcontainer.h"
 
 namespace Ui {
 class ControlPanel;

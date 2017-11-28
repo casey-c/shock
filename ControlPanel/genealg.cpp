@@ -1,5 +1,5 @@
 #include "genealg.h"
-#include <QGlobal.h>
+#include <qglobal.h>
 #include <QTime>
 #include <climits>
 
