@@ -1,3 +1,10 @@
+/*
+ * Note that we did not create this file, but adapted it for our use
+ * As such, it does not fully conform to our commenting standards
+ *
+ */
+
+
 #include "waveformwidget.h"
 #include <QPainter>
 #include <QPaintEvent>
@@ -6,7 +13,7 @@
 #define MACRO_MODE_TOGGLE_CONSTANT 100.0
 
 // Helper (used to be in MathUtil.h)
-double getVMax(QVector<double> vec) {
+double getVMax(QVector<double> vec) { // get max value within a range
     if (vec.empty()) {
         qWarning() << "ERROR: empty vector";
         return -1;
@@ -20,7 +27,7 @@ double getVMax(QVector<double> vec) {
     return max;
 }
 
-WaveformWidget::WaveformWidget(QWidget*, QString filePath) :
+WaveformWidget::WaveformWidget(QWidget*, QString filePath) : // create a new waveform widget
    srcAudioFile(new AudioUtil(filePath)),
    currentDrawingMode(NO_MODE),
    currentFileHandlingMode(FULL_CACHE),
@@ -35,7 +42,7 @@ WaveformWidget::~WaveformWidget() {
     delete srcAudioFile;
 }
 
-void WaveformWidget::resetFile(QString fileName) {
+void WaveformWidget::resetFile(QString fileName) { // set internal variables to loaded sound
     audioFilePath = fileName;
     srcAudioFile->setFile(audioFilePath);
 
@@ -55,7 +62,7 @@ void WaveformWidget::setFileHandlingMode(FileHandlingMode mode) {
         srcAudioFile->setFileHandlingMode(AudioUtil::DISK_MODE);
 }
 
-void WaveformWidget::recalculatePeaks() {
+void WaveformWidget::recalculatePeaks() { // calculate peaks for user display
 
     QVector<double> normPeak = srcAudioFile->calculateNormalizedPeaks();
 
@@ -95,7 +102,7 @@ void WaveformWidget::paintEvent(QPaintEvent* evt) {
         qWarning() << "DRAWING MODE NOT SUPPORTED";
 }
 
-void WaveformWidget::overviewDraw(QPaintEvent* evt) {
+void WaveformWidget::overviewDraw(QPaintEvent* evt) { // draw the sound file
     //qDebug() << "drawing overview";
     QPainter painter(this);
     painter.setPen(QPen(waveformColor, 1, Qt::SolidLine, Qt::RoundCap));

@@ -1,7 +1,14 @@
+/*
+ * Note that we did not create this file, but adapted it for our use
+ * As such, it does not fully conform to our commenting standards
+ *
+ */
+
+
 #include "audioutil.h"
 #include <QDebug>
 
-AudioUtil::AudioUtil(QString filePath) :
+AudioUtil::AudioUtil(QString filePath) : // audio util to be used with waveformwidget for waveform display
     fileHandlingMode(FULL_CACHE),
     sfInfo(new SF_INFO),
     sndFileNotEmpty(false)
@@ -22,7 +29,7 @@ void AudioUtil::setFileHandlingMode(FileHandlingMode mode) {
         populateCache();
 }
 
-bool AudioUtil::setFile(QString filePath) {
+bool AudioUtil::setFile(QString filePath) { // link the sound file to the audio util
     if (sndFileNotEmpty)
         sf_close(sndFile);
     sfInfo->format = 0;
@@ -55,7 +62,7 @@ bool AudioUtil::setFile(QString filePath) {
     return true;
 }
 
-void AudioUtil::convertMono() {
+void AudioUtil::convertMono() { // convert a non-mono sound ot be displayed as mono
     float *audioIn = new float[sfInfo->channels * sfInfo->frames];
     sf_read_float(sndFile, audioIn, sfInfo->channels * sfInfo->frames);
    // mixdown
@@ -77,7 +84,7 @@ void AudioUtil::convertMono() {
     sf_close(sndFile);
 }
 
-QVector<double> AudioUtil::calculateNormalizedPeaks() {
+QVector<double> AudioUtil::calculateNormalizedPeaks() { // find the peaks to display for the user
     peaks.clear();
 
     // Not sure if what was originally intended?
@@ -113,7 +120,7 @@ int AudioUtil::getTotalFrames() {
     return sfInfo != NULL ? sfInfo->frames : NULL;
 }
 
-QVector<double> AudioUtil::grabFrame(int frameIndex) {
+QVector<double> AudioUtil::grabFrame(int frameIndex) { // get the frame associated with the given index
     QVector<double> frameData;
 
     // TODO: refactor!
@@ -144,7 +151,7 @@ QVector<double> AudioUtil::grabFrame(int frameIndex) {
     return frameData;
 }
 
-QVector<double> AudioUtil::peakForRegion(int start, int end) {
+QVector<double> AudioUtil::peakForRegion(int start, int end) { // calculate peaks for user display
     if (end > fileCache.size()) {
         end = fileCache.size();
     }
@@ -191,7 +198,7 @@ QVector<double> AudioUtil::peakForRegion(int start, int end) {
     return regionPeak;
 }
 
-void AudioUtil::populateCache() {
+void AudioUtil::populateCache() { // populate sound file data into memory
     fileCache.clear();
     int readSize = 1024;
 
@@ -241,7 +248,7 @@ void AudioUtil::populateCache() {
     //qDebug() << "in populate: fileCache size is" << fileCache.size();
 }
 
-QVector<double> AudioUtil::getAllFrames() {
+QVector<double> AudioUtil::getAllFrames() { // get all sound data asociated with this file
    if(this->fileHandlingMode == FULL_CACHE)
    {
       return this->fileCache;
