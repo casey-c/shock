@@ -15,35 +15,34 @@ Workspace::~Workspace(){
     delete ui;
 }
 
-void Workspace::loadSound(Sound* sound){
-    if(snd == sound){
+void Workspace::loadSound(Sound* sound){ // load a sound to the workspace
+    if(snd == sound){ // if the same sound is already loaded, dont load it again
         return;
     }
 
-    if (soundLoaded) {
+    if (soundLoaded) { // remove the sound that is already there
         unloadSound();
     }
 
-    snd = sound;
+    snd = sound; // load the new sound
     soundLoaded = true;
 
-    dispWaveform = new WaveformWidget(this, snd->getFileName());
-    ui->gridLayout->addWidget(dispWaveform);
+    dispWaveform = new WaveformWidget(this, snd->getFileName()); // create the waveform for the new sound
+    ui->gridLayout->addWidget(dispWaveform); // display the waveform
 }
 
 void Workspace::validateSound(Sound* sound){
-    if (snd == sound){
-        unloadSound();
+    if (snd == sound){ // if the sound passed in is already loaded
+        unloadSound(); // unload the current sound
     }
 }
 
-void Workspace::unloadSound(){
+void Workspace::unloadSound(){ // unload the current sound
     soundLoaded = false;
-    qDebug() << "removing " << snd->getFileName() << " from workspace";
-    ui->gridLayout->removeWidget(dispWaveform);
 
-    //qDebug() << this->children();
+    ui->gridLayout->removeWidget(dispWaveform); // remove the waveform display
+
     delete dispWaveform;
 
-    ui->retranslateUi(this);
+    ui->retranslateUi(this); // update UI
 }
