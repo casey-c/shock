@@ -56,7 +56,7 @@ const QList<QWidget*> Param::getElements(){ // returns all elements associated w
 }
 
 QString Param::toString(){
-    return "";
+    return name;
 }
 
 void Param::on_valueChanged(double newval){

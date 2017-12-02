@@ -32,12 +32,14 @@ public:
 
     QVector<float> getData(){
         SF_INFO info;
+        qDebug() << "ADADADAD";
         info.format = 0;
         SNDFILE* sf = sf_open(fileName.toLatin1().data(), SFM_READ, &info);
         QVector<float> data;
-        float srt;
-        while(sf_read_float(sf, &srt, 1) != 0){
-            data.push_back(srt);
+        double srt;
+        while(sf_read_double(sf, &srt, 1) != 0){
+            //qDebug() << srt;
+            data.push_back((float)srt);
         }
 
         sf_close(sf);

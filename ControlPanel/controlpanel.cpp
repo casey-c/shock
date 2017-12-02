@@ -71,8 +71,8 @@ void ControlPanel::on_shockButton_pressed(){
         //run algorithm
         QVector<float> result = alg->run(input);
 
-        for(float f: result)
-            qDebug() << f;
+        //for(float f: result)
+            //qDebug() << f;
 
         //set soundfile info before creating file to write to
         SF_INFO info;

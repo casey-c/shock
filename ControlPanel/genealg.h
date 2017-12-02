@@ -2,21 +2,25 @@
 #define GA_H
 #include "ialgorithm.h"
 
+class Fitness;
+
 // Belongs to GA, stores a individual's gene sequence
 class Individual{
 public:
     Individual();
-    Individual(int sampleLength);
+    Individual(int sampleLength, Fitness* fit);
     void generateIndividual();
     void setGeneLength(int len);
     float getGene(int index);
     void setGene(int index, float value);
     int size();
     int getFit();
+    Fitness* getChecker(){return fitnessCheck;}
 private:
-    int fit = 0;
+    float fit = 0;
     int geneLength = 0;
     QVector<float> sequence;
+    Fitness* fitnessCheck;
 
 };
 
@@ -24,12 +28,13 @@ private:
 class Population
 {
 public:
-    Population(int sampleSize, int populationSize, bool initialized);
+    Population(int sampleSize, int populationSize, bool initialized, Fitness * Fit);
     Individual getIndividual(int index);
     Individual getFittest();
     int size();
     void saveIndividual(int index, Individual indiv);
 private:
+    Fitness* fitnessCheck;
     QVector<Individual> individuals;
 };
 
@@ -79,7 +84,7 @@ private:
     double uniformRate;
     double mutationRate;
     int childPop;
-    int sampleSize;
+    int generations;
     bool elitism;
 };
 
