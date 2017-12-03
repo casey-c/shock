@@ -1,0 +1,45 @@
+{ 
+  "name": "Genetic Algorithm", 
+  "data": [ 
+    { 
+      "name": "uniformRate", 
+      "default": 0.5, 
+      "low": 0, 
+      "high": 1, 
+      "precision": 3, 
+      "widgets": ["label:Uniform Rate", "slider", "lineedit"]
+    }, 
+    { 
+      "name": "mutationRate", 
+      "default": 0.015, 
+      "low": 0, 
+      "high": 1, 
+      "precision": 3, 
+      "widgets": ["label:Mutation Rate", "slider", "lineedit"]
+    }, 
+    { 
+      "name": "childPopSize", 
+      "default": 5, 
+      "low": 1, 
+      "high": 20, 
+      "precision": 0, 
+      "widgets": ["label:Child Population Size", "slider", "lineedit"]
+    }, 
+    { 
+      "name": "elitism", 
+      "default": 1, 
+      "low": 0, 
+      "high": 1, 
+      "precision": 0, 
+      "widgets": ["label:Elitism", "checkbox"]
+    }, 
+  { 
+      "name": "generations", 
+      "default": 5, 
+      "low": 1, 
+      "high": 100, 
+      "precision": 0, 
+      "widgets": ["label:Generations", "slider", "lineedit"]
+    } 
+  ] 
+}

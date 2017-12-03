@@ -2,6 +2,14 @@
 #define CONTROLPANEL_H
 
 #include <QWidget>
+#include <QHash>
+#include <QLineEdit>
+#include <QSlider>
+#include <QDebug>
+#include "algosettings.h"
+#include "genealg.h"
+#include "param.h"
+#include "soundcontainer.h"
 
 namespace Ui {
 class ControlPanel;
@@ -10,29 +18,34 @@ class ControlPanel;
 class ControlPanel : public QWidget
 {
     Q_OBJECT
-
 public:
     explicit ControlPanel(QWidget *parent = 0);
     ~ControlPanel();
 
     int getTime();
-    double getRandomness();
 
+    void addParam(Param* p);
+    void removeParam(Param* p);
+    void setCont(SoundContainer* p) {cont = p;}
+
+    double getValue(QString key);
 private slots:
-    void on_randomnessLE_returnPressed();
-    void on_randomnessLE_editingFinished();
-    void on_randomnessSlider_valueChanged(int value);
     void on_infiniteSoundChk_toggled(bool checked);
     void on_time_changed();
+    void on_shockButton_pressed();
 
 private:
     Ui::ControlPanel *ui;
     QString alg;
-    double randomness;
+    QHash<QString, Param*> data;
+
+    AlgoSettings* settings;
 
     bool infinite;
     int mins;
     int secs;
+    SoundContainer* cont;
+    void addRow(QList<QWidget*> widgets);
 };
 
 #endif // CONTROLPANEL_H

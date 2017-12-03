@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_6">
     <item row="1" column="0">
-     <widget class="QFrame" name="frame">
+     <widget class="QFrame" name="shockframe">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -35,84 +35,64 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QPushButton" name="pushButton">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Shock It</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <layout class="QHBoxLayout" name="horizontalLayout"/>
      </widget>
     </item>
     <item row="0" column="0">
-     <widget class="QSplitter" name="splitter">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
+     <widget class="QFrame" name="frame">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
       </property>
-      <property name="layoutDirection">
-       <enum>Qt::LeftToRight</enum>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
       </property>
-      <property name="midLineWidth">
-       <number>0</number>
-      </property>
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="handleWidth">
-       <number>10</number>
-      </property>
-      <property name="childrenCollapsible">
-       <bool>true</bool>
-      </property>
-      <widget class="QTabWidget" name="tabWidget">
-       <property name="currentIndex">
-        <number>0</number>
-       </property>
-       <widget class="QWidget" name="tab1">
-        <attribute name="title">
-         <string>Tab 1</string>
-        </attribute>
-        <widget class="QWidget" name="gridLayoutWidget_2">
-         <property name="geometry">
-          <rect>
-           <x>50</x>
-           <y>110</y>
-           <width>81</width>
-           <height>141</height>
-          </rect>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QSplitter" name="splitter">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
-         <layout class="QGridLayout" name="grLayout"/>
+         <widget class="QFrame" name="frame_2">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <widget class="QWidget" name="gridLayoutWidget">
+           <property name="geometry">
+            <rect>
+             <x>100</x>
+             <y>70</y>
+             <width>160</width>
+             <height>80</height>
+            </rect>
+           </property>
+           <layout class="QGridLayout" name="grLayout"/>
+          </widget>
+         </widget>
+         <widget class="QFrame" name="frame_3">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <widget class="QWidget" name="gridLayoutWidget_2">
+           <property name="geometry">
+            <rect>
+             <x>140</x>
+             <y>130</y>
+             <width>160</width>
+             <height>80</height>
+            </rect>
+           </property>
+           <layout class="QGridLayout" name="grLayout2"/>
+          </widget>
+         </widget>
         </widget>
-       </widget>
-       <widget class="QWidget" name="tab2">
-        <attribute name="title">
-         <string>Tab 2</string>
-        </attribute>
-       </widget>
-      </widget>
-      <widget class="QFrame" name="gridFrame">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="layoutDirection">
-        <enum>Qt::LeftToRight</enum>
-       </property>
-       <layout class="QGridLayout" name="gridLayout_4"/>
-      </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
@@ -123,16 +103,17 @@
      <x>0</x>
      <y>0</y>
      <width>750</width>
-     <height>26</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionNew"/>
     <addaction name="actionImport_Sample"/>
     <addaction name="separator"/>
-    <addaction name="actionOpen"/>
+    <addaction name="actionOpen_Project"/>
     <addaction name="actionSave_Project"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
@@ -159,36 +140,50 @@
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionOpen">
+  <action name="actionOpen_Project">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/open.svg</normaloff>:/icons/open.svg</iconset>
    </property>
    <property name="text">
     <string>Open Project</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="actionSave_Project">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/save.svg</normaloff>:/icons/save.svg</iconset>
    </property>
    <property name="text">
     <string>Save Project</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionImport_Sample">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Import Sample</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
   </action>
   <action name="actionExit">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
    <property name="text">
     <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
    </property>
   </action>
   <action name="actionOptions">
@@ -202,6 +197,10 @@
   <action name="actionAbout">
    <property name="enabled">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/music.svg</normaloff>:/icons/music.svg</iconset>
    </property>
    <property name="text">
     <string>About</string>
@@ -219,6 +218,10 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/undo.svg</normaloff>:/icons/undo.svg</iconset>
+   </property>
    <property name="text">
     <string>Undo</string>
    </property>
@@ -227,12 +230,30 @@
    <property name="enabled">
     <bool>false</bool>
    </property>
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/redo.svg</normaloff>:/icons/redo.svg</iconset>
+   </property>
    <property name="text">
     <string>Redo</string>
    </property>
   </action>
+  <action name="actionNew">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/new.svg</normaloff>:/icons/new.svg</iconset>
+   </property>
+   <property name="text">
+    <string>New</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

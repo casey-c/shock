@@ -2,16 +2,13 @@
 #define SOUNDCONTAINER_H
 
 #include <QWidget>
-#include <QList>
-#include <sound.h>
-#include <QFileDialog>
-#include <QSpacerItem>
-#include <QFrame>
+#include <QListWidget>
+#include "soundcard.h"
 
 #include "command/caddsound.h"
 
 namespace Ui {
-class SoundContainer;
+    class SoundContainer;
 }
 
 class SoundContainer : public QWidget
@@ -20,30 +17,27 @@ class SoundContainer : public QWidget
 
 public:
     explicit SoundContainer(QWidget *parent = 0);
+    QVector< QVector <float> > getAllData();
+    QList<SoundCard*> getAllSounds(){return cardToItemWidget.keys();}
+    void importSound();
     ~SoundContainer();
 
-private slots:
-    void on_btnAdd_clicked();
-    void on_btnRemove_clicked();
-    void shiftSndUp();
-    void shiftSndDown();
-
-    void on_btnSelectAll_clicked();
-
-    void on_btnDeselectAll_clicked();
-
-    void on_tabVolSlider_sliderMoved(int position);
+signals:
+    void sig_loadToWorkspace(SoundCard* snd);
+    void sig_soundDeleted(SoundCard* snd);
 
 private:
     Ui::SoundContainer *ui;
-    QList<Sound*> sounds;
+    QListWidget* list;
+    QHash<SoundCard*, QListWidgetItem*> cardToItemWidget;
 
-    void shiftSoundPos(Sound* const &snd, int offset);
-
-    void addSound(Sound* snd);
-    void removeSound(Sound* snd);
-
-    friend class CAddSound;
+private slots:
+    void removeSoundCard(SoundCard* sc);
+    SoundCard* addSoundCard(QString fn);
+    void addNamedSoundCard(QString fp, QString name);
+    void on_sndFileDropped(QString fileName);
+    void removeAllSounds();
+    void addToWS(SoundCard*);
 };
 
-#endif // SOUNDCONTAINER_H
+#endif // SoundContainer_H
