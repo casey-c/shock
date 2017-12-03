@@ -11,8 +11,8 @@ ControlPanel::ControlPanel(QWidget *parent) :
     secs = 0;
 
     //make sure values update when mins or secs change
-    QObject::connect(ui->minutesLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
-    QObject::connect(ui->secondsLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
+    //QObject::connect(ui->minutesLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
+    //QObject::connect(ui->secondsLE, SIGNAL(returnPressed()), SLOT(on_time_changed()));
 
     settings = new AlgoSettings();
 
@@ -31,6 +31,8 @@ ControlPanel::~ControlPanel()
 
 //return -1 if infinite, otherwise the length in seconds
 int ControlPanel::getTime(){
+    mins = ui->minutesLE->text().toInt();
+    secs = ui->secondsLE->text().toInt();
     if(infinite) return -1;
 
     return mins * 60 + secs;
@@ -69,6 +71,8 @@ void ControlPanel::on_shockButton_pressed(){
     //initiate algorithm
     if(setting == "Genetic Algorithm"){
         GeneAlg* alg = new GeneAlg(settings);
+
+        alg->setOutputLength(getTime());
 
         //run algorithm
         QVector<float> result = alg->run(input);
