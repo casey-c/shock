@@ -30,21 +30,7 @@ public:
     void setVolumeMod(int x);
     static bool validSoundFile(QString path);
 
-    QVector<float> getData(){
-        SF_INFO info;
-        qDebug() << "ADADADAD";
-        info.format = 0;
-        SNDFILE* sf = sf_open(fileName.toLatin1().data(), SFM_READ, &info);
-        QVector<float> data;
-        double srt;
-        while(sf_read_double(sf, &srt, 1) != 0){
-            //qDebug() << srt;
-            data.push_back((float)srt);
-        }
-
-        sf_close(sf);
-        return data;
-    }
+    QVector<float> getData();
 
     QString getText();
 
@@ -74,6 +60,7 @@ private:
     int actualVolume;
     QVector<double> data;
     void setPath(QString fn);
+    AudioUtil* util;
 };
 
 #endif // SOUND_H

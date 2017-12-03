@@ -13,6 +13,8 @@ AudioUtil::AudioUtil(QString filePath) : // audio util to be used with waveformw
     sfInfo(new SF_INFO),
     sndFileNotEmpty(false)
 {
+    qDebug() << "setting ayudioutil!!";
+    qDebug() << filePath;
     setFile(filePath);
     setFileHandlingMode(FULL_CACHE);
 }

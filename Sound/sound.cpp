@@ -9,13 +9,19 @@ Sound::Sound(QWidget *parent, QString fn, QString fileText) :
     QWidget(parent),
     ui(new Ui::Sound)
 {
+    qDebug() << "fn is " << fn;
+
+
     ui->setupUi(this);
     setPath(fn);
 
-    if (fileText == "")
-        ui->leName->setText(fn.replace(QRegExp(".+/"), "")); //strip folders off of filename and display it
-    else
+    if (fileText == "") {
+        fileText = fn;
+        ui->leName->setText(fileText.replace(QRegExp(".+/"), "")); //strip folders off of filename and display it
+    } else
         ui->leName->setText((fileText));
+
+    util = new AudioUtil(fn);
 
     //set the background of the line edit to match the background
     // (so it looks like a label but it's editable)
@@ -27,6 +33,21 @@ Sound::Sound(QWidget *parent, QString fn, QString fileText) :
 
 Sound::~Sound() {
     delete ui;
+}
+
+
+QVector<float> Sound::getData(){
+    QVector<double> data = util->getAllFrames();
+    QVector<float> data2;
+    for (int i=0; i < data.length(); ++i) {
+        data2.push_back(data.at(i));
+
+        qDebug() << data.at(i);
+    }
+
+    qDebug() << data;
+
+    return data2;
 }
 
 QString Sound::getFileName() {
