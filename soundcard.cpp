@@ -3,6 +3,7 @@
 #include <QMouseEvent>
 #include <QDebug>
 #include <QTimer>
+#include <QFileInfo>
 
 SoundCard::SoundCard(QWidget *parent, QString sndFile) :
     QWidget(parent),
@@ -64,6 +65,7 @@ void SoundCard::mousePressEvent(QMouseEvent* evt) {
         }
         else{
             qDebug() << "double click";
+            emit addMeToWorkspace(this);
             addSelfToWorkspace();
         }
     }
@@ -184,4 +186,14 @@ QVector<float> SoundCard::getData(){
 
 QString SoundCard::getText(){
     return ui->leName->text();
+}
+
+void SoundCard::setText(QString txt){
+    ui->leName->setText(txt);
+}
+
+
+bool SoundCard::validSoundFile(QString path){
+    QFileInfo fi(path);
+    return (fi.isFile()) && (fi.suffix() == "wav");
 }

@@ -20,7 +20,10 @@ public:
     QVector<float> getData();
     QString getFileName(){return fileName;}
     QString getText();
+    void setText(QString txt);
     ~SoundCard();
+
+    static bool validSoundFile(QString path);
 
 signals:
     void removeMe(SoundCard*);

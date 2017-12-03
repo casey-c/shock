@@ -29,8 +29,6 @@ RC_ICONS = shockicon.ico
 SOURCES += \
         main.cpp \
         Windows/mainwindow.cpp \
-        Sound/sound.cpp \
-        Sound/soundcontainer.cpp \
         Windows/aboutwindow.cpp \
         ControlPanel/genealg.cpp \
         ControlPanel/algosettings.cpp \
@@ -46,12 +44,10 @@ SOURCES += \
     Config/jsontemplateinterpreter.cpp \
     Config/projectstate.cpp \
     soundcard.cpp \
-    soundcontainer2.cpp
+    soundcontainer.cpp
 
 HEADERS += \
         Windows/mainwindow.h \
-        Sound/sound.h \
-        Sound/soundcontainer.h \
         Windows/aboutwindow.h \
         ControlPanel/genealg.h \
         ControlPanel/ialgorithm.h \
@@ -69,17 +65,15 @@ HEADERS += \
     Config/jsontemplateinterpreter.h \
     Config/projectstate.h \
     soundcard.h \
-    soundcontainer2.h
+    soundcontainer.h
 
 FORMS += \
         Windows/mainwindow.ui \
-        Sound/sound.ui \
-        Sound/soundcontainer.ui \
         Windows/aboutwindow.ui \
         ControlPanel/controlpanel.ui \
         Workspace/workspace.ui \
     soundcard.ui \
-    soundcontainer2.ui
+    soundcontainer.ui
 
 win32: LIBS += -L$$PWD/../../../../../../../libsndfile/lib/ -llibsndfile-1
 unix: LIBS += -lsndfile

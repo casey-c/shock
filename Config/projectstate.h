@@ -12,7 +12,6 @@ public:
 
 signals:
     void sig_reloadSound(QString filePath, QString fileName);
-    //void sig_reloadSound(QString filePath, QString fileName);
     void sig_removeLoadedSounds();
 
 public slots:

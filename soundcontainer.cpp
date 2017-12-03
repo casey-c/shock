@@ -1,5 +1,5 @@
-#include "soundcontainer2.h"
-#include "ui_soundcontainer2.h"
+#include "soundcontainer.h"
+#include "ui_soundcontainer.h"
 #include <QListWidget>
 #include <QPainter>
 #include <QStyledItemDelegate>
@@ -26,9 +26,9 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
         QStyledItemDelegate::paint(painter, option, index);
 }
 
-SoundContainer2::SoundContainer2(QWidget *parent) :
+SoundContainer::SoundContainer(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::SoundContainer2)
+    ui(new Ui::SoundContainer)
 {
     ui->setupUi(this);
     ui->listWidget->setDragDropMode(QAbstractItemView::DragDrop);
@@ -39,7 +39,7 @@ SoundContainer2::SoundContainer2(QWidget *parent) :
     ui->listWidget->setPalette(palette);
 }
 
-void SoundContainer2::addSoundCard(QString fn){
+SoundCard* SoundContainer::addSoundCard(QString fn){
     QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
     item->setBackgroundColor(QColor(245,245,245));
     SoundCard* sc = new SoundCard(this, fn);
@@ -49,16 +49,25 @@ void SoundContainer2::addSoundCard(QString fn){
     QObject::connect(sc, SIGNAL(removeMe(SoundCard*)),
                      this, SLOT(removeSoundCard(SoundCard*)));
 
+    QObject::connect(sc, SIGNAL(addMeToWorkspace(SoundCard*)),
+                     this, SLOT(addToWS(SoundCard*)));
+
     item->setSizeHint(sc->minimumSizeHint());
     ui->listWidget->setItemWidget(item, sc);
+
+    return sc;
 }
 
-void SoundContainer2::removeSoundCard(SoundCard* sc){
+void SoundContainer::addNamedSoundCard(QString fp, QString name){
+    addSoundCard(fp)->setText(name);
+}
+
+void SoundContainer::removeSoundCard(SoundCard* sc){
     ui->listWidget->takeItem(
                 ui->listWidget->row(cardToItemWidget[sc]));
 }
 
-QVector< QVector <float> > SoundContainer2::getAllData(){
+QVector< QVector <float> > SoundContainer::getAllData(){
     SoundCard* snd;
     QVector<QVector<float> > allData;
     foreach(snd, cardToItemWidget.keys()){
@@ -67,17 +76,17 @@ QVector< QVector <float> > SoundContainer2::getAllData(){
     return allData;
 }
 
-void SoundContainer2::on_sndFileDropped(QString fileName){
+void SoundContainer::on_sndFileDropped(QString fileName){
     addSoundCard(fileName);
 }
 
-void SoundContainer2::removeAllSounds(){
+void SoundContainer::removeAllSounds(){
     for(SoundCard* sc : cardToItemWidget.keys()){
         removeSoundCard(sc);
     }
 }
 
-void SoundContainer2::importSound()
+void SoundContainer::importSound()
 {
     QStringList snds = QFileDialog::getOpenFileNames(this,
                                  "Import Sample",
@@ -89,9 +98,15 @@ void SoundContainer2::importSound()
     }
 }
 
-SoundContainer2::~SoundContainer2()
+void SoundContainer::addToWS(SoundCard* sc){
+    emit sig_loadToWorkspace(sc);
+}
+
+SoundContainer::~SoundContainer()
 {
     delete ui;
 }
+
+
 
 

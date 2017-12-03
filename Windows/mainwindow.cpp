@@ -8,7 +8,7 @@
 #include <QMimeData>
 #include <QDirIterator>
 #include "ControlPanel/genealg.h"
-#include "Sound/sound.h"
+#include "soundcard.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     abtWindow = nullptr; //initialize variables & ui
     ui->setupUi(this);
-    sndCont = new SoundContainer2(this); //create soundcontainer
+    sndCont = new SoundContainer(this); //create soundcontainer
     ui->frame_2->setLayout(ui->grLayout);
     ui->frame_3->setLayout(ui->grLayout2);
     ui->grLayout->addWidget(sndCont);
@@ -31,10 +31,12 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(sndCont, SIGNAL(sig_loadToWorkspace(SoundCard*)), workspace, SLOT(loadSound(SoundCard*)));
     QObject::connect(sndCont, SIGNAL(sig_soundDeleted(SoundCard*)), workspace, SLOT(validateSound(SoundCard*)));
 
+    QObject::connect(this, SIGNAL(sig_sndFileDropped(QString)), sndCont, SLOT(addSoundCard(QString)));
+
     projState = new ProjectState();
     QObject::connect(this, SIGNAL(sig_SaveProject(QList<SoundCard*>)), projState, SLOT(saveProject(QList<SoundCard*>)));
     QObject::connect(this, SIGNAL(sig_LoadProject()), projState, SLOT(loadProject()));
-    QObject::connect(projState,SIGNAL(sig_reloadSound(QString)),sndCont,SLOT(on_sndFileDropped(QString, QString)));
+    QObject::connect(projState,SIGNAL(sig_reloadSound(QString, QString)),sndCont,SLOT(addNamedSoundCard(QString, QString)));
     QObject::connect(projState,SIGNAL(sig_removeLoadedSounds()),sndCont,SLOT(removeAllSounds()));
 
     setAcceptDrops(true);
@@ -82,7 +84,7 @@ void MainWindow::dropEvent(QDropEvent* event){
         // extract the local paths of the files
         QString path = urlList.at(i).toLocalFile();
 
-        if(Sound::validSoundFile(path)){
+        if(SoundCard::validSoundFile(path)){
             emit sig_sndFileDropped(path);
             continue;
         }
@@ -94,7 +96,7 @@ void MainWindow::dropEvent(QDropEvent* event){
             QString fn = f.fileName();
             qDebug() << fn;
 
-            if(Sound::validSoundFile(fn))
+            if(SoundCard::validSoundFile(fn))
                 emit sig_sndFileDropped(fn);
 
         }
