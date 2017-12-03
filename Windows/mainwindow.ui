@@ -131,6 +131,7 @@
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionNew"/>
     <addaction name="actionImport_Sample"/>
     <addaction name="separator"/>
     <addaction name="actionOpen_Project"/>
@@ -250,6 +251,15 @@
    </property>
    <property name="text">
     <string>Redo</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/new.svg</normaloff>:/icons/new.svg</iconset>
+   </property>
+   <property name="text">
+    <string>New</string>
    </property>
   </action>
  </widget>
