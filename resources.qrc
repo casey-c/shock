@@ -8,5 +8,10 @@
         <file>icons/trash_thicc.svg</file>
         <file>icons/trash_thicc_v2.svg</file>
         <file>icons/circle.svg</file>
+        <file>icons/undo.svg</file>
+        <file>icons/save.svg</file>
+        <file>icons/redo.svg</file>
+        <file>icons/open.svg</file>
+        <file>icons/music.svg</file>
     </qresource>
 </RCC>
