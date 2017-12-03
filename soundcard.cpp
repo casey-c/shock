@@ -162,6 +162,12 @@ void SoundCard::toggleSeeking(){
     }
 }
 
+// (static) valid path of a sound
+bool SoundCard::validSoundFile(QString path){
+    QFileInfo fi(path);
+    return (fi.isFile()) && (fi.suffix() == "wav");
+}
+
 //stop media and update icon
 void SoundCard::stopPlayback(){
     mediaPlayer->stop();
