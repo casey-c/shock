@@ -101,3 +101,19 @@ void MainWindow::dropEvent(QDropEvent* event){
     }
 }
 
+
+void MainWindow::on_actionNew_triggered()
+{
+    MainWindow* newWindow = new MainWindow();
+    newWindow->show();
+}
+
+void MainWindow::on_actionImport_Sample_triggered()
+{
+   sndCont->importSound();
+}
+
+void MainWindow::on_actionExit_triggered()
+{
+   close();
+}

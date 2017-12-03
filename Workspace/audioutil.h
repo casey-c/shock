@@ -3,6 +3,7 @@
 
 #include <QVector>
 #include <sndfile.hh>
+#include "AudioUtil.h"
 
 class AudioUtil {
 public:
