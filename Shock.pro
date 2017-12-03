@@ -44,7 +44,7 @@ SOURCES += \
     ControlPanel/mutableelement_slider.cpp \
     ControlPanel/mutableelement_checkbox.cpp \
     Config/jsontemplateinterpreter.cpp \
-    Config/projectstate.cpp
+    Config/projectstate.cpp \
     soundcard.cpp \
     soundcontainer2.cpp
 
@@ -67,7 +67,7 @@ HEADERS += \
     ControlPanel/mutableelement_checkbox.h \
     Config/jsoninterpreter.h \
     Config/jsontemplateinterpreter.h \
-    Config/projectstate.h
+    Config/projectstate.h \
     soundcard.h \
     soundcontainer2.h
 
@@ -77,7 +77,7 @@ FORMS += \
         Sound/soundcontainer.ui \
         Windows/aboutwindow.ui \
         ControlPanel/controlpanel.ui \
-        Workspace/workspace.ui
+        Workspace/workspace.ui \
     soundcard.ui \
     soundcontainer2.ui
 
