@@ -1,31 +1,31 @@
-#ifndef SOUNDCONTAINER2_H
-#define SOUNDCONTAINER2_H
+#ifndef SOUNDCONTAINER_H
+#define SOUNDCONTAINER_H
 
 #include <QWidget>
 #include <QListWidget>
 #include "soundcard.h"
 
 namespace Ui {
-    class SoundContainer2;
+    class SoundContainer;
 }
 
-class SoundContainer2 : public QWidget
+class SoundContainer : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit SoundContainer2(QWidget *parent = 0);
+    explicit SoundContainer(QWidget *parent = 0);
     QVector< QVector <float> > getAllData();
     QList<SoundCard*> getAllSounds(){return cardToItemWidget.keys();}
     void importSound();
-    ~SoundContainer2();
+    ~SoundContainer();
 
 signals:
     void sig_loadToWorkspace(SoundCard* snd);
     void sig_soundDeleted(SoundCard* snd);
 
 private:
-    Ui::SoundContainer2 *ui;
+    Ui::SoundContainer *ui;
     QListWidget* list;
     QHash<SoundCard*, QListWidgetItem*> cardToItemWidget;
 
@@ -36,4 +36,4 @@ private slots:
     void removeAllSounds();
 };
 
-#endif // SOUNDCONTAINER2_H
+#endif // SOUNDCONTAINER_H

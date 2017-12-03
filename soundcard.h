@@ -22,6 +22,8 @@ public:
     QString getText();
     ~SoundCard();
 
+    static bool validSoundFile(QString path);
+
 signals:
     void removeMe(SoundCard*);
     void addMeToWorkspace(SoundCard*);

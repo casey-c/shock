@@ -3,6 +3,7 @@
 #include <QMouseEvent>
 #include <QDebug>
 #include <QTimer>
+#include <QFileInfo>
 
 SoundCard::SoundCard(QWidget *parent, QString sndFile) :
     QWidget(parent),
@@ -158,6 +159,12 @@ void SoundCard::toggleSeeking(){
         if(wasPlaying)
             mediaPlayer->play();
     }
+}
+
+// (static) valid path of a sound
+bool SoundCard::validSoundFile(QString path){
+    QFileInfo fi(path);
+    return (fi.isFile()) && (fi.suffix() == "wav");
 }
 
 //stop media and update icon

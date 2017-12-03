@@ -8,7 +8,6 @@
 #include <QMimeData>
 #include <QDirIterator>
 #include "ControlPanel/genealg.h"
-#include "Sound/sound.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     abtWindow = nullptr; //initialize variables & ui
     ui->setupUi(this);
-    sndCont = new SoundContainer2(this); //create soundcontainer
+    sndCont = new SoundContainer(this); //create soundcontainer
     ui->frame_2->setLayout(ui->grLayout);
     ui->frame_3->setLayout(ui->grLayout2);
     ui->grLayout->addWidget(sndCont);
@@ -82,7 +81,7 @@ void MainWindow::dropEvent(QDropEvent* event){
         // extract the local paths of the files
         QString path = urlList.at(i).toLocalFile();
 
-        if(Sound::validSoundFile(path)){
+        if(SoundCard::validSoundFile(path)){
             emit sig_sndFileDropped(path);
             continue;
         }
@@ -94,7 +93,7 @@ void MainWindow::dropEvent(QDropEvent* event){
             QString fn = f.fileName();
             qDebug() << fn;
 
-            if(Sound::validSoundFile(fn))
+            if(SoundCard::validSoundFile(fn))
                 emit sig_sndFileDropped(fn);
 
         }
