@@ -9,7 +9,7 @@
 #include "algosettings.h"
 #include "genealg.h"
 #include "param.h"
-#include "Sound/soundcontainer.h"
+#include "soundcontainer2.h"
 
 namespace Ui {
 class ControlPanel;
@@ -26,7 +26,7 @@ public:
 
     void addParam(Param* p);
     void removeParam(Param* p);
-    void setCont(SoundContainer* p) {cont = p;}
+    void setCont(SoundContainer2* p) {cont = p;}
 
     double getValue(QString key);
 private slots:
@@ -44,7 +44,7 @@ private:
     bool infinite;
     int mins;
     int secs;
-    SoundContainer* cont;
+    SoundContainer2* cont;
     void addRow(QList<QWidget*> widgets);
 };
 

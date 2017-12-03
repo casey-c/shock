@@ -15,7 +15,7 @@ Workspace::~Workspace(){
     delete ui;
 }
 
-void Workspace::loadSound(Sound* sound){ // load a sound to the workspace
+void Workspace::loadSound(SoundCard* sound){ // load a sound to the workspace
     if(snd == sound){ // if the same sound is already loaded, dont load it again
         return;
     }
@@ -31,7 +31,7 @@ void Workspace::loadSound(Sound* sound){ // load a sound to the workspace
     ui->gridLayout->addWidget(dispWaveform); // display the waveform
 }
 
-void Workspace::validateSound(Sound* sound){
+void Workspace::validateSound(SoundCard* sound){
     if (snd == sound){ // if the sound passed in is already loaded
         unloadSound(); // unload the current sound
     }

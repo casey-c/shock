@@ -8,6 +8,7 @@
 #include <QMimeData>
 #include <QDirIterator>
 #include "ControlPanel/genealg.h"
+#include "Sound/sound.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,29 +16,26 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     abtWindow = nullptr; //initialize variables & ui
     ui->setupUi(this);
-    sndCont = new SoundContainer(this); //create soundcontainer
-    ui->tab1->setLayout(ui->grLayout);
+    sndCont = new SoundContainer2(this); //create soundcontainer
+    ui->frame_2->setLayout(ui->grLayout);
+    ui->frame_3->setLayout(ui->grLayout2);
     ui->grLayout->addWidget(sndCont);
 
     ctrlPanel = new ControlPanel(); //create control panel
-    //QObject::connect(sndCont, SIGNAL(sig_loadToWorkspace(Sound*)), this, SLOT(loadSoundToWorkspace(Sound*)));
-    ui->gridFrame->layout()->addWidget(ctrlPanel);
+    ui->grLayout2->addWidget(ctrlPanel);
     setAcceptDrops(true);
     ctrlPanel->setCont(sndCont);
     workspace = new Workspace();
     ui->shockframe->layout()->addWidget(workspace);
 
-    QObject::connect(sndCont, SIGNAL(sig_loadToWorkspace(Sound*)), workspace, SLOT(loadSound(Sound*)));
-    QObject::connect(sndCont, SIGNAL(sig_soundDeleted(Sound*)), workspace, SLOT(validateSound(Sound*)));
-    //QObject::connect(this, SIGNAL(sig_loadSndToWorkspace(Sound*)), workspace, SLOT(loadSound(Sound*)));
-    //QObject::connect(parent, SIGNAL(addToWorkspace(Sound*)), this, SLOT(loadSound(Sound*)));
+    QObject::connect(sndCont, SIGNAL(sig_loadToWorkspace(SoundCard*)), workspace, SLOT(loadSound(SoundCard*)));
+    QObject::connect(sndCont, SIGNAL(sig_soundDeleted(SoundCard*)), workspace, SLOT(validateSound(SoundCard*)));
 
     projState = new ProjectState();
-    QObject::connect(this, SIGNAL(sig_SaveProject(QList<Sound*>)), projState, SLOT(saveProject(QList<Sound*>)));
+    QObject::connect(this, SIGNAL(sig_SaveProject(QList<SoundCard*>)), projState, SLOT(saveProject(QList<SoundCard*>)));
     QObject::connect(this, SIGNAL(sig_LoadProject()), projState, SLOT(loadProject()));
-    QObject::connect(projState,SIGNAL(sig_reloadSound(QString,QString)),sndCont,SLOT(on_sndFileDropped(QString,QString)));
+    QObject::connect(projState,SIGNAL(sig_reloadSound(QString,QString)),sndCont,SLOT(on_sndFileDropped(QString)));
     QObject::connect(projState,SIGNAL(sig_removeLoadedSounds()),sndCont,SLOT(removeAllSounds()));
-
 
     setAcceptDrops(true);
 }
@@ -65,11 +63,6 @@ void MainWindow::on_actionSave_Project_triggered() {
 
 void MainWindow::on_actionOpen_Project_triggered() {
     emit sig_LoadProject();
-}
-
-void MainWindow::loadSoundToWorkspace(Sound* snd){
-    //qDebug() << "trying to load sounds";
-    emit sig_loadSndToWorkspace(snd);
 }
 
 void MainWindow::dragEnterEvent(QDragEnterEvent *e){

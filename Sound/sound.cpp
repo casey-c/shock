@@ -112,7 +112,7 @@ void Sound::on_loadToWorkspace_clicked() {
 
 bool Sound::validSoundFile(QString path){
     QFileInfo fi(path);
-    return (fi.isFile()) && (fi.suffix() == "wav" || fi.suffix() == "mp3");
+    return (fi.isFile()) && (fi.suffix() == "wav");
 }
 
 QString Sound::getText() {

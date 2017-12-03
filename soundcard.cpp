@@ -14,7 +14,7 @@ SoundCard::SoundCard(QWidget *parent, QString sndFile) :
     QObject::connect(ui->leName, SIGNAL(returnPressed()),
                      this, SLOT(finishNameEdit()));
 
-    soundFile = sndFile;
+    fileName = sndFile;
     ui->leName->setText(sndFile.replace(QRegExp(".+/"), ""));
     setupMediaPlayer();
 
@@ -107,7 +107,7 @@ void SoundCard::setupMediaPlayer(){
     mediaPlayer->setNotifyInterval(200);
     mediaPlayer->setMedia(
                 QMediaContent(
-                    QUrl::fromLocalFile(soundFile)));
+                    QUrl::fromLocalFile(fileName)));
 //seeking
     QObject::connect(mediaPlayer, SIGNAL(positionChanged(qint64)),
                      this, SLOT(updateSeekBar(qint64)));
@@ -164,4 +164,24 @@ void SoundCard::toggleSeeking(){
 void SoundCard::stopPlayback(){
     mediaPlayer->stop();
     ui->btnPlayPause->setIcon(QIcon(":/icons/play.svg"));
+}
+
+QVector<float> SoundCard::getData(){
+    SF_INFO info;
+    qDebug() << "ADADADAD";
+    info.format = 0;
+    SNDFILE* sf = sf_open(fileName.toLatin1().data(), SFM_READ, &info);
+    QVector<float> data;
+    double srt;
+    while(sf_read_double(sf, &srt, 1) != 0){
+        //qDebug() << srt;
+        data.push_back((float)srt);
+    }
+
+    sf_close(sf);
+    return data;
+}
+
+QString SoundCard::getText(){
+    return ui->leName->text();
 }

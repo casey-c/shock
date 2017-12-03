@@ -2,7 +2,7 @@
 #define PROJECTSTATE_H
 
 #include <QObject>
-#include "Sound/sound.h"
+#include "soundcard.h"
 
 class ProjectState : public QObject
 {
@@ -19,7 +19,7 @@ public slots:
 
 private slots:
     void loadProject();
-    void saveProject(QList<Sound*> loadedSounds);
+    void saveProject(QList<SoundCard*> loadedSounds);
 };
 
 #endif // PROJECTSTATE_H

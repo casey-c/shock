@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QMenu>
 #include <QMediaPlayer>
+#include "Workspace/audioutil.h"
 
 namespace Ui {
     class SoundCard;
@@ -14,8 +15,11 @@ class SoundCard : public QWidget
     Q_OBJECT
 
 public:
-    explicit SoundCard(QWidget* parent = 0,
-                       QString sndFile = "C:/Users/bcmwo/Downloads/165194__ryding__road.wav");
+    explicit SoundCard(QWidget* parent,
+                       QString sndFile);
+    QVector<float> getData();
+    QString getFileName(){return fileName;}
+    QString getText();
     ~SoundCard();
 
 signals:
@@ -29,7 +33,7 @@ private:
     void openContextMenu();
     bool firstClick;
     void mousePressEvent(QMouseEvent *event) override;
-    QString soundFile;
+    QString fileName;
     void setupMediaPlayer();
 private slots:
     void doubleClickExpired();

@@ -36,22 +36,20 @@ SoundContainer2::SoundContainer2(QWidget *parent) :
     QPalette palette = ui->listWidget->palette();
     palette.setColor(QPalette::Base, QColor(245,245,245));
     ui->listWidget->setPalette(palette);
-    //ui->listWidget->setSelectionMode(QAbstractItemView::MultiSelection);
+}
 
-    for (int i = 0; i < 1; ++i)
-    {
-        QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
-        item->setBackgroundColor(QColor(245,245,245));
-        SoundCard* sc = new SoundCard(this);
+void SoundContainer2::addSoundCard(QString fn){
+    QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
+    item->setBackgroundColor(QColor(245,245,245));
+    SoundCard* sc = new SoundCard(this, fn);
 
-        cardToItemWidget[sc] = item;
+    cardToItemWidget[sc] = item;
 
-        QObject::connect(sc, SIGNAL(removeMe(SoundCard*)),
-                         this, SLOT(removeSoundCard(SoundCard*)));
+    QObject::connect(sc, SIGNAL(removeMe(SoundCard*)),
+                     this, SLOT(removeSoundCard(SoundCard*)));
 
-        item->setSizeHint(sc->minimumSizeHint());
-        ui->listWidget->setItemWidget(item, sc);
-    }
+    item->setSizeHint(sc->minimumSizeHint());
+    ui->listWidget->setItemWidget(item, sc);
 }
 
 void SoundContainer2::removeSoundCard(SoundCard* sc){
@@ -59,7 +57,28 @@ void SoundContainer2::removeSoundCard(SoundCard* sc){
                 ui->listWidget->row(cardToItemWidget[sc]));
 }
 
+QVector< QVector <float> > SoundContainer2::getAllData(){
+    SoundCard* snd;
+    QVector<QVector<float> > allData;
+    foreach(snd, cardToItemWidget.keys()){
+        allData.append(snd->getData());
+    }
+    return allData;
+}
+
+void SoundContainer2::on_sndFileDropped(QString fileName){
+    addSoundCard(fileName);
+}
+
+void SoundContainer2::removeAllSounds(){
+    for(SoundCard* sc : cardToItemWidget.keys()){
+        removeSoundCard(sc);
+    }
+}
+
 SoundContainer2::~SoundContainer2()
 {
     delete ui;
 }
+
+

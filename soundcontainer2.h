@@ -15,7 +15,13 @@ class SoundContainer2 : public QWidget
 
 public:
     explicit SoundContainer2(QWidget *parent = 0);
+    QVector< QVector <float> > getAllData();
+    QList<SoundCard*> getAllSounds(){return cardToItemWidget.keys();}
     ~SoundContainer2();
+
+signals:
+    void sig_loadToWorkspace(SoundCard* snd);
+    void sig_soundDeleted(SoundCard* snd);
 
 private:
     Ui::SoundContainer2 *ui;
@@ -24,6 +30,9 @@ private:
 
 private slots:
     void removeSoundCard(SoundCard* sc);
+    void addSoundCard(QString fn);
+    void on_sndFileDropped(QString fileName);
+    void removeAllSounds();
 };
 
 #endif // SOUNDCONTAINER2_H

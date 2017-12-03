@@ -54,7 +54,7 @@ bool isValidFileName(QString fileName) {
     return valid;
 }
 
-void ProjectState::saveProject(QList<Sound*> loadedSounds) {
+void ProjectState::saveProject(QList<SoundCard*> loadedSounds) {
     //list of all sounds loaded is passed in
 
     QString fileName;

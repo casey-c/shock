@@ -2,7 +2,7 @@
 #define WORKSPACE_H
 
 #include <QWidget>
-#include "Sound/sound.h"
+#include "soundcard.h"
 #include "waveformwidget.h"
 
 namespace Ui {
@@ -20,13 +20,13 @@ public:
     void unloadSound();
 
 private slots:
-    void loadSound(Sound* snd);
-    void validateSound(Sound* snd);
+    void loadSound(SoundCard* snd);
+    void validateSound(SoundCard* snd);
 
 private:
     Ui::Workspace *ui;
     bool soundLoaded;
-    Sound* snd;
+    SoundCard* snd;
     WaveformWidget* dispWaveform;
 };
 

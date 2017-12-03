@@ -4,8 +4,8 @@
 #include <QMainWindow>
 #include <QMediaPlayer>
 #include <QMediaPlaylist>
-#include "Sound/soundcontainer.h"
-#include "Sound/sound.h"
+#include "soundcontainer2.h"
+#include "soundcard.h"
 #include "Windows/aboutwindow.h"
 #include "ControlPanel/controlpanel.h"
 #include "Workspace/workspace.h"
@@ -25,13 +25,12 @@ public:
 
 signals:
     void sig_sndFileDropped(QString path);
-    void sig_loadSndToWorkspace(Sound* snd);
-    void sig_SaveProject(QList<Sound*>);
+    void sig_SaveProject(QList<SoundCard*>);
     void sig_LoadProject();
 
 private:
     Ui::MainWindow* ui;
-    SoundContainer* sndCont;
+    SoundContainer2* sndCont;
 
     AboutWindow* abtWindow;
     ControlPanel* ctrlPanel;
@@ -43,7 +42,7 @@ private slots:
     void on_actionAbout_triggered();
     void on_actionSave_Project_triggered();
     void on_actionOpen_Project_triggered();
-    void loadSoundToWorkspace(Sound* snd);
+    //void loadSoundToWorkspace(Sound* snd);
 };
 
 #endif // MAINWINDOW_H
