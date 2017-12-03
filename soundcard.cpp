@@ -197,9 +197,3 @@ QString SoundCard::getText(){
 void SoundCard::setText(QString txt){
     ui->leName->setText(txt);
 }
-
-
-bool SoundCard::validSoundFile(QString path){
-    QFileInfo fi(path);
-    return (fi.isFile()) && (fi.suffix() == "wav");
-}

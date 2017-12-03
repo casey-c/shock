@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QStyledItemDelegate>
 #include <QFileDialog>
+#include <QLabel>
 
 // via https://stackoverflow.com/questions/36018010/how-to-change-remove-selection-active-color-of-qlistwidget
 class Delegate : public QStyledItemDelegate {
@@ -37,6 +38,17 @@ SoundContainer::SoundContainer(QWidget *parent) :
     QPalette palette = ui->listWidget->palette();
     palette.setColor(QPalette::Base, QColor(245,245,245));
     ui->listWidget->setPalette(palette);
+
+
+    QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
+    item->setBackgroundColor(QColor(245,245,245));
+
+    QLabel* lbl = new QLabel("Hey there. To add new files, press Ctrl + i or go to File->Import");
+    lbl->setWordWrap(true);
+    lbl->setMinimumHeight(150);
+    lbl->setMargin(35);
+    item->setSizeHint(lbl->minimumSizeHint());
+    ui->listWidget->setItemWidget(item, lbl);
 }
 
 SoundCard* SoundContainer::addSoundCard(QString fn){

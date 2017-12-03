@@ -22,7 +22,6 @@ public:
     QString getText();
     void setText(QString txt);
     ~SoundCard();
-
     static bool validSoundFile(QString path);
 
 signals:
