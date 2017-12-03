@@ -22,6 +22,8 @@ public:
     QVector<QVector<float> > getAllData();
     QList<Sound*> getAllSounds();
 
+    void importSound();
+
     ~SoundContainer();
 
 signals:

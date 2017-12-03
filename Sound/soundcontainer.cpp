@@ -55,8 +55,8 @@ void SoundContainer::loadSoundToWorkspace(Sound* snd) {
     emit sig_loadToWorkspace(snd);
 }
 
-
-void SoundContainer::on_btnAdd_clicked() {
+void SoundContainer::importSound()
+{
     QStringList snds = QFileDialog::getOpenFileNames(this,
                                  "Import Sample",
                                  "",
@@ -66,6 +66,10 @@ void SoundContainer::on_btnAdd_clicked() {
         Sound* snd = new Sound(this, *itr);
         addSound(snd);
     }
+}
+
+void SoundContainer::on_btnAdd_clicked() {
+    importSound();
 }
 
 void SoundContainer::removeSound(Sound* snd) {

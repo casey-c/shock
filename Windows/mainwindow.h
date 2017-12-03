@@ -44,6 +44,9 @@ private slots:
     void on_actionSave_Project_triggered();
     void on_actionOpen_Project_triggered();
     void loadSoundToWorkspace(Sound* snd);
+    void on_actionNew_triggered();
+    void on_actionImport_Sample_triggered();
+    void on_actionExit_triggered();
 };
 
 #endif // MAINWINDOW_H

@@ -20,6 +20,8 @@ ControlPanel::ControlPanel(QWidget *parent) :
     foreach(p, settings->getParams()){
         addParam(p);
     }
+
+    ui->algComboBox->addItem("Genetic Algorithm"); //hacky af
 }
 
 ControlPanel::~ControlPanel()
