@@ -45,6 +45,8 @@ SOURCES += \
     ControlPanel/mutableelement_checkbox.cpp \
     Config/jsontemplateinterpreter.cpp \
     Config/projectstate.cpp
+    soundcard.cpp \
+    soundcontainer2.cpp
 
 HEADERS += \
         Windows/mainwindow.h \
@@ -66,6 +68,8 @@ HEADERS += \
     Config/jsoninterpreter.h \
     Config/jsontemplateinterpreter.h \
     Config/projectstate.h
+    soundcard.h \
+    soundcontainer2.h
 
 FORMS += \
         Windows/mainwindow.ui \
@@ -74,9 +78,14 @@ FORMS += \
         Windows/aboutwindow.ui \
         ControlPanel/controlpanel.ui \
         Workspace/workspace.ui
+    soundcard.ui \
+    soundcontainer2.ui
 
 win32: LIBS += -L$$PWD/../../../../../../../libsndfile/lib/ -llibsndfile-1
 unix: LIBS += -lsndfile
 
 INCLUDEPATH += $$PWD/../../../../../../../libsndfile/include
 DEPENDPATH += $$PWD/../../../../../../../libsndfile/include
+
+RESOURCES += \
+    resources.qrc
