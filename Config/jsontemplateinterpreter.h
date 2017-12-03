@@ -1,7 +1,7 @@
 #ifndef JSONTEMPLATEINTERPRETER_H
 #define JSONTEMPLATEINTERPRETER_H
 
-#include "config/jsoninterpreter.h"
+#include "jsoninterpreter.h"
 
 class JSONTemplateInterpreter : public JSONInterpreter
 {

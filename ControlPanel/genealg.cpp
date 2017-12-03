@@ -301,7 +301,6 @@ QVector<float> GeneAlg::run(QVector<QVector<float> > input){
         else
             b = qAbs(b);
         */
-        //test1 = qrand() % 10000 / 10000;
         if (test1 < .5)
             a.append(e);
         if (test1 > .75)
