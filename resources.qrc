@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/loop.svg</file>
+        <file>icons/pause.svg</file>
+        <file>icons/play.svg</file>
+        <file>icons/stop.svg</file>
+        <file>icons/trash.svg</file>
+        <file>icons/trash_thicc.svg</file>
+        <file>icons/trash_thicc_v2.svg</file>
+        <file>icons/circle.svg</file>
+    </qresource>
+</RCC>
