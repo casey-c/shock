@@ -8,7 +8,8 @@ MutableElement_checkBox::MutableElement_checkBox( // allows check boxes to be us
 
     QObject::connect(checkBox, SIGNAL(stateChanged(int)),
                      this, SLOT(emitValChange())); // connect signals and slots for element
-
+    checkBox->setLayoutDirection(Qt::LeftToRight);
+    checkBox->setFixedWidth(60);
     maximum = max;
     minimum = min;
 

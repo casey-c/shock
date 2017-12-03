@@ -55,8 +55,12 @@ void AlgoSettings::addParam(QString name, double def, double high,
             p->addMutableElement(new QCheckBox());
         else if(wt == "label")
             p->addVisualElement(new QLabel(name));
-        else if(wt.startsWith("label:"))
-            p->addVisualElement(new QLabel(wt.remove(0,6).trimmed()));
+        else if(wt.startsWith("label:")){
+            QLabel* temp = new QLabel(wt.remove(0,6).trimmed());
+            temp->setMinimumWidth(100);
+            temp->setMinimumHeight(20);
+            p->addVisualElement(temp);
+        }
     }
 
     params.append(p);

@@ -24,7 +24,9 @@ Individual::Individual(int sampleLength, Fitness* fit) {
 // Fills in the individual with random points
 void Individual::generateIndividual(){
     for(int i = 0; i < size(); i++){
-        float gene = ((float)(qrand() % (2000000) - 1000000)) / 1000000;
+        //float gene = ((float)(qrand() % (200000) - 100000)) / 100000;
+        float gene = (((float)(qrand() % (200000))) / 100000) - 0.12;
+        //qDebug() << gene;
         sequence[i] = gene;
     }
 }
@@ -170,7 +172,7 @@ Individual Algorithm::crossover(Individual indiv1, Individual indiv2){
 void Algorithm::mutate(Individual indiv){
     for(int i = 0; i < indiv.size(); ++i){
         if(rand() <= mutationRate){
-            float gene = ((float)(qrand() % (2000000) - 1000000)) / 1000000;
+            float gene = ((float)(qrand() % (200000) - 100000)) / 100000;
             indiv.setGene(i, gene);
         }
     }
@@ -274,20 +276,61 @@ QVector<float> GeneAlg::run(QVector<QVector<float> > input){
 
     Individual ind = myPop.getFittest();
 
-    for(int i = minSize; i > 0; i--){
-        float b = 0;
-        for(int j = 0; j<input.size(); j++){
-            float c = qrand()-RAND_MAX/2;
-            c /= RAND_MAX;
-            c /= 10;
-            b += input[j][i];
+    double test1 = (double)qrand() / RAND_MAX;
+    double section = (qrand() % 5000) + 900;
+    int counter = 0;
+    for(int i = 0; i < minSize-1; i+=2){
+        counter++;
+        if (counter > section){
+            test1 = (double)qrand() / RAND_MAX;
+            section = (qrand() % 5000) + 400;
+            counter = 0;
         }
+        float e = 0;
+        float b = 0;
+        for(int j = 0; j<input.size(); ++j){
+            //float c = qrand()-RAND_MAX/2;
+            //c /= RAND_MAX;
+            //c /= 10;
+            b += input[j][i];
+            e += input[j][i+1];
+        }
+        /*
         if(b > 0)
             b = -b;
         else
             b = qAbs(b);
+        */
+        //test1 = qrand() % 10000 / 10000;
+        if (test1 < .5)
+            a.append(e);
+        if (test1 > .75)
+            a.append((e+b)/2);
+        if (test1 < .25)
+            a.append(b);
+    }
+    /*
+    for(int i = 1; i < minSize; i+=2){
+        float e = 0;
+        float b = 0;
+        for(int j = 0; j<input.size(); ++j){
+            //float c = qrand()-RAND_MAX/2;
+            //c /= RAND_MAX;
+            //c /= 10;
+            b += input[j][i];
+            e += input[j][i-1];
+        }
+
+        if(b > 0)
+            b = -b;
+        else
+            b = qAbs(b);
+
+        a.append(e);
+        a.append((e+b)/2);
         a.append(b);
     }
+    */
     //std::vector<float> ad = a.toStdVector();
     //auto rng = std::default_random_engine {};
     //std::shuffle(std::begin(ad), std::end(ad),rng);
@@ -296,8 +339,13 @@ QVector<float> GeneAlg::run(QVector<QVector<float> > input){
 
     //a.clear();
 /*
-    for(int j = 0; j < ind.size(); ++j){
-        a.push_back(ind.getGene(j));
+    for(int j = 1; j < ind.size(); ++j){
+        float x = ind.getGene(j-1);
+        float y = ind.getGene(j);
+        float tween = (x+y)/2;
+        a.push_back(x);
+        a.push_back(tween);
+        a.push_back(y);
     }
 */
 
