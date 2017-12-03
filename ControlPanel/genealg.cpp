@@ -243,19 +243,22 @@ GeneAlg::GeneAlg(AlgoSettings* settings)
     }
 }
 
+void GeneAlg::setOutputLength(double len) {
+    outputLength = len;
+}
+
 // overrides IAlgorithm's method
 QVector<float> GeneAlg::run(QVector<QVector<float> > input){
     QVector<QVector<float>> * solutions = new QVector<QVector<float>>;
     int minSize = input[0].size();
     for(int i = 0; i < input.length(); i++){
         solutions->append(input[i]);
-        qDebug() << input[i].size();
         if(input[i].size() < minSize){
             minSize = input[i].size();
         }
     }
 
-    qDebug()<<minSize;
+    qDebug()<<"minsize" << minSize;
 
     for(int i = 0; i < input[0].length(); i++){
         break;
@@ -279,7 +282,24 @@ QVector<float> GeneAlg::run(QVector<QVector<float> > input){
     double test1 = (double)qrand() / RAND_MAX;
     double section = (qrand() % 5000) + 900;
     int counter = 0;
-    for(int i = 0; i < minSize-1; i+=2){
+
+    int sampleRate = 44100;
+
+    int outBits = (int) (sampleRate * outputLength);
+
+    qDebug() << "outlen" << outputLength;
+
+    qDebug() << "outBits " << outBits;
+
+
+    for(int i2 = 0; i2 < outBits; ++i2){
+        int i = (int)(i2*((double)minSize/outBits))%(minSize-1);
+        //int i= i2%(minSize-1);
+
+        qDebug() << i;
+        if (i < 0)
+            i=0;
+
         counter++;
         if (counter > section){
             test1 = (double)qrand() / RAND_MAX;

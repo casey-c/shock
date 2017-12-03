@@ -79,6 +79,7 @@ public:
     GeneAlg();
     GeneAlg(AlgoSettings* settings);
     QVector<float> run(QVector<QVector<float> > input) override;
+    void setOutputLength(double len);
 
 private:
     double uniformRate;
@@ -86,6 +87,7 @@ private:
     int childPop;
     int generations;
     bool elitism;
+    double outputLength;
 };
 
 #endif // GA_H

@@ -9,9 +9,6 @@ Sound::Sound(QWidget *parent, QString fn, QString fileText) :
     QWidget(parent),
     ui(new Ui::Sound)
 {
-    qDebug() << "fn is " << fn;
-
-
     ui->setupUi(this);
     setPath(fn);
 
@@ -42,11 +39,7 @@ QVector<float> Sound::getData(){
     QVector<float> data2;
     for (int i=0; i < data.length(); ++i) {
         data2.push_back(data.at(i));
-
-        qDebug() << data.at(i);
     }
-
-    qDebug() << data;
 
     return data2;
 }
