@@ -17,6 +17,7 @@ public:
     explicit SoundContainer2(QWidget *parent = 0);
     QVector< QVector <float> > getAllData();
     QList<SoundCard*> getAllSounds(){return cardToItemWidget.keys();}
+    void importSound();
     ~SoundContainer2();
 
 signals:

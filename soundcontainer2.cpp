@@ -3,6 +3,7 @@
 #include <QListWidget>
 #include <QPainter>
 #include <QStyledItemDelegate>
+#include <QFileDialog>
 
 // via https://stackoverflow.com/questions/36018010/how-to-change-remove-selection-active-color-of-qlistwidget
 class Delegate : public QStyledItemDelegate {
@@ -73,6 +74,18 @@ void SoundContainer2::on_sndFileDropped(QString fileName){
 void SoundContainer2::removeAllSounds(){
     for(SoundCard* sc : cardToItemWidget.keys()){
         removeSoundCard(sc);
+    }
+}
+
+void SoundContainer2::importSound()
+{
+    QStringList snds = QFileDialog::getOpenFileNames(this,
+                                 "Import Sample",
+                                 "",
+                                 "Audio files (*.wav)");
+
+    for(QList<QString>::const_iterator itr = snds.begin(); itr != snds.end(); ++itr){
+        addSoundCard(*itr);
     }
 }
 
