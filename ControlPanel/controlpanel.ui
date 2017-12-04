@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>300</width>
-    <height>583</height>
+    <height>601</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -145,16 +145,6 @@
            <widget class="QLabel" name="label_3">
             <property name="text">
              <string>Length</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="infiniteSoundChk">
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
-            </property>
-            <property name="text">
-             <string>Infinite</string>
             </property>
            </widget>
           </item>
@@ -302,8 +292,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>257</width>
-           <height>433</height>
+           <width>256</width>
+           <height>431</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">

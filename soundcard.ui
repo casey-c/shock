@@ -142,12 +142,11 @@ QSlider::groovevertical{width: 10px}</string>
           </item>
           <item>
            <widget class="QPushButton" name="btnLoop">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string/>
-            </property>
-            <property name="icon">
-             <iconset resource="resources.qrc">
-              <normaloff>:/icons/loop.svg</normaloff>:/icons/loop.svg</iconset>
             </property>
             <property name="flat">
              <bool>true</bool>
