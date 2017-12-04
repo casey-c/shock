@@ -37,6 +37,8 @@ private:
     void mousePressEvent(QMouseEvent *event) override;
     QString fileName;
     void setupMediaPlayer();
+
+    int actualVolume;
 private slots:
     void doubleClickExpired();
     void finishNameEdit();
@@ -49,6 +51,9 @@ private slots:
     void togglePlayback();
     void toggleSeeking();
     void stopPlayback();
+
+    void adjustVolume();
+    void on_verticalSlider_valueChanged();
 };
 
 #endif // SOUNDCARD_H

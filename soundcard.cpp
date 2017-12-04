@@ -197,3 +197,22 @@ QString SoundCard::getText(){
 void SoundCard::setText(QString txt){
     ui->leName->setText(txt);
 }
+
+
+void SoundCard::adjustVolume(){
+    // slider value and volume modifier in the range [0..100]
+
+    qreal value = ui->verticalSlider->value();
+
+    //convert from logarithmic scale to linear
+    qreal linearVolume = QAudio::convertVolume( value / qreal(100.0),
+                                               QAudio::LogarithmicVolumeScale,
+                                               QAudio::LinearVolumeScale);
+
+    actualVolume = qRound(linearVolume * 100);
+    mediaPlayer->setVolume(actualVolume);
+}
+
+void SoundCard::on_verticalSlider_valueChanged(){
+    adjustVolume();
+}

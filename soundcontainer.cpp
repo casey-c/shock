@@ -85,7 +85,7 @@ bool SoundContainer::eventFilter(QObject *obj, QEvent *event)
     {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
         if(keyEvent->key() == Qt::Key_Delete){
-            QList<QListWidgetItem*> selected = ui->listWidget->selectedItems();
+            auto selected = ui->listWidget->selectedItems();
             if(!selected.empty()){
                 auto li = itemWidgetToCard.find(selected.first());
                 if(li != itemWidgetToCard.end()){
