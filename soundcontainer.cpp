@@ -89,7 +89,7 @@ SoundCard* SoundContainer::addSoundCard(QString fn){
 #endif
 
 void SoundContainer::addSoundCard(QString fn){
-    CommandInterpreter::getInstance().run(new CAddSound(fn, ui->listWidget, this));
+    CommandInterpreter::getInstance().run(new CAddSound(fn, ui->listWidget, this, helpItem));
     //addSoundCard(fp)->setText(name); // TODO
 }
 

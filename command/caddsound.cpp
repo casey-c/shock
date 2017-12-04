@@ -1,7 +1,7 @@
 #include "caddsound.h"
 #include "soundcard.h"
 
-CAddSound::CAddSound(QString s, QListWidget* list, SoundContainer* sc ) {
+CAddSound::CAddSound(QString s, QListWidget* list, SoundContainer* sc, QListWidgetItem* helpItem) {
     //if (soundList.size() > 1)
         //this->plainText = "Add sounds";
     //else
@@ -10,6 +10,7 @@ CAddSound::CAddSound(QString s, QListWidget* list, SoundContainer* sc ) {
     this->soundPath = s;
     this->list = list;
     this->container = sc;
+    this->helpItem = helpItem;
 }
 
 bool CAddSound::act() {
@@ -21,6 +22,7 @@ bool CAddSound::act() {
 
     item->setSizeHint(addedSound->minimumSizeHint());
     list->setItemWidget(item, addedSound);
+    list->setItemHidden(helpItem, true);
 
     return true;
 }

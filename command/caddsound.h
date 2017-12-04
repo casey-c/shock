@@ -12,7 +12,7 @@ class CAddSound : public ICommand
 {
 public:
     //CAddSound(const QList<QString>& s, SoundContainer* sc);
-    CAddSound(QString s, QListWidget* list, SoundContainer* sc);
+    CAddSound(QString s, QListWidget* list, SoundContainer* sc, QListWidgetItem* helpItem);
     ~CAddSound() override {}
 
     bool act() override;
@@ -23,6 +23,7 @@ private:
     SoundCard* addedSound;
     QListWidget* list;
     SoundContainer* container;
+    QListWidgetItem* helpItem;
 };
 
 #endif // CADDSOUND_H
