@@ -287,21 +287,30 @@ QVector<float> GeneAlg::run(QVector<QVector<float> > input){
 
     int outBits = (int) (sampleRate * outputLength);
 
-    qDebug() << "outlen" << outputLength;
+    //qDebug() << "outlen" << outputLength;
 
-    qDebug() << "outBits " << outBits;
+    //qDebug() << "outBits " << outBits;
 
 
     for(int i2 = 0; i2 < outBits; ++i2){
         int i = (int)(i2*((double)minSize/outBits))%(minSize-1);
         //int i= i2%(minSize-1);
 
-        qDebug() << i;
+        //qDebug() << i;
         if (i < 0)
             i=0;
 
+        int mult = outBits/minSize;
+
+        //qDebug() << mult;
+
+        //if (i2 < outBits)
+
+        if (i+1+counter > (minSize-1))
+            i = minSize-mult^2-2;
+
         counter++;
-        if (counter > section){
+        if (counter > mult^2){
             test1 = (double)qrand() / RAND_MAX;
             section = (qrand() % 5000) + 400;
             counter = 0;
@@ -312,20 +321,22 @@ QVector<float> GeneAlg::run(QVector<QVector<float> > input){
             //float c = qrand()-RAND_MAX/2;
             //c /= RAND_MAX;
             //c /= 10;
-            b += input[j][i];
-            e += input[j][i+1];
+            b += input[j][i+counter];
+            e += input[j][i+1+counter];
         }
+        e /= input.size();
+        b /= input.size();
         /*
         if(b > 0)
             b = -b;
         else
             b = qAbs(b);
         */
-        if (test1 < .5)
-            a.append(e);
-        if (test1 > .75)
-            a.append((e+b)/2);
         if (test1 < .25)
+            a.append(e);
+        else if (test1 < .75)
+            a.append((e+b)/2);
+        else if (test1 < 1)
             a.append(b);
     }
     /*

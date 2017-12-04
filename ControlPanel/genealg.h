@@ -87,7 +87,7 @@ private:
     int childPop;
     int generations;
     bool elitism;
-    double outputLength;
+    double outputLength = 10;
 };
 
 #endif // GA_H

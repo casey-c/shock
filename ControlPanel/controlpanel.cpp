@@ -89,7 +89,7 @@ void ControlPanel::on_shockButton_pressed(){
         info.format = SF_FORMAT_WAV | SF_FORMAT_FLOAT;
 
         //make sure the format is valid
-        qDebug() << sf_format_check(&info);
+        //qDebug() << sf_format_check(&info);
 
         //write result to out.wav
         QTime time = QTime::currentTime();
