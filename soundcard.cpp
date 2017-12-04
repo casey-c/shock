@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QTimer>
 #include <QFileInfo>
+#include <QFileDialog>
 #include "Workspace/audioutil.h"
 
 SoundCard::SoundCard(QWidget *parent, QString sndFile) :
@@ -50,7 +51,30 @@ void SoundCard::addSelfToWorkspace(){
 }
 
 void SoundCard::saveCopyOfSelf(){
-    //todo
+    QString savefile = QFileDialog::getSaveFileName((QWidget*)this->parent(),tr("Save Project Settings"),"",tr("Sound file (*.wav)"));
+    savefile.append(".wav");
+
+    SF_INFO fInfo;
+    fInfo.format = 0;
+
+    SF_INFO sInfo;
+
+    SNDFILE* orig = sf_open(fileName.toLatin1().data(), SFM_READ, &fInfo);
+
+    sInfo.samplerate = fInfo.samplerate;
+    sInfo.channels = fInfo.channels;
+    sInfo.format = fInfo.format;
+
+    SNDFILE* cpy = sf_open(savefile.toLatin1().data(), SFM_WRITE, &sInfo);
+
+    //QVector<double> datapts;
+    double d;
+    while(sf_read_double(orig, &d, 1) > 0){
+        sf_write_double(cpy, &d, 1);
+    }
+
+    sf_close(cpy);
+    sf_close(orig);
 }
 
 void SoundCard::openContextMenu(){
