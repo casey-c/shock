@@ -45,6 +45,10 @@ private slots:
     void on_actionNew_triggered();
     void on_actionImport_Sample_triggered();
     void on_actionExit_triggered();
+    void updateRedoText(bool, QString);
+    void updateUndoText(bool, QString);
+    void on_actionUndo_triggered();
+    void on_actionRedo_triggered();
 };
 
 #endif // MAINWINDOW_H

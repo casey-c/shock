@@ -9,6 +9,7 @@
 #include <QDirIterator>
 #include "ControlPanel/genealg.h"
 #include "soundcard.h"
+#include "command/commandinterpreter.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -36,8 +37,16 @@ MainWindow::MainWindow(QWidget *parent) :
     projState = new ProjectState();
     QObject::connect(this, SIGNAL(sig_SaveProject(QList<SoundCard*>)), projState, SLOT(saveProject(QList<SoundCard*>)));
     QObject::connect(this, SIGNAL(sig_LoadProject()), projState, SLOT(loadProject()));
-    QObject::connect(projState,SIGNAL(sig_reloadSound(QString, QString)),sndCont,SLOT(addNamedSoundCard(QString, QString)));
+    //QObject::connect(projState,SIGNAL(sig_reloadSound(QString, QString)),sndCont,SLOT(addNamedSoundCard(QString, QString)));
     QObject::connect(projState,SIGNAL(sig_removeLoadedSounds()),sndCont,SLOT(removeAllSounds()));
+
+    // Set up command interpreter
+    // i.e. connect our slots to its signals
+    //CommandInterpreter i = CommandInterpreter::getInstance();
+    QObject::connect(&(CommandInterpreter::getInstance()), SIGNAL(updateRedoText(bool,QString)),
+                     this, SLOT(updateRedoText(bool, QString)));
+    QObject::connect(&(CommandInterpreter::getInstance()), SIGNAL(updateUndoText(bool,QString)),
+                     this, SLOT(updateUndoText(bool, QString)));
 
     setAcceptDrops(true);
 }
@@ -47,6 +56,18 @@ MainWindow::~MainWindow(){
     delete ui;
     delete ctrlPanel;
     delete workspace;
+}
+
+void MainWindow::updateRedoText(bool valid, QString redoText)
+{
+    ui->actionRedo->setEnabled(valid);
+    ui->actionRedo->setText(redoText);
+}
+
+void MainWindow::updateUndoText(bool valid, QString undoText)
+{
+    ui->actionUndo->setEnabled(valid);
+    ui->actionUndo->setText(undoText);
 }
 
 void MainWindow::on_actionAbout_triggered(){
@@ -112,10 +133,19 @@ void MainWindow::on_actionNew_triggered()
 
 void MainWindow::on_actionImport_Sample_triggered()
 {
-   sndCont->importSound();
+    sndCont->importSound();
 }
 
 void MainWindow::on_actionExit_triggered()
 {
    close();
+}
+
+void MainWindow::on_actionUndo_triggered()
+{
+   CommandInterpreter::getInstance().undoLastCommand();
+}
+void MainWindow::on_actionRedo_triggered()
+{
+   CommandInterpreter::getInstance().redoLastCommand();
 }

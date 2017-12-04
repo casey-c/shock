@@ -3,7 +3,8 @@
 #include <QPainter>
 #include <QStyledItemDelegate>
 #include <QFileDialog>
-#include <QKeyEvent>
+#include "command/commandinterpreter.h"
+#include "command/caddsound.h"
 
 // via https://stackoverflow.com/questions/36018010/how-to-change-remove-selection-active-color-of-qlistwidget
 /*class Delegate : public QStyledItemDelegate {
@@ -54,8 +55,18 @@ SoundContainer::SoundContainer(QWidget *parent) :
     qApp->installEventFilter(this);
 }
 
+void SoundContainer::addItemToHash(SoundCard* sc, QListWidgetItem* item) {
+    cardToItemWidget[sc] = item;
+    QObject::connect(sc, SIGNAL(removeMe(SoundCard*)),
+                     this, SLOT(removeSoundCard(SoundCard*)));
+
+    QObject::connect(sc, SIGNAL(addMeToWorkspace(SoundCard*)),
+                     this, SLOT(addToWS(SoundCard*)));
+}
+
+#if 0
 SoundCard* SoundContainer::addSoundCard(QString fn){
-    ui->listWidget->setItemHidden(helpItem, true);
+    /*
     QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
     item->setBackgroundColor(QColor(245,245,245));
     SoundCard* sc = new SoundCard(this, fn);
@@ -73,10 +84,13 @@ SoundCard* SoundContainer::addSoundCard(QString fn){
     ui->listWidget->setItemWidget(item, sc);
 
     return sc;
+    */
 }
+#endif
 
-void SoundContainer::addNamedSoundCard(QString fp, QString name){
-    addSoundCard(fp)->setText(name);
+void SoundContainer::addSoundCard(QString fn){
+    CommandInterpreter::getInstance().run(new CAddSound(fn, ui->listWidget, this, helpItem));
+    //addSoundCard(fp)->setText(name); // TODO
 }
 
 bool SoundContainer::eventFilter(QObject *obj, QEvent *event)
@@ -120,7 +134,7 @@ QVector< QVector <float> > SoundContainer::getAllData(){
 }
 
 void SoundContainer::on_sndFileDropped(QString fileName){
-    addSoundCard(fileName);
+    addSoundCard(fileName); //todo
 }
 
 void SoundContainer::removeAllSounds(){
