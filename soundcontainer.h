@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QListWidget>
 #include "soundcard.h"
+#include <QLabel>
+#include <QListWidget>
 
 #include "command/caddsound.h"
 
@@ -26,6 +28,9 @@ public:
 public slots:
     void removeSoundCard(SoundCard* sc);
 
+protected:
+    bool eventFilter(QObject *obj, QEvent *event);
+
 signals:
     void sig_loadToWorkspace(SoundCard* snd);
     void sig_soundDeleted(SoundCard* snd);
@@ -34,6 +39,8 @@ private:
     Ui::SoundContainer *ui;
     QListWidget* list;
     QHash<SoundCard*, QListWidgetItem*> cardToItemWidget;
+    QHash<QListWidgetItem*, SoundCard*> itemWidgetToCard;
+    QListWidgetItem* helpItem;
 
 private slots:
     void addSoundCard(QString fn);
