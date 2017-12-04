@@ -45,7 +45,7 @@ private:
 private slots:
     void addSoundCard(QString fn);
     //SoundCard* addSoundCard(QString fn); //todo
-    //void addNamedSoundCard(QString fp, QString name);
+    void addNamedSoundCard(QString fp, QString name);
     void on_sndFileDropped(QString fileName);
     void removeAllSounds();
     void addToWS(SoundCard* sc);

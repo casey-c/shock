@@ -93,6 +93,12 @@ void SoundContainer::addSoundCard(QString fn){
     //addSoundCard(fp)->setText(name); // TODO
 }
 
+void SoundContainer::addNamedSoundCard(QString fn, QString name) {
+    addSoundCard(fn);
+
+    //need functionality to name the new sound. I just dont know how
+}
+
 bool SoundContainer::eventFilter(QObject *obj, QEvent *event)
 {
     if (event->type() == QEvent::KeyPress)

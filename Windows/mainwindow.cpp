@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     projState = new ProjectState();
     QObject::connect(this, SIGNAL(sig_SaveProject(QList<SoundCard*>)), projState, SLOT(saveProject(QList<SoundCard*>)));
     QObject::connect(this, SIGNAL(sig_LoadProject()), projState, SLOT(loadProject()));
-    //QObject::connect(projState,SIGNAL(sig_reloadSound(QString, QString)),sndCont,SLOT(addNamedSoundCard(QString, QString)));
+    QObject::connect(projState,SIGNAL(sig_reloadSound(QString, QString)),sndCont,SLOT(addNamedSoundCard(QString, QString)));
     QObject::connect(projState,SIGNAL(sig_removeLoadedSounds()),sndCont,SLOT(removeAllSounds()));
 
     // Set up command interpreter
