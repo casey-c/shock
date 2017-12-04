@@ -164,6 +164,9 @@ void FeatureDetection::detect(QVector<float> input){
 
 }
 
+void TestAlg::setOutputLength(double len) {
+    outputLength = len;
+}
 
 TestAlg::TestAlg(AlgoSettings* settings)
 {
@@ -179,12 +182,13 @@ QVector<float> TestAlg::run(QVector<QVector<float> > input){
         analyzedSounds.append(in);
         qDebug() << in->getFeatures().size();
     }
+
+    QVector<Feature*> silence;
+    QVector<Feature*> square;
+    QVector<Feature*> sine;
+    QVector<Feature*> saw;
+    QVector<Feature*> defaultWave;
     FeatureDetection* analyzed;
-    QList<Feature*> silence;
-    QList<Feature*> square;
-    QList<Feature*> sine;
-    QList<Feature*> saw;
-    QList<Feature*> defaultWave;
     foreach (analyzed, analyzedSounds) {
         QVector<Feature*> features = analyzed->getFeatures();
         Feature* A;
@@ -201,14 +205,56 @@ QVector<float> TestAlg::run(QVector<QVector<float> > input){
                 defaultWave.append(A);
         }
     }
+
+
+
+    unsigned long len = 44100 * outputLength;
     unsigned int totalFeatures = silence.size() +
                                  square.size() +
                                  saw.size() +
                                  sine.size() +
                                  defaultWave.size();
+
+    qDebug() << totalFeatures;
+
+    double chanceSine = (double)sine.size() / totalFeatures;
+    double chanceSquare = (double)square.size() / totalFeatures + chanceSine;
+    double chanceSaw = (double)saw.size() / totalFeatures + chanceSquare;
+    double chanceDefault = (double)defaultWave.size() / totalFeatures + chanceSaw;
+    double chanceSilence = (double)silence.size() / totalFeatures + chanceDefault;
     QVector<float> output;
-    //while(output.length() < )
+
+    qDebug() << chanceSine;
+    qDebug() << chanceSquare;
+    qDebug() << chanceSaw;
+    qDebug() << chanceDefault;
+    qDebug() << chanceSilence;
+
+    while(output.size() < len){
+        float test = qrand() / RAND_MAX;
+        if (test < chanceSine){
+            float randint = qrand() % sine.size();
+            output.append(sine[randint]->getData());
+        }
+        else if (test < chanceSquare){
+            float randint = qrand() % square.size();
+            output.append(square[randint]->getData());
+        }
+        else if (test < chanceSaw){
+            float randint = qrand() % saw.size();
+            output.append(saw[randint]->getData());
+        }
+        else if (test < chanceDefault){
+            float randint = qrand() % defaultWave.size();
+            output.append(defaultWave[randint]->getData());
+        }
+        else if (test < chanceSilence){
+            float randint = qrand() % silence.size();
+            output.append(silence[randint]->getData());
+        }
+
+    }
 
 
-    return(input[0]);
+    return(output);
 }

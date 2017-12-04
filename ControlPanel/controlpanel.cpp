@@ -73,10 +73,10 @@ void ControlPanel::on_shockButton_pressed(){
     if(setting == "Genetic Algorithm"){
         //GeneAlg* alg = new GeneAlg(settings);
         TestAlg* abc = new TestAlg(settings);
-        /*
-        if (getTime() > 0)
-            alg->setOutputLength(getTime());
 
+        if (getTime() > 0)
+            abc->setOutputLength(getTime());
+/*
         //run algorithm
         QVector<float> result = alg->run(input);
 */

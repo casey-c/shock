@@ -9,6 +9,7 @@ public:
     Feature() {;}
     Feature(QVector<float> input);
     short ty() {return type;}
+    QVector<float> getData() {return data;}
 
 protected:
     QVector<float> data;
@@ -64,6 +65,7 @@ public:
     TestAlg();
     TestAlg(AlgoSettings* settings);
     QVector<float> run(QVector<QVector<float>> input) override;
+    void setOutputLength(double len);
 
 private:
     AlgoSettings* settings;
