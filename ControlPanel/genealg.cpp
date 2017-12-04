@@ -310,7 +310,7 @@ QVector<float> GeneAlg::run(QVector<QVector<float> > input){
             i = minSize-mult^2-2;
 
         counter++;
-        if (counter > mult^2){
+        if (counter > (mult^2)){
             test1 = (double)qrand() / RAND_MAX;
             section = (qrand() % 5000) + 400;
             counter = 0;

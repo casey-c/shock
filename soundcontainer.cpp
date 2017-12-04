@@ -57,6 +57,7 @@ SoundContainer::SoundContainer(QWidget *parent) :
 
 void SoundContainer::addItemToHash(SoundCard* sc, QListWidgetItem* item) {
     cardToItemWidget[sc] = item;
+    itemWidgetToCard[item] = sc;
     QObject::connect(sc, SIGNAL(removeMe(SoundCard*)),
                      this, SLOT(removeSoundCard(SoundCard*)));
 
