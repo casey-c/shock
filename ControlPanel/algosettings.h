@@ -21,7 +21,7 @@ public:
 private:
     QList<Param*> params;
     QString name;
-
+    QString algoLoc = "templates/genalg2.json";
     void addParam(QString name, double def, double high,
                   double low, int precision, QJsonArray widgetTypes);
 };

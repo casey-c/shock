@@ -8,6 +8,7 @@
 #include <QDebug>
 #include "algosettings.h"
 #include "genealg.h"
+#include "testalg.h"
 #include "param.h"
 #include "soundcontainer.h"
 
@@ -37,6 +38,8 @@ private slots:
     void on_time_changed();
     void on_shockButton_pressed();
 
+    void on_algComboBox_currentIndexChanged(int index);
+
 private:
     Ui::ControlPanel *ui;
     QString alg;
@@ -49,6 +52,7 @@ private:
     int secs;
     SoundContainer* cont;
     void addRow(QList<QWidget*> widgets);
+    QString loc;
 };
 
 #endif // CONTROLPANEL_H

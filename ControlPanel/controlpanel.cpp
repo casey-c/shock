@@ -71,14 +71,16 @@ void ControlPanel::on_shockButton_pressed(){
 
     //initiate algorithm
     if(setting == "Genetic Algorithm"){
-        GeneAlg* alg = new GeneAlg(settings);
-
+        //GeneAlg* alg = new GeneAlg(settings);
+        TestAlg* abc = new TestAlg(settings);
+        /*
         if (getTime() > 0)
             alg->setOutputLength(getTime());
 
         //run algorithm
         QVector<float> result = alg->run(input);
-
+*/
+        QVector<float> result = abc->run(input);
         //for(float f: result)
             //qDebug() << f;
 
@@ -132,4 +134,10 @@ double ControlPanel::getValue(QString key){
     }else{
         return 0.0;
     }
+}
+
+void ControlPanel::on_algComboBox_currentIndexChanged(int index)
+{
+    qDebug() << "dad" << index;
+    data.clear();
 }

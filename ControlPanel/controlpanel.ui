@@ -104,6 +104,11 @@
         <property name="layoutDirection">
          <enum>Qt::LeftToRight</enum>
         </property>
+        <item>
+         <property name="text">
+          <string>Experimental Algorithm</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item row="1" column="0">
@@ -308,8 +313,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>251</width>
-           <height>439</height>
+           <width>257</width>
+           <height>451</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">

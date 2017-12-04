@@ -6,7 +6,7 @@ AlgoSettings::AlgoSettings()
     //(containing all parameters, widgets to modify them, and min/max/default values
     // e.g., "Randomness" parameter from 0 to 1, controlled by a slider and textbox)
     JSONTemplateInterpreter* json = new JSONTemplateInterpreter();
-    bool d = json->readFromFile("templates/genalg.json");
+    bool d = json->readFromFile(algoLoc);
     if(!d){
         qDebug() << "OH NO!";
     }

@@ -5,7 +5,7 @@
 #include "algosettings.h"
 
 
-//Abstract algorithm class which other algoritms will be based off of
+//Abstract algorithm class which other algorithms will be based off of
 class IAlgorithm
 {
 public:
@@ -16,6 +16,7 @@ public:
     virtual QVector<float> run(QVector<QVector<float> > input) = 0;
 protected:
     AlgoSettings settings;
+    double outputLength = 10;
 };
 
 #endif // IALGORITHM_H

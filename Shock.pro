@@ -46,7 +46,8 @@ SOURCES += \
     soundcard.cpp \
     soundcontainer.cpp \
     command/commandinterpreter.cpp \
-    command/caddsound.cpp
+    command/caddsound.cpp \
+    ControlPanel/testalg.cpp
 
 
 HEADERS += \
@@ -71,7 +72,8 @@ HEADERS += \
     soundcontainer.h \
     command/commandinterpreter.h \
     command/caddsound.h \
-    command/icommand.h
+    command/icommand.h \
+    ControlPanel/testalg.h
 
 FORMS += \
         Windows/mainwindow.ui \
