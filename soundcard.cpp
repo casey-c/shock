@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QTimer>
 #include <QFileInfo>
+#include "Workspace/audioutil.h"
 
 SoundCard::SoundCard(QWidget *parent, QString sndFile) :
     QWidget(parent),
@@ -175,6 +176,7 @@ void SoundCard::stopPlayback(){
 }
 
 QVector<float> SoundCard::getData(){
+    /*
     SF_INFO info;
     qDebug() << "ADADADAD";
     info.format = 0;
@@ -186,7 +188,16 @@ QVector<float> SoundCard::getData(){
         data.push_back((float)srt);
     }
 
-    sf_close(sf);
+    sf_close(sf);*/
+
+    AudioUtil* util = new AudioUtil(fileName);
+    QVector<double> d2 = util->getAllFrames();
+    QVector<float> data;
+    for (int i=0; i < d2.length(); ++i) {
+        data.push_back((float)d2[i]);
+    }
+
+
     return data;
 }
 
