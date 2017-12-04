@@ -44,7 +44,10 @@ SOURCES += \
     Config/jsontemplateinterpreter.cpp \
     Config/projectstate.cpp \
     soundcard.cpp \
-    soundcontainer.cpp
+    soundcontainer.cpp \
+    command/commandinterpreter.cpp \
+    command/caddsound.cpp
+
 
 HEADERS += \
         Windows/mainwindow.h \
@@ -65,7 +68,10 @@ HEADERS += \
     Config/jsontemplateinterpreter.h \
     Config/projectstate.h \
     soundcard.h \
-    soundcontainer.h
+    soundcontainer.h \
+    command/commandinterpreter.h \
+    command/caddsound.h \
+    command/icommand.h
 
 FORMS += \
         Windows/mainwindow.ui \

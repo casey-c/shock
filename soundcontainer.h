@@ -5,6 +5,8 @@
 #include <QListWidget>
 #include "soundcard.h"
 
+#include "command/caddsound.h"
+
 namespace Ui {
     class SoundContainer;
 }
@@ -18,7 +20,11 @@ public:
     QVector< QVector <float> > getAllData();
     QList<SoundCard*> getAllSounds(){return cardToItemWidget.keys();}
     void importSound();
+    void addItemToHash(SoundCard* sc, QListWidgetItem* item);
     ~SoundContainer();
+
+public slots:
+    void removeSoundCard(SoundCard* sc);
 
 signals:
     void sig_loadToWorkspace(SoundCard* snd);
@@ -30,9 +36,9 @@ private:
     QHash<SoundCard*, QListWidgetItem*> cardToItemWidget;
 
 private slots:
-    void removeSoundCard(SoundCard* sc);
-    SoundCard* addSoundCard(QString fn);
-    void addNamedSoundCard(QString fp, QString name);
+    void addSoundCard(QString fn);
+    //SoundCard* addSoundCard(QString fn); //todo
+    //void addNamedSoundCard(QString fp, QString name);
     void on_sndFileDropped(QString fileName);
     void removeAllSounds();
     void addToWS(SoundCard*);
