@@ -52,7 +52,6 @@ void SoundCard::addSelfToWorkspace(){
 
 void SoundCard::saveCopyOfSelf(){
     QString savefile = QFileDialog::getSaveFileName((QWidget*)this->parent(),tr("Save Project Settings"),"",tr("Sound file (*.wav)"));
-    savefile.append(".wav");
 
     SF_INFO fInfo;
     fInfo.format = 0;
