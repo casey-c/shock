@@ -142,11 +142,20 @@
            <number>4</number>
           </property>
           <item>
-           <widget class="QLabel" name="label_3">
-            <property name="text">
-             <string>Length</string>
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
             </property>
-           </widget>
+            <property name="sizeType">
+             <enum>QSizePolicy::Minimum</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -156,6 +165,13 @@
             <property name="topMargin">
              <number>0</number>
             </property>
+            <item>
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>Length</string>
+              </property>
+             </widget>
+            </item>
             <item>
              <widget class="QLineEdit" name="minutesLE">
               <property name="sizePolicy">
@@ -292,8 +308,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>256</width>
-           <height>431</height>
+           <width>251</width>
+           <height>439</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
