@@ -1,13 +1,12 @@
 #include "soundcontainer.h"
 #include "ui_soundcontainer.h"
-#include <QListWidget>
 #include <QPainter>
 #include <QStyledItemDelegate>
 #include <QFileDialog>
-#include <QLabel>
+#include <QKeyEvent>
 
 // via https://stackoverflow.com/questions/36018010/how-to-change-remove-selection-active-color-of-qlistwidget
-class Delegate : public QStyledItemDelegate {
+/*class Delegate : public QStyledItemDelegate {
 private:
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
 };
@@ -26,7 +25,7 @@ void Delegate::paint(QPainter *painter, const QStyleOptionViewItem &option, cons
     else
         QStyledItemDelegate::paint(painter, option, index);
 }
-
+*/
 SoundContainer::SoundContainer(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SoundContainer)
@@ -34,29 +33,35 @@ SoundContainer::SoundContainer(QWidget *parent) :
     ui->setupUi(this);
     ui->listWidget->setDragDropMode(QAbstractItemView::DragDrop);
     ui->listWidget->setDefaultDropAction(Qt::MoveAction);
-    ui->listWidget->setItemDelegate(new Delegate());
+    //ui->listWidget->setItemDelegate(new Delegate());
     QPalette palette = ui->listWidget->palette();
     palette.setColor(QPalette::Base, QColor(245,245,245));
     ui->listWidget->setPalette(palette);
 
+    ui->listWidget->setSelectionMode( QAbstractItemView::SingleSelection );
 
-    QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
-    item->setBackgroundColor(QColor(245,245,245));
+    helpItem = new QListWidgetItem(ui->listWidget);
+    helpItem->setBackgroundColor(QColor(245,245,245));
+    helpItem->setFlags(Qt::ItemIsEnabled);
 
-    QLabel* lbl = new QLabel("Hey there. To add new files, press Ctrl + i or go to File->Import");
+    QLabel* lbl = new QLabel("Hey there. To add new files, press ctrl+i or go to File>Import");
     lbl->setWordWrap(true);
-    lbl->setMinimumHeight(150);
+    lbl->setMinimumHeight(215);
     lbl->setMargin(35);
-    item->setSizeHint(lbl->minimumSizeHint());
-    ui->listWidget->setItemWidget(item, lbl);
+    helpItem->setSizeHint(lbl->minimumSizeHint());
+    ui->listWidget->setItemWidget(helpItem, lbl);
+
+    qApp->installEventFilter(this);
 }
 
 SoundCard* SoundContainer::addSoundCard(QString fn){
+    ui->listWidget->setItemHidden(helpItem, true);
     QListWidgetItem* item = new QListWidgetItem(ui->listWidget);
     item->setBackgroundColor(QColor(245,245,245));
     SoundCard* sc = new SoundCard(this, fn);
 
     cardToItemWidget[sc] = item;
+    itemWidgetToCard[item] = sc;
 
     QObject::connect(sc, SIGNAL(removeMe(SoundCard*)),
                      this, SLOT(removeSoundCard(SoundCard*)));
@@ -74,9 +79,35 @@ void SoundContainer::addNamedSoundCard(QString fp, QString name){
     addSoundCard(fp)->setText(name);
 }
 
+bool SoundContainer::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress)
+    {
+        QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+        if(keyEvent->key() == Qt::Key_Delete){
+            QList<QListWidgetItem*> selected = ui->listWidget->selectedItems();
+            if(!selected.empty()){
+                auto li = itemWidgetToCard.find(selected.first());
+                if(li != itemWidgetToCard.end()){
+                    removeSoundCard(*li);
+                    ui->listWidget->clearSelection();
+                }
+            }
+        }
+    }
+
+    return QObject::eventFilter(obj, event);
+}
+
 void SoundContainer::removeSoundCard(SoundCard* sc){
     ui->listWidget->takeItem(
                 ui->listWidget->row(cardToItemWidget[sc]));
+
+    cardToItemWidget.remove(sc);
+
+    if(ui->listWidget->count() == 1){
+        ui->listWidget->setItemHidden(helpItem, false);
+    }
 }
 
 QVector< QVector <float> > SoundContainer::getAllData(){
