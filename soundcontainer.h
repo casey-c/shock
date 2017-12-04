@@ -40,6 +40,7 @@ private:
     QListWidget* list;
     QHash<SoundCard*, QListWidgetItem*> cardToItemWidget;
     QHash<QListWidgetItem*, SoundCard*> itemWidgetToCard;
+    QHash<QString, SoundCard*> fileNameToCard;
     QListWidgetItem* helpItem;
 
 private slots:

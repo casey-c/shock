@@ -58,6 +58,7 @@ SoundContainer::SoundContainer(QWidget *parent) :
 void SoundContainer::addItemToHash(SoundCard* sc, QListWidgetItem* item) {
     cardToItemWidget[sc] = item;
     itemWidgetToCard[item] = sc;
+    fileNameToCard[sc->getFileName()] = sc;
     QObject::connect(sc, SIGNAL(removeMe(SoundCard*)),
                      this, SLOT(removeSoundCard(SoundCard*)));
 
@@ -96,7 +97,7 @@ void SoundContainer::addSoundCard(QString fn){
 
 void SoundContainer::addNamedSoundCard(QString fn, QString name) {
     addSoundCard(fn);
-
+    fileNameToCard[fn]->setText(name);
     //need functionality to name the new sound. I just dont know how
 }
 
@@ -141,7 +142,7 @@ QVector< QVector <float> > SoundContainer::getAllData(){
 }
 
 void SoundContainer::on_sndFileDropped(QString fileName){
-    addSoundCard(fileName); //todo
+    addSoundCard(fileName);
 }
 
 void SoundContainer::removeAllSounds(){
@@ -167,7 +168,14 @@ void SoundContainer::addToWS(SoundCard* sc){
 }
 
 void SoundContainer::onSoundGenerated(QString fileName){
+    static int i = 1;
     addSoundCard(fileName);
+    SoundCard* sc = fileNameToCard[fileName];
+
+    sc->setText("New Sound " + QString::number(i));
+    ++i;
+
+    emit sig_loadToWorkspace(sc);
 }
 
 SoundContainer::~SoundContainer()
