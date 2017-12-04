@@ -159,6 +159,10 @@ void SoundContainer::addToWS(SoundCard* sc){
     emit sig_loadToWorkspace(sc);
 }
 
+void SoundContainer::onSoundGenerated(QString fileName){
+    addSoundCard(fileName);
+}
+
 SoundContainer::~SoundContainer()
 {
     delete ui;

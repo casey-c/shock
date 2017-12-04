@@ -51,6 +51,7 @@ private slots:
     void togglePlayback();
     void toggleSeeking();
     void stopPlayback();
+    void mpStateChange(QMediaPlayer::State);
 
     void adjustVolume();
     void on_verticalSlider_valueChanged();

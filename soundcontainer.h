@@ -48,7 +48,8 @@ private slots:
     //void addNamedSoundCard(QString fp, QString name);
     void on_sndFileDropped(QString fileName);
     void removeAllSounds();
-    void addToWS(SoundCard*);
+    void addToWS(SoundCard* sc);
+    void onSoundGenerated(QString fileName);
 };
 
 #endif // SoundContainer_H

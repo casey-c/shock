@@ -27,8 +27,11 @@ public:
     void addParam(Param* p);
     void removeParam(Param* p);
     void setCont(SoundContainer* p) {cont = p;}
-
     double getValue(QString key);
+
+signals:
+    void loadGeneratedToWorkspace(QString);
+
 private slots:
     void on_infiniteSoundChk_toggled(bool checked);
     void on_time_changed();

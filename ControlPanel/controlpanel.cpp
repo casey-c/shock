@@ -1,5 +1,6 @@
 #include "controlpanel.h"
 #include "ui_controlpanel.h"
+#include <QTime>
 
 ControlPanel::ControlPanel(QWidget *parent) :
     QWidget(parent),
@@ -91,9 +92,14 @@ void ControlPanel::on_shockButton_pressed(){
         qDebug() << sf_format_check(&info);
 
         //write result to out.wav
-        SNDFILE* sf = sf_open("out.wav", SFM_WRITE, &info);
+        QTime time = QTime::currentTime();
+        QString savefile = "out" + QString::number(time.msecsSinceStartOfDay()) + ".wav";
+
+        SNDFILE* sf = sf_open(savefile.toLatin1().data(), SFM_WRITE, &info);
         sf_write_float(sf, result.data(), result.size());
         sf_close(sf);
+
+        emit loadGeneratedToWorkspace(savefile);
     }
 }
 

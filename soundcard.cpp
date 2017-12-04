@@ -36,6 +36,9 @@ SoundCard::SoundCard(QWidget *parent, QString sndFile) :
     QObject::connect(a, SIGNAL(triggered()),
                      this, SLOT(saveCopyOfSelf()));
     contextMenu->addAction(a);
+
+    QObject::connect(mediaPlayer, SIGNAL(stateChanged(QMediaPlayer::State)),
+                     this, SLOT(mpStateChange(QMediaPlayer::State)));
 }
 
 void SoundCard::removeSelf(){
@@ -137,11 +140,8 @@ void SoundCard::setupMediaPlayer(){
 void SoundCard::togglePlayback(){
     if(mediaPlayer->state() == QMediaPlayer::PlayingState){
         mediaPlayer->pause();
-        ui->btnPlayPause->setIcon(QIcon(":/icons/play.svg"));
-    }
-    else{
+    }else{
         mediaPlayer->play();
-        ui->btnPlayPause->setIcon(QIcon(":/icons/pause.svg"));
     }
 }
 
@@ -172,31 +172,15 @@ bool SoundCard::validSoundFile(QString path){
 //stop media and update icon
 void SoundCard::stopPlayback(){
     mediaPlayer->stop();
-    ui->btnPlayPause->setIcon(QIcon(":/icons/play.svg"));
 }
 
 QVector<float> SoundCard::getData(){
-    /*
-    SF_INFO info;
-    qDebug() << "ADADADAD";
-    info.format = 0;
-    SNDFILE* sf = sf_open(fileName.toLatin1().data(), SFM_READ, &info);
-    QVector<float> data;
-    double srt;
-    while(sf_read_double(sf, &srt, 1) != 0){
-        //qDebug() << srt;
-        data.push_back((float)srt);
-    }
-
-    sf_close(sf);*/
-
     AudioUtil* util = new AudioUtil(fileName);
     QVector<double> d2 = util->getAllFrames();
     QVector<float> data;
     for (int i=0; i < d2.length(); ++i) {
         data.push_back((float)d2[i]);
     }
-
 
     return data;
 }
@@ -226,4 +210,12 @@ void SoundCard::adjustVolume(){
 
 void SoundCard::on_verticalSlider_valueChanged(){
     adjustVolume();
+}
+
+void SoundCard::mpStateChange(QMediaPlayer::State s){
+    if(s != QMediaPlayer::PlayingState){
+        ui->btnPlayPause->setIcon(QIcon(":/icons/play.svg"));
+    }else{
+        ui->btnPlayPause->setIcon(QIcon(":/icons/pause.svg"));
+    }
 }

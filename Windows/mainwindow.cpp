@@ -29,6 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
     workspace = new Workspace();
     ui->shockframe->layout()->addWidget(workspace);
 
+    QObject::connect(ctrlPanel, SIGNAL(loadGeneratedToWorkspace(QString)), sndCont, SLOT(onSoundGenerated(QString)));
+
     QObject::connect(sndCont, SIGNAL(sig_loadToWorkspace(SoundCard*)), workspace, SLOT(loadSound(SoundCard*)));
     QObject::connect(sndCont, SIGNAL(sig_soundDeleted(SoundCard*)), workspace, SLOT(validateSound(SoundCard*)));
 
